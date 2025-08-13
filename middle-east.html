@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Stays | OK Tours and Travel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #4CA1AF;
+            --accent: #FF6B6B;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #27ae60;
+            --gold: #FFD700;
+            --border-radius: 16px;
+            --box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --gradient: linear-gradient(135deg, #1a365d 0%, #4CA1AF 100%);
+            --gradient-bg: linear-gradient(135deg, #0f1b31 0%, #1d3a5f 50%, #2c5d8a 100%);
+            --section-spacing: 100px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background: var(--gradient-bg);
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Header with tooltips */
+        header {
+            background: rgba(26, 54, 93, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1.2rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-scrolled {
+            padding: 0.8rem 0;
+            background: rgba(15, 32, 39, 0.95);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .logo-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(to right, #4CA1AF, #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        nav a:hover, nav a.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transform: translateX(-50%);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 60%;
+        }
+
+        /* Tooltip styling */
+        .tooltip {
+            position: absolute;
+            top: 100%;
+            margin-top: 10px;
+            background: rgba(15, 32, 39, 0.9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 161, 175, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent rgba(15, 32, 39, 0.9) transparent;
+        }
+
+        nav a:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Hero section with animated particles */
+        .hero {
+            position: relative;
+            height: 80vh;
+            min-height: 600px;
+            max-height: 900px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin: 25px 0 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            box-shadow: var(--box-shadow);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(15, 32, 39, 0.8) 0%, rgba(32, 58, 67, 0.7) 50%, rgba(44, 83, 100, 0.6) 100%);
+            z-index: 1;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 900px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 25px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeInDown 1s ease;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.3s both;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        /* Enhanced 3D button effects */
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+            transform: translateY(0) perspective(1000px) rotateX(0);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) perspective(1000px) rotateX(10deg);
+            box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--accent), #ff8e8e);
+            z-index: -1;
+            transition: var(--transition);
+            opacity: 1;
+        }
+
+        .btn:hover::after {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .btn-accent {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            box-shadow: 0 8px 20px rgba(76, 161, 175, 0.3);
+        }
+
+        .btn-accent::after {
+            background: linear-gradient(to right, var(--secondary), #5cc0d0);
+        }
+
+        section {
+            margin: var(--section-spacing) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: white;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 30px auto 0;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .filter-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(76, 161, 175, 0.15);
+            backdrop-filter: blur(10px);
+            transform: perspective(1000px) rotateY(0);
+            transition: transform 0.4s ease;
+        }
+
+        .filter-section:hover {
+            transform: perspective(1000px) rotateY(3deg);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .filter-group {
+            margin-bottom: 25px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: white;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group label i {
+            color: var(--secondary);
+            width: 24px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .filter-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            background: rgba(15, 32, 39, 0.5);
+            color: white;
+        }
+
+        .filter-input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(76, 161, 175, 0.2);
+        }
+
+        .price-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 8px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 32, 39, 0.5);
+            padding: 10px 18px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            transform: translateZ(0);
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--secondary);
+            background: rgba(76, 161, 175, 0.15);
+            transform: translateY(-3px) translateZ(10px);
+        }
+
+        .checkbox-item input {
+            display: none;
+        }
+
+        .checkbox-item .checkmark {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 2px solid var(--secondary);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .checkbox-item input:checked + .checkmark {
+            background: var(--secondary);
+        }
+
+        .checkbox-item input:checked + .checkmark::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.7rem;
+            color: white;
+        }
+
+        .clear-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 16px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 15px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 6px 18px rgba(255, 107, 107, 0.3);
+            transform: translateY(0);
+        }
+
+        .clear-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .sort-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .sort-select {
+            padding: 12px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            background: rgba(15, 32, 39, 0.5);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            min-width: 220px;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .sort-select:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(76, 161, 175, 0.2);
+        }
+
+        .results-counter {
+            text-align: center;
+            margin: 35px 0;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            font-weight: 500;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(76, 161, 175, 0.15);
+            transform: perspective(1000px) rotateX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .results-counter:hover {
+            transform: perspective(1000px) rotateX(5deg);
+        }
+
+        .results-counter span {
+            background: linear-gradient(to right, var(--secondary), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 35px;
+            margin-top: 20px;
+        }
+
+        /* Enhanced 3D card effects */
+        .destination-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(76, 161, 175, 0.15);
+            animation: fadeIn 0.8s ease;
+            backdrop-filter: blur(5px);
+            transform: perspective(1000px) rotateY(0) translateZ(0);
+            transform-style: preserve-3d;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px) rotate(2deg) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(197, 61, 47, 0.3);
+            transform: translateZ(20px);
+        }
+
+        .card-img {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            transform: perspective(1000px);
+        }
+
+        .card-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, rgba(15, 32, 39, 0.7), transparent);
+        }
+
+        .card-content {
+            padding: 25px;
+            transform: translateZ(10px);
+        }
+
+        .card-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        .card-content p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            min-height: 80px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin: 15px 0;
+        }
+
+        .rating span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-left: 8px;
+        }
+
+        .amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .amenity-tag {
+            background: rgba(76, 161, 175, 0.15);
+            color: var(--secondary);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .amenity-tag:hover {
+            background: rgba(76, 161, 175, 0.25);
+            transform: translateY(-2px) translateZ(5px);
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 20px 0 15px;
+        }
+
+        .price span {
+            font-size: 1rem;
+            font-weight: normal;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-card {
+            background: var(--gradient);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-size: 1rem;
+            box-shadow: 0 6px 18px rgba(26, 54, 93, 0.3);
+            transform: translateY(0);
+        }
+
+        .btn-card:hover {
+            transform: translateY(-5px) perspective(1000px) rotateX(10deg);
+            box-shadow: 0 10px 25px rgba(26, 54, 93, 0.4);
+        }
+
+        .wishlist {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+            transform: translateZ(0);
+        }
+
+        .wishlist:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .wishlist.active {
+            color: var(--accent);
+        }
+
+        .load-more {
+            display: block;
+            margin: 50px auto;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 16px 45px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 25px rgba(26, 54, 93, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transform: translateY(0);
+        }
+
+        .load-more:hover {
+            transform: translateY(-5px) perspective(1000px) rotateX(10deg);
+            box-shadow: 0 15px 30px rgba(26, 54, 93, 0.5);
+        }
+
+        .map-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            margin: 70px 0;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(76, 161, 175, 0.15);
+            backdrop-filter: blur(5px);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 35px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            border: 1px solid rgba(76, 161, 175, 0.15);
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+            transform: perspective(1000px) rotateY(0);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 5rem;
+            font-family: 'Playfair Display', serif;
+            color: rgba(76, 161, 175, 0.15);
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            padding-top: 30px;
+        }
+
+        .testimonial-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 25px;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #e0e6ed;
+            border: 3px solid var(--secondary);
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .author-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .rating-large {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background: linear-gradient(to right, rgba(15, 32, 39, 0.95), rgba(32, 58, 67, 0.95));
+            color: white;
+            padding: 80px 0 35px;
+            margin-top: 100px;
+            position: relative;
+            border-top: 1px solid rgba(76, 161, 175, 0.15);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            color: white;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-column p, .footer-column a {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+            display: block;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 20px;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .newsletter-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background: #5cc0d0;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero h2 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                height: 70vh;
+            }
+            
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .destinations-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 60vh;
+                margin: 15px 0 40px;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-section {
+                padding: 25px;
+            }
+
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .destinations-grid {
+                gap: 25px;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 55vh;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: rgba(15, 32, 39, 0.95);
+                flex-direction: column;
+                padding: 20px 0;
+                gap: 15px;
+                display: none;
+                z-index: 999;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav a {
+                display: block;
+                text-align: center;
+                padding: 15px;
+                width: 80%;
+                margin: 0 auto;
+            }
+        }
+        
+        /* Currency selector styling */
+        .currency-selector {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(26, 54, 93, 0.9);
+            border-radius: 30px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(76, 161, 175, 0.3);
+        }
+        
+        .currency-selector span {
+            color: white;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        .currency-selector select {
+            background: rgba(15, 32, 39, 0.5);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .currency-selector select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <header id="mainHeader">
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-plane"></i>
+                </div>
+                <h1>OK Tours and Travel</h1>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="home-screen.html">
+                            <i class="fas fa-home"></i>
+                            <span class="tooltip">Home</span>
+                        </a></li>
+                    <li><a href="package.html">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span class="tooltip">Destinations</span>
+                        </a></li>
+                    <li><a href="#" class="active">
+                            <i class="fas fa-hotel"></i>
+                            <span class="tooltip">Hotels</span>
+                        </a></li>
+                    <li><a href="user-comments.html">
+                            <i class="fas fa-star"></i>
+                            <span class="tooltip">Experiences</span>
+                        </a></li>
+                    <li><a href="#">
+                            <i class="fas fa-lightbulb"></i>
+                            <span class="tooltip">Travel Tips</span>
+                        </a></li>
+                    <li><a href="Aboutus.html">
+                            <i class="fas fa-envelope"></i>
+                            <span class="tooltip">Contact</span>
+                        </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <video class="hero-video" autoplay muted loop>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-desert-landscape-at-sunset-2086-large.mp4" type="video/mp4">
+        </video>
+        <canvas id="particle-canvas"></canvas>
+        <div class="hero-content">
+            <h2>Discover the Magic of the Middle East</h2>
+            <p>Experience luxury stays in the world's most enchanting destinations with OK Tours and Travel</p>
+            <div class="hero-btns">
+                <a href="#hotels" class="btn">Find Hotels</a>
+                <a href="#destinations" class="btn btn-accent">Explore Destinations</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <section id="destinations">
+            <div class="section-header">
+                <h2>Popular Destinations</h2>
+                <p>Explore the most sought-after locations in the Middle East, rich with culture, history, and breathtaking landscapes.</p>
+            </div>
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <div class="card-badge">Featured</div>
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1518684079-3c830dcef090?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+                    <div class="card-content">
+                        <h3>Dubai, UAE</h3>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> United Arab Emirates</div>
+                        <p>Experience the blend of futuristic architecture and traditional Arabian culture in the desert metropolis.</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span>(4.9)</span>
+                        </div>
+                        <div class="price" data-base-price="85000">KES 85,000 <span>avg. per night</span></div>
+                        <div class="card-footer">
+                            <a href="#" class="btn-card">Explore</a>
+                            <div class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="card-badge">Popular</div>
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1569335468885-7f6d1f0a0b6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+                    <div class="card-content">
+                        <h3>Petra, Jordan</h3>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> Jordan</div>
+                        <p>Discover the ancient rose-red city carved into the cliffs and experience Bedouin hospitality.</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            <span>(4.7)</span>
+                        </div>
+                        <div class="price" data-base-price="62000">KES 62,000 <span>avg. per night</span></div>
+                        <div class="card-footer">
+                            <a href="#" class="btn-card">Explore</a>
+                            <div class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="card-badge">Luxury</div>
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1580502304784-8985b7eb7260?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+                    <div class="card-content">
+                        <h3>Muscat, Oman</h3>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> Oman</div>
+                        <p>Discover the pristine beaches and majestic mountains of Oman's elegant capital city.</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span>(4.8)</span>
+                        </div>
+                        <div class="price" data-base-price="78000">KES 78,000 <span>avg. per night</span></div>
+                        <div class="card-footer">
+                            <a href="#" class="btn-card">Explore</a>
+                            <div class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="hotels">
+            <div class="section-header">
+                <h2>Find Your Perfect Stay</h2>
+                <p>Discover luxury accommodations tailored to your preferences with our advanced search filters.</p>
+            </div>
+            
+            <div class="filter-section">
+                <div class="sort-container">
+                    <select id="sortSelect" class="sort-select">
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="rating-desc">Rating: High to Low</option>
+                        <option value="name-asc">Name: A to Z</option>
+                    </select>
+                </div>
+                
+                <div class="filter-grid">
+                    <!-- Search -->
+                    <div class="filter-group">
+                        <label for="searchInput"><i class="fas fa-search"></i> Search</label>
+                        <div class="search-bar">
+                            <input id="searchInput" type="text" placeholder="Hotel name or location" class="filter-input">
+                        </div>
+                    </div>
+
+                    <!-- Price Range -->
+                    <div class="filter-group">
+                        <label for="priceRange">
+                            <i class="fas fa-money-bill-wave"></i> Max Price: 
+                            <span id="priceValue">KES 100,000</span>
+                        </label>
+                        <input id="priceRange" type="range" min="1000" max="1800000" value="100000" class="filter-input">
+                        <div class="price-display">
+                            <span>KES 0</span>
+                            <span>KES 1,800,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Ratings -->
+                    <div class="filter-group">
+                        <label><i class="fas fa-star"></i> Rating</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="rating" value="5"> 
+                                <span class="checkmark"></span>
+                                <span class="rating-stars">★★★★★</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="rating" value="4"> 
+                                <span class="checkmark"></span>
+                                <span class="rating-stars">★★★★☆</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="rating" value="3"> 
+                                <span class="checkmark"></span>
+                                <span class="rating-stars">★★★☆☆</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Type -->
+                    <div class="filter-group">
+                        <label><i class="fas fa-building"></i> Type</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="type" value="Hotel"> 
+                                <span class="checkmark"></span>
+                                Hotel
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="type" value="Villa"> 
+                                <span class="checkmark"></span>
+                                Villa
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="type" value="Lodge"> 
+                                <span class="checkmark"></span>
+                                Lodge
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="type" value="Resort"> 
+                                <span class="checkmark"></span>
+                                Resort
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Amenities -->
+                    <div class="filter-group">
+                        <label><i class="fas fa-umbrella-beach"></i> Amenities</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="amenity" value="Wi-Fi"> 
+                                <span class="checkmark"></span>
+                                Wi-Fi
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="amenity" value="Restaurant"> 
+                                <span class="checkmark"></span>
+                                Restaurant
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="amenity" value="Bar"> 
+                                <span class="checkmark"></span>
+                                Bar
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="amenity" value="Parking"> 
+                                <span class="checkmark"></span>
+                                Parking
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="amenity" value="Pool"> 
+                                <span class="checkmark"></span>
+                                Pool
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="amenity" value="Spa"> 
+                                <span class="checkmark"></span>
+                                Spa
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Currency Toggle -->
+                    <div class="filter-group">
+                        <label for="currencyToggle"><i class="fas fa-dollar-sign"></i> Currency</label>
+                        <select id="currencyToggle" class="filter-input">
+                            <option value="KES">KES - Kenyan Shilling</option>
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="YEN">YEN - Japanese Yen</option>
+                            <option value="ZAR">ZAR - South African Rand</option>
+                        </select>
+                    </div>
+
+                    <!-- Clear Filters Button -->
+                    <div class="filter-group">
+                        <button id="clearFilters" class="clear-btn">
+                            <i class="fas fa-times"></i> Clear All Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Counter -->
+            <div id="resultsCounter" class="results-counter">
+                <i class="fas fa-hotel"></i> Found <span id="resultsCount">8</span> properties matching your criteria
+            </div>
+
+            <!-- Hotel Results -->
+            <div id="results" class="destinations-grid">
+                <div class="destination-card">
+                    <div class="card-badge">Luxury</div>
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+                    <div class="card-content">
+                        <h3>Burj Al Arab</h3>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> Dubai, UAE</div>
+                        <p>The iconic sail-shaped hotel offering unparalleled luxury and service with stunning views of the Arabian Gulf.</p>
+                        
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span>(5.0)</span>
+                        </div>
+                        
+                        <div class="amenities">
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Wi-Fi</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Pool</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Spa</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Restaurant</div>
+                        </div>
+                        
+                        <div class="price" data-base-price="80000">KES 80,000 <span>per night</span></div>
+                        
+                        <div class="card-footer">
+                            <a href="#" class="btn-card">Book Now</a>
+                            <div class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="card-badge">Resort</div>
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+                    <div class="card-content">
+                        <h3>Mövenpick Resort</h3>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> Dead Sea, Jordan</div>
+                        <p>Luxury resort with private beach access to the mineral-rich Dead Sea and breathtaking sunset views.</p>
+                        
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            <span>(4.0)</span>
+                        </div>
+                        
+                        <div class="amenities">
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Pool</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Spa</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Beach</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Restaurant</div>
+                        </div>
+                        
+                        <div class="price" data-base-price="65000">KES 65,000 <span>per night</span></div>
+                        
+                        <div class="card-footer">
+                            <a href="#" class="btn-card">Book Now</a>
+                            <div class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="card-badge">Villa</div>
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80')"></div>
+                    <div class="card-content">
+                        <h3>Desert Oasis Villa</h3>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> Abu Dhabi, UAE</div>
+                        <p>Private luxury villa with stunning desert views, private pool, and personalized service in the heart of the Emirates.</p>
+                        
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span>(5.0)</span>
+                        </div>
+                        
+                        <div class="amenities">
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Pool</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Wi-Fi</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Private Chef</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Desert View</div>
+                        </div>
+                        
+                        <div class="price" data-base-price="120000">KES 120,000 <span>per night</span></div>
+                        
+                        <div class="card-footer">
+                            <a href="#" class="btn-card">Book Now</a>
+                            <div class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="card-badge">Hotel</div>
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1561501900-3701fa6a0864?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"></div>
+                    <div class="card-content">
+                        <h3>Al Faisaliah Hotel</h3>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> Riyadh, Saudi Arabia</div>
+                        <p>Iconic luxury hotel featuring the distinctive golden globe at its pinnacle with panoramic city views.</p>
+                        
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            <span>(4.0)</span>
+                        </div>
+                        
+                        <div class="amenities">
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Restaurant</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Bar</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Fitness Center</div>
+                            <div class="amenity-tag"><i class="fas fa-check"></i> Conference Rooms</div>
+                        </div>
+                        
+                        <div class="price" data-base-price="75000">KES 75,000 <span>per night</span></div>
+                        
+                        <div class="card-footer">
+                            <a href="#" class="btn-card">Book Now</a>
+                            <div class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <button id="loadMore" class="load-more">
+                Load More Stays <i class="fas fa-arrow-down"></i>
+            </button>
+        </section>
+
+        <section id="testimonials">
+            <div class="section-header">
+                <h2>Traveler Experiences</h2>
+                <p>Discover what our guests have to say about their luxury stays in the Middle East</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="rating-large">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Our stay at the Burj Al Arab was nothing short of magical. The attention to detail, personalized service, and breathtaking views made this the vacation of a lifetime."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson">
+                            </div>
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>Traveled from London, UK</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="rating-large">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p>"The Desert Mirage Camp in Wadi Rum was an unforgettable experience. Sleeping under the stars in such luxurious comfort while immersed in the desert landscape was truly special."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+                            </div>
+                            <div class="author-info">
+                                <h4>Michael Chen</h4>
+                                <p>Traveled from Singapore</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="rating-large">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Pearl Beach Resort exceeded all our expectations. The private beach was pristine, the service impeccable, and the culinary experiences were world-class. We'll definitely be returning!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Elena Rodriguez">
+                            </div>
+                            <div class="author-info">
+                                <h4>Elena Rodriguez</h4>
+                                <p>Traveled from Madrid, Spain</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>OK Tours and Travel</h3>
+                    <p>Your premier guide to luxury travel experiences in the Middle East. Discover hidden gems and iconic destinations with our expert recommendations.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="#">Home</a>
+                    <a href="#">Destinations</a>
+                    <a href="#">Luxury Hotels</a>
+                    <a href="#">Travel Guides</a>
+                    <a href="#">Special Offers</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Destinations</h3>
+                    <a href="#">Dubai, UAE</a>
+                    <a href="#">Doha, Qatar</a>
+                    <a href="#">Amman, Jordan</a>
+                    <a href="#">Muscat, Oman</a>
+                    <a href="#">Cairo, Egypt</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive exclusive travel deals and destination inspiration.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address" class="newsletter-input">
+                        <button class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 OK Tours and Travel. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> for travelers
+            </div>
+        </div>
+    </footer>
+
+    <!-- Currency selector for quick access -->
+    <div class="currency-selector">
+        <span>Currency:</span>
+        <select id="currencySelector">
+            <option value="KES">KES</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="YEN">YEN</option>
+            <option value="ZAR">ZAR</option>
+        </select>
+    </div>
+
+    <script>
+        // DOM elements
+        const searchInput = document.getElementById('searchInput');
+        const priceRange = document.getElementById('priceRange');
+        const priceValue = document.getElementById('priceValue');
+        const ratingCheckboxes = document.querySelectorAll('.rating');
+        const typeCheckboxes = document.querySelectorAll('.type');
+        const amenityCheckboxes = document.querySelectorAll('.amenity');
+        const currencyToggle = document.getElementById('currencyToggle');
+        const currencySelector = document.getElementById('currencySelector');
+        const clearFiltersBtn = document.getElementById('clearFilters');
+        const resultsCounter = document.getElementById('resultsCounter');
+        const resultsCount = document.getElementById('resultsCount');
+        const loadMoreBtn = document.getElementById('loadMore');
+        const sortSelect = document.getElementById('sortSelect');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const mainHeader = document.getElementById('mainHeader');
+        const wishlistIcons = document.querySelectorAll('.wishlist');
+        const particleCanvas = document.getElementById('particle-canvas');
+
+        // Exchange rates relative to KES (Kenyan Shilling)
+        const EXCHANGE_RATES = {
+            KES: { rate: 1, symbol: 'KES', position: 'after' },
+            USD: { rate: 130, symbol: '$', position: 'before' },
+            EUR: { rate: 140, symbol: '€', position: 'after' },
+            YEN: { rate: 0.9, symbol: '¥', position: 'before' },
+            ZAR: { rate: 7, symbol: 'R', position: 'before' }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePriceDisplay();
+            setupEventListeners();
+            window.addEventListener('scroll', handleScroll);
+            
+            // Initialize currency conversion
+            initPriceSuffix();
+            convertCurrency(currencyToggle.value);
+            
+            // Sync currency selectors
+            currencySelector.value = currencyToggle.value;
+            
+            // Initialize particle animation
+            initParticleAnimation();
+        });
+
+        function setupEventListeners() {
+            // Input event listeners
+            searchInput.addEventListener('input', filterHotels);
+            priceRange.addEventListener('input', () => {
+                updatePriceDisplay();
+                filterHotels();
+            });
+            
+            // Checkbox event listeners
+            ratingCheckboxes.forEach(checkbox => checkbox.addEventListener('change', filterHotels));
+            typeCheckboxes.forEach(checkbox => checkbox.addEventListener('change', filterHotels));
+            amenityCheckboxes.forEach(checkbox => checkbox.addEventListener('change', filterHotels));
+            
+            // Other controls
+            currencyToggle.addEventListener('change', function() {
+                convertCurrency(this.value);
+                currencySelector.value = this.value;
+            });
+            
+            currencySelector.addEventListener('change', function() {
+                convertCurrency(this.value);
+                currencyToggle.value = this.value;
+            });
+            
+            clearFiltersBtn.addEventListener('click', clearFilters);
+            loadMoreBtn.addEventListener('click', loadMoreHotels);
+            sortSelect.addEventListener('change', filterHotels);
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            
+            // Wishlist functionality
+            wishlistIcons.forEach(icon => {
+                icon.addEventListener('click', toggleWishlist);
+            });
+        }
+
+        function handleScroll() {
+            // Add/remove scrolled class to header based on scroll position
+            if (window.scrollY > 100) {
+                mainHeader.classList.add('header-scrolled');
+            } else {
+                mainHeader.classList.remove('header-scrolled');
+            }
+        }
+
+        function toggleMobileMenu() {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        }
+
+        function updatePriceDisplay() {
+            const value = parseInt(priceRange.value);
+            priceValue.textContent = `KES ${value.toLocaleString()}`;
+        }
+        
+        // Store price suffixes for currency conversion
+        function initPriceSuffix() {
+            document.querySelectorAll('.price').forEach(priceEl => {
+                const span = priceEl.querySelector('span');
+                if (span) {
+                    priceEl.dataset.suffix = span.textContent;
+                }
+            });
+        }
+
+        // Currency conversion function
+        function convertCurrency(currencyCode) {
+            const currency = EXCHANGE_RATES[currencyCode];
+            if (!currency) return;
+
+            document.querySelectorAll('.price').forEach(priceEl => {
+                const basePrice = parseFloat(priceEl.dataset.basePrice);
+                const convertedValue = basePrice / currency.rate;
+                let formattedValue;
+
+                // Format the number based on currency
+                if (currencyCode === 'KES' || currencyCode === 'YEN') {
+                    formattedValue = Math.round(convertedValue).toLocaleString();
+                } else {
+                    formattedValue = convertedValue.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+                }
+
+                // Format the price string based on symbol position
+                const formattedPrice = currency.position === 'before' 
+                    ? `${currency.symbol}${formattedValue}` 
+                    : `${formattedValue} ${currency.symbol}`;
+
+                // Update the content
+                const suffix = priceEl.dataset.suffix || '';
+                priceEl.innerHTML = `${formattedPrice}${suffix ? ' <span>' + suffix + '</span>' : ''}`;
+            });
+        }
+
+        function filterHotels() {
+            // Simulate loading
+            resultsCounter.style.opacity = '0';
+            setTimeout(() => {
+                resultsCounter.style.opacity = '1';
+            }, 300);
+            
+            // After filtering, update currency display
+            convertCurrency(currencyToggle.value);
+        }
+
+        function clearFilters() {
+            // Reset input fields
+            searchInput.value = '';
+            priceRange.value = 100000;
+            
+            // Uncheck all checkboxes
+            ratingCheckboxes.forEach(cb => cb.checked = false);
+            typeCheckboxes.forEach(cb => cb.checked = false);
+            amenityCheckboxes.forEach(cb => cb.checked = false);
+            
+            // Reset sort and currency
+            sortSelect.value = 'price-asc';
+            currencyToggle.value = 'KES';
+            currencySelector.value = 'KES';
+            
+            // Update UI
+            updatePriceDisplay();
+            filterHotels();
+        }
+
+        function loadMoreHotels() {
+            loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            setTimeout(() => {
+                loadMoreBtn.innerHTML = 'Load More Stays <i class="fas fa-arrow-down"></i>';
+                alert('More stays loaded successfully!');
+            }, 1500);
+        }
+        
+        function toggleWishlist(e) {
+            const icon = e.currentTarget;
+            const heartIcon = icon.querySelector('i');
+            
+            if (heartIcon.classList.contains('far')) {
+                heartIcon.classList.remove('far');
+                heartIcon.classList.add('fas');
+                icon.classList.add('active');
+            } else {
+                heartIcon.classList.remove('fas');
+                heartIcon.classList.add('far');
+                icon.classList.remove('active');
+            }
+        }
+        
+        // Particle animation for hero background
+        function initParticleAnimation() {
+            const canvas = particleCanvas;
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // Particle class
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 - 0.5;
+                    this.color = `rgba(255, 255, 255, ${Math.random() * 0.2 + 0.1})`;
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+                }
+                
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            // Create particles
+            const particles = [];
+            const particleCount = Math.min(100, Math.floor(canvas.width * canvas.height / 10000));
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+            
+            // Animation loop
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    
+                    // Connect particles
+                    for (let j = i; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 100) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance/100)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+    </script>
+</body>
+</html>

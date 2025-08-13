@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuxStay | Premium Hotel Collection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --primary: #0ea5e9;
+      --secondary: #6366f1;
+      --dark: #0f172a;
+      --darker: #0a1120;
+      --light: #e2e8f0;
+      --accent: #f59e0b;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--darker), var(--dark));
+      color: var(--light);
+      min-height: 100vh;
+      background-attachment: fixed;
+    }
+    /* Navigation Styles */
+    nav {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(100, 116, 139, 0.3);
+      border-radius: 0 0 12px 12px;
+      padding: 1rem 2rem;
+      margin: -1.5rem -1.5rem 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 1.5rem;
+    }
+    
+    nav li a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    nav li a:hover {
+      background: rgba(14, 165, 233, 0.15);
+      color: #7dd3fc;
+    }
+    
+    nav li a i {
+      width: 20px;
+      text-align: center;
+    }
+
+    .header-gradient {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .filter-section {
+      background: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(100, 116, 139, 0.3);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .hotel-card {
+      background: linear-gradient(to bottom right, #1e293b, #0f172a);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(100, 116, 139, 0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .hotel-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(14, 165, 233, 0.3);
+      border-color: rgba(14, 165, 233, 0.5);
+    }
+    
+    .price-tag {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    
+    .amenity-badge {
+      background: rgba(14, 165, 233, 0.15);
+      color: #7dd3fc;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+    }
+    
+    input[type="range"] {
+      height: 8px;
+      appearance: none;
+      -webkit-appearance: none;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 10px;
+      outline: none;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      background: #f8fafc;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(14, 165, 233, 0.8);
+    }
+    
+    .type-badge {
+      background: rgba(124, 58, 237, 0.15);
+      color: #c4b5fd;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+    }
+    
+    .meal-badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: #6ee7b7;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+    }
+    
+    .pagination-btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(100, 116, 139, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .pagination-btn:hover:not(:disabled) {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: translateY(-2px);
+    }
+    
+    .clear-btn {
+      background: linear-gradient(90deg, #ef4444, #f97316);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .clear-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+    }
+    
+    .loading-spinner {
+      border-top-color: var(--primary);
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .location-badge {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+    }
+    
+    .card-gradient {
+      background: linear-gradient(45deg, #0f172a, #1e293b);
+    }
+    
+    .hero-section {
+      background: linear-gradient(rgba(10, 17, 32, 0.9), rgba(10, 17, 32, 0.7)), 
+                  url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80') center/cover;
+      border-radius: 16px;
+      position: relative;
+    }
+    
+    .feature-card {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      border-radius: 12px;
+    }
+    
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .favorite-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .favorite-btn:hover {
+      background: rgba(239, 68, 68, 0.7);
+      transform: scale(1.1);
+    }
+    
+    .favorite-btn.active {
+      background: rgba(239, 68, 68, 0.9);
+      color: white;
+    }
+    
+    .section-title {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="p-6">
+  <div class="max-w-7xl mx-auto">
+     <!-- Navigation Bar -->
+    <nav>
+      <ul>
+        <li><a href="package.html"><i class="fas fa-home"></i> Packages</a></li>
+        <li><a href="user-comments.html"><i class="fas fa-percent"></i> Testimonials</a></li>
+      </ul>
+    </nav>
+    <!-- Hero Section -->
+    <div class="hero-section mb-10 overflow-hidden py-16 px-6 md:px-12 text-center">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6 header-gradient">Discover Kenya's Finest Accommodations</h1>
+      <p class="text-slate-300 text-xl max-w-3xl mx-auto mb-8">Experience luxury, comfort, and breathtaking views at Kenya's top-rated hotels, lodges, and resorts</p>
+      <div class="flex justify-center">
+        <button class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold py-3 px-8 rounded-full text-lg transition-all transform hover:scale-105">
+          Explore Destinations
+        </button>
+      </div>
+    </div>
+
+    <!-- Featured Hotels -->
+    <div class="mb-16">
+      <h2 class="text-3xl font-bold mb-12 text-center section-title">Featured Luxury Stays</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="feature-card p-6">
+          <div class="flex items-start mb-4">
+            <div class="bg-cyan-500/20 p-3 rounded-lg mr-4">
+              <i class="fas fa-crown text-cyan-400 text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-1">Premium Selection</h3>
+              <p class="text-slate-400">Handpicked luxury properties with exceptional service</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="feature-card p-6">
+          <div class="flex items-start mb-4">
+            <div class="bg-amber-500/20 p-3 rounded-lg mr-4">
+              <i class="fas fa-medal text-amber-400 text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-1">Guest Favorite</h3>
+              <p class="text-slate-400">Highest rated by travelers for unforgettable experiences</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="feature-card p-6">
+          <div class="flex items-start mb-4">
+            <div class="bg-emerald-500/20 p-3 rounded-lg mr-4">
+              <i class="fas fa-spa text-emerald-400 text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-1">Wellness Focus</h3>
+              <p class="text-slate-400">Properties with premium spa and wellness facilities</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="mb-12">
+      <h2 class="text-3xl font-bold mb-8 section-title">Find Your Perfect Stay</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 filter-section p-6">
+        <!-- Search -->
+        <div class="md:col-span-2">
+          <label for="searchInput" class="block text-sm font-semibold mb-1 text-slate-300">Search</label>
+          <div class="relative">
+            <i class="fas fa-search absolute left-3 top-3 text-slate-400"></i>
+            <input id="searchInput" type="text" placeholder="Hotel name or location"
+                   class="w-full pl-10 pr-3 py-2.5 bg-slate-800 border border-slate-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                   aria-label="Search hotels by name or location" />
+          </div>
+        </div>
+
+        <!-- Price Range -->
+        <div class="md:col-span-2">
+          <label for="priceRange" class="block text-sm font-semibold mb-1 text-slate-300">
+            Max Price: <span id="priceValue" aria-live="polite" class="text-cyan-400">KES 10,000</span>
+          </label>
+          <input id="priceRange" type="range" min="1000" max="1800000" value="10000"
+                 class="w-full" aria-label="Price range slider" />
+          <div class="flex justify-between text-xs text-slate-400 mt-1">
+            <span>KES 1,000</span>
+            <span>KES 1800000</span>
+          </div>
+        </div>
+
+        <!-- Ratings -->
+        <div>
+          <fieldset>
+            <legend class="block text-sm font-semibold mb-1 text-slate-300">Rating</legend>
+            <div class="flex flex-wrap gap-3">
+              <label class="flex items-center"><input type="checkbox" class="rating mr-2" value="5" aria-label="5 star rating" /> <span class="text-amber-400">★★★★★</span></label>
+              <label class="flex items-center"><input type="checkbox" class="rating mr-2" value="4" aria-label="4 star rating" /> <span class="text-amber-400">★★★★</span></label>
+              <label class="flex items-center"><input type="checkbox" class="rating mr-2" value="3" aria-label="3 star rating" /> <span class="text-amber-400">★★★</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Type -->
+        <div>
+          <fieldset>
+            <legend class="block text-sm font-semibold mb-1 text-slate-300">Type</legend>
+            <div class="flex flex-col gap-2">
+              <label class="flex items-center"><input type="checkbox" class="type mr-2" value="Hotel" aria-label="Hotel type" /> <span>Hotel</span></label>
+              <label class="flex items-center"><input type="checkbox" class="type mr-2" value="Villa" aria-label="Villa type" /> <span>Villa</span></label>
+              <label class="flex items-center"><input type="checkbox" class="type mr-2" value="Lodge" aria-label="Lodge type" /> <span>Lodge</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Amenities -->
+        <div class="md:col-span-4">
+          <fieldset>
+            <legend class="block text-sm font-semibold mb-1 text-slate-300">Amenities</legend>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+              <label class="flex items-center"><input type="checkbox" class="amenity mr-2" value="Wi-Fi" aria-label="Wi-Fi amenity" /> <span>Wi-Fi</span></label>
+              <label class="flex items-center"><input type="checkbox" class="amenity mr-2" value="Restaurant" aria-label="Restaurant amenity" /> <span>Restaurant</span></label>
+              <label class="flex items-center"><input type="checkbox" class="amenity mr-2" value="Bar" aria-label="Bar amenity" /> <span>Bar</span></label>
+              <label class="flex items-center"><input type="checkbox" class="amenity mr-2" value="Parking" aria-label="Parking amenity" /> <span>Parking</span></label>
+              <label class="flex items-center"><input type="checkbox" class="amenity mr-2" value="Pool" aria-label="Pool amenity" /> <span>Pool</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Currency Toggle -->
+        <div class="md:col-span-2">
+          <label for="currencyToggle" class="block text-sm font-semibold mb-1 text-slate-300">Currency</label>
+          <div class="relative">
+            <i class="fas fa-money-bill-wave absolute left-3 top-3 text-slate-400"></i>
+            <select id="currencyToggle" class="pl-10 pr-3 py-2.5 bg-slate-800 border border-slate-700 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent" aria-label="Select currency">
+              <option value="KES">KES - Kenyan Shilling</option>
+              <option value="USD">USD - US Dollar</option>
+              <option value="EUR">EUR - Euro</option>
+              <option value="YEN">YEN - Japanese Yen</option>
+              <option value="ZAR">ZAR - South African Rand</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Clear Filters Button -->
+        <div class="md:col-span-2 flex items-end">
+          <button id="clearFilters" class="clear-btn w-full px-4 py-2.5 rounded-lg font-semibold flex items-center justify-center gap-2" aria-label="Clear all filters">
+            <i class="fas fa-times"></i> Clear All Filters
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="hidden text-center my-12">
+      <div class="inline-block loading-spinner rounded-full h-12 w-12 border-t-2 border-b-2"></div>
+      <p class="mt-4 text-slate-400">Finding the perfect stays for you...</p>
+    </div>
+
+    <!-- Results Counter -->
+    <div id="resultsCounter" class="mb-4 text-slate-400 text-lg font-medium"></div>
+
+    <!-- Hotel Results -->
+    <div id="results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+
+    <!-- Pagination -->
+    <div id="pagination" class="flex justify-center mt-12 mb-6 gap-2 hidden">
+      <button id="prevPage" class="pagination-btn px-6 py-3 rounded-lg font-medium flex items-center gap-2 disabled:opacity-40" aria-label="Previous page">
+        <i class="fas fa-chevron-left"></i> Previous
+      </button>
+      <span id="pageInfo" class="px-6 py-3 font-medium">Page 1 of 1</span>
+      <button id="nextPage" class="pagination-btn px-6 py-3 rounded-lg font-medium flex items-center gap-2 disabled:opacity-40" aria-label="Next page">
+        Next <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const hotels = [
+      {
+        name: "Serena Mountain Lodge",
+        location: "Mount Kenya, Kenya",
+        price: 14500,
+        rating: 5,
+        type: "Lodge",
+        mealPlan: "Full Board",
+        amenities: ["Wildlife Viewing", "Fireplace", "Fine Dining"],
+        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Azure Beach Resort",
+        location: "Diani Beach, Kenya",
+        price: 16800,
+        rating: 5,
+        type: "Resort",
+        mealPlan: "All Inclusive",
+        amenities: ["Private Beach", "Spa", "Water Sports"],
+        image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Samburu Luxury Tented Camp",
+        location: "Samburu Reserve, Kenya",
+        price: 22000,
+        rating: 5,
+        type: "Camp",
+        mealPlan: "Full Board",
+        amenities: ["Game Drives", "Bush Dinners", "Swimming Pool"],
+        image: "https://images.unsplash.com/photo-1586375300773-8384e3e4916f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Victoria Palace Hotel",
+        location: "Kisumu, Kenya",
+        price: 9800,
+        rating: 4,
+        type: "Hotel",
+        mealPlan: "Half Board",
+        amenities: ["Lake View", "Conference Hall", "Spa"],
+        image: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Aberdare Country Club",
+        location: "Aberdare Mountains, Kenya",
+        price: 13200,
+        rating: 5,
+        type: "Lodge",
+        mealPlan: "Full Board",
+        amenities: ["Golf Course", "Horse Riding", "Nature Walks"],
+        image: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Malindi Bay Resort",
+        location: "Malindi, Kenya",
+        price: 11500,
+        rating: 4,
+        type: "Resort",
+        mealPlan: "All Inclusive",
+        amenities: ["Beachfront", "Diving Center", "Kids Club"],
+        image: "https://images.unsplash.com/photo-1549294413-26f195200c16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Treetops Lodge",
+        location: "Nyeri, Kenya",
+        price: 18500,
+        rating: 5,
+        type: "Lodge",
+        mealPlan: "Full Board",
+        amenities: ["Wildlife Waterhole", "Treehouse Suites", "Guided Walks"],
+        image: "https://images.unsplash.com/photo-1534188753412-3e9336736ed8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Nairobi Sky Hotel",
+        location: "Nairobi, Kenya",
+        price: 12800,
+        rating: 5,
+        type: "Hotel",
+        mealPlan: "Breakfast Only",
+        amenities: ["Rooftop Pool", "Sky Bar", "City View"],
+        image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Watamu Ocean Villa",
+        location: "Watamu, Kenya",
+        price: 24500,
+        rating: 5,
+        type: "Villa",
+        mealPlan: "Self Catering",
+        amenities: ["Private Chef", "Infinity Pool", "Beach Access"],
+        image: "https://images.unsplash.com/photo-1615529162924-f860538a3f0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Amboseli Safari Camp",
+        location: "Amboseli, Kenya",
+        price: 15600,
+        rating: 4,
+        type: "Camp",
+        mealPlan: "Full Board",
+        amenities: ["Kilimanjaro View", "Game Drives", "Cultural Visits"],
+        image: "https://images.unsplash.com/photo-1551632436-7a879920dd4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Lake Naivasha Resort",
+        location: "Naivasha, Kenya",
+        price: 11200,
+        rating: 4,
+        type: "Resort",
+        mealPlan: "Half Board",
+        amenities: ["Boat Rides", "Bird Watching", "Horseback Safaris"],
+        image: "https://images.unsplash.com/photo-1561501900-3701fa6a0864?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Karen Gardens Hotel",
+        location: "Nairobi, Kenya",
+        price: 9200,
+        rating: 4,
+        type: "Hotel",
+        mealPlan: "Bed & Breakfast",
+        amenities: ["Botanical Gardens", "Art Gallery", "Spa"],
+        image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Lamu Island Retreat",
+        location: "Lamu, Kenya",
+        price: 19800,
+        rating: 5,
+        type: "Resort",
+        mealPlan: "All Inclusive",
+        amenities: ["Dhow Cruises", "Swahili Architecture", "Private Beach"],
+        image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Mount Kenya Safari Club",
+        location: "Nanyuki, Kenya",
+        price: 28500,
+        rating: 5,
+        type: "Resort",
+        mealPlan: "Full Board",
+        amenities: ["Golf", "Equestrian Center", "Spa"],
+        image: "https://images.unsplash.com/photo-1595514535216-7a2b7a4d5ba8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Tsavo Wilderness Camp",
+        location: "Tsavo West, Kenya",
+        price: 17500,
+        rating: 5,
+        type: "Camp",
+        mealPlan: "Full Board",
+        amenities: ["Bush Walks", "Stargazing", "Wildlife Photography"],
+        image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Mombasa Serena Beach",
+        location: "Mombasa, Kenya",
+        price: 14200,
+        rating: 5,
+        type: "Resort",
+        mealPlan: "All Inclusive",
+        amenities: ["Private Beach", "Swimming Pools", "Water Sports"],
+        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Sagana Rapids Lodge",
+        location: "Sagana, Kenya",
+        price: 8800,
+        rating: 4,
+        type: "Lodge",
+        mealPlan: "Half Board",
+        amenities: ["White Water Rafting", "Rock Climbing", "Fishing"],
+        image: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Eldoret Grande Hotel",
+        location: "Eldoret, Kenya",
+        price: 7600,
+        rating: 4,
+        type: "Hotel",
+        mealPlan: "Breakfast Only",
+        amenities: ["Conference Facilities", "Gym", "Restaurant"],
+        image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Lake Baringo Eco Lodge",
+        location: "Baringo, Kenya",
+        price: 9800,
+        rating: 4,
+        type: "Lodge",
+        mealPlan: "Full Board",
+        amenities: ["Bird Sanctuary", "Nature Walks", "Cultural Tours"],
+        image: "https://images.unsplash.com/photo-1551632436-7a879920dd4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Kisite Marine Resort",
+        location: "South Coast, Kenya",
+        price: 15600,
+        rating: 5,
+        type: "Resort",
+        mealPlan: "All Inclusive",
+        amenities: ["Snorkeling", "Dolphin Watching", "Private Island"],
+        image: "https://images.unsplash.com/photo-1549294413-26f195200c16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Kerio View Hotel",
+        location: "Iten, Kenya",
+        price: 6800,
+        rating: 4,
+        type: "Hotel",
+        mealPlan: "Bed & Breakfast",
+        amenities: ["Valley Views", "Running Trails", "Cycling"],
+        image: "https://images.unsplash.com/photo-1561501900-3701fa6a0864?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      }
+    ];
+
+    const exchangeRates = {
+      KES: 1,
+      USD: 0.0077,
+      EUR: 0.0070,
+      YEN: 1.2,
+      ZAR: 0.14
+    };
+
+    const currencySymbols = {
+      KES: "KES",
+      USD: "$",
+      EUR: "€",
+      YEN: "¥",
+      ZAR: "R"
+    };
+
+    // DOM Elements
+    const priceRange = document.getElementById("priceRange");
+    const priceValue = document.getElementById("priceValue");
+    const resultsContainer = document.getElementById("results");
+    const searchInput = document.getElementById("searchInput");
+    const currencyToggle = document.getElementById("currencyToggle");
+    const clearFilters = document.getElementById("clearFilters");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+    const pagination = document.getElementById("pagination");
+    const prevPage = document.getElementById("prevPage");
+    const nextPage = document.getElementById("nextPage");
+    const pageInfo = document.getElementById("pageInfo");
+    const resultsCounter = document.getElementById("resultsCounter");
+
+    // State variables
+    let currentCurrency = "KES";
+    let currentPage = 1;
+    const hotelsPerPage = 9;
+    let filteredHotels = [];
+    let favorites = new Set();
+
+    // Initialize
+    document.addEventListener("DOMContentLoaded", () => {
+      filteredHotels = [...hotels];
+      renderHotels();
+    });
+
+    function renderStars(rating) {
+      return `<span class="text-amber-400" aria-label="${rating} out of 5 stars">${"★".repeat(rating)}${"☆".repeat(5 - rating)}</span>`;
+    }
+
+    function convertPrice(price) {
+      const rate = exchangeRates[currentCurrency];
+      return Math.round(price * rate);
+    }
+
+    function formatPrice(price) {
+      return price.toLocaleString();
+    }
+
+    function updatePriceDisplay() {
+      const selectedPrice = parseInt(priceRange.value);
+      const convertedPrice = convertPrice(selectedPrice);
+      priceValue.textContent = `${currencySymbols[currentCurrency]} ${formatPrice(convertedPrice)}`;
+    }
+
+    function toggleFavorite(hotelName) {
+      if (favorites.has(hotelName)) {
+        favorites.delete(hotelName);
+      } else {
+        favorites.add(hotelName);
+      }
+      // In a real app, you might save to localStorage
+      renderHotels();
+    }
+
+    function renderHotels() {
+      loadingSpinner.classList.remove("hidden");
+      resultsContainer.innerHTML = "";
+      
+      // Simulate loading delay for demo purposes
+      setTimeout(() => {
+        if (filteredHotels.length === 0) {
+          resultsContainer.innerHTML = `
+            <div class="col-span-full text-center py-12">
+              <div class="inline-block bg-slate-800 p-6 rounded-full mb-4">
+                <i class="fas fa-hotel text-4xl text-cyan-500"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">No matching hotels found</h3>
+              <p class="text-slate-400 max-w-md mx-auto">Try adjusting your filters to find more options. Clear some filters or try a different search term.</p>
+            </div>
+          `;
+          pagination.classList.add("hidden");
+          resultsCounter.innerHTML = "0 hotels found";
+          loadingSpinner.classList.add("hidden");
+          return;
+        }
+
+        // Update results counter
+        resultsCounter.innerHTML = `Showing ${Math.min(filteredHotels.length, hotelsPerPage)} of ${filteredHotels.length} luxury hotels`;
+
+        // Pagination logic
+        const totalPages = Math.ceil(filteredHotels.length / hotelsPerPage);
+        const startIndex = (currentPage - 1) * hotelsPerPage;
+        const paginatedHotels = filteredHotels.slice(startIndex, startIndex + hotelsPerPage);
+
+        paginatedHotels.forEach(hotel => {
+          const isFavorite = favorites.has(hotel.name);
+          const card = document.createElement("div");
+          card.className = "hotel-card";
+          card.innerHTML = `
+            <div class="relative">
+              <img src="${hotel.image}" alt="${hotel.name}" class="w-full h-60 object-cover" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80'"/>
+              <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite('${hotel.name}')">
+                <i class="fas fa-heart"></i>
+              </button>
+              <div class="absolute top-4 right-4 price-tag">
+                ${currencySymbols[currentCurrency]} ${formatPrice(convertPrice(hotel.price))}
+              </div>
+            </div>
+            <div class="p-5 card-gradient">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="text-xl font-bold text-slate-100">${hotel.name}</h3>
+                <div class="meal-badge">${hotel.mealPlan}</div>
+              </div>
+              
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fas fa-map-marker-alt text-rose-400"></i>
+                <span class="text-slate-300 text-sm">${hotel.location}</span>
+              </div>
+              
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-lg">
+                  ${renderStars(hotel.rating)}
+                </div>
+                <div class="type-badge">${hotel.type}</div>
+              </div>
+              
+              <div class="flex flex-wrap gap-2 mb-4">
+                ${hotel.amenities.map(a => `<span class="amenity-badge">${a}</span>`).join("")}
+              </div>
+              
+              <button class="w-full py-3 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 text-white rounded-lg font-medium transition-all">
+                Book Now
+              </button>
+            </div>
+          `;
+          resultsContainer.appendChild(card);
+        });
+
+        // Update pagination controls
+        updatePaginationControls(filteredHotels.length);
+        loadingSpinner.classList.add("hidden");
+      }, 500);
+    }
+
+    function updatePaginationControls(totalHotels) {
+      const totalPages = Math.ceil(totalHotels / hotelsPerPage);
+      
+      if (totalPages <= 1) {
+        pagination.classList.add("hidden");
+        return;
+      }
+      
+      pagination.classList.remove("hidden");
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+      prevPage.disabled = currentPage === 1;
+      nextPage.disabled = currentPage === totalPages;
+    }
+
+    function filterHotels() {
+      const selectedPrice = parseInt(priceRange.value);
+      const keyword = searchInput.value.toLowerCase();
+      const selectedRatings = Array.from(document.querySelectorAll(".rating:checked")).map(cb => parseInt(cb.value));
+      const selectedTypes = Array.from(document.querySelectorAll(".type:checked")).map(cb => cb.value);
+      const selectedAmenities = Array.from(document.querySelectorAll(".amenity:checked")).map(cb => cb.value);
+
+      filteredHotels = hotels.filter(hotel => {
+        return convertPrice(hotel.price) <= convertPrice(selectedPrice) &&
+          (selectedRatings.length === 0 || selectedRatings.includes(hotel.rating)) &&
+          (selectedTypes.length === 0 || selectedTypes.includes(hotel.type)) &&
+          selectedAmenities.every(am => hotel.amenities.includes(am)) &&
+          (hotel.name.toLowerCase().includes(keyword) || hotel.location.toLowerCase().includes(keyword));
+      });
+
+      currentPage = 1; // Reset to first page when filters change
+      renderHotels();
+    }
+
+    function clearAllFilters() {
+      searchInput.value = "";
+      priceRange.value = 10000;
+      document.querySelectorAll(".rating, .type, .amenity").forEach(checkbox => {
+        checkbox.checked = false;
+      });
+      currencyToggle.value = "KES";
+      currentCurrency = "KES";
+      updatePriceDisplay();
+      filterHotels();
+    }
+
+    // Event Listeners
+    priceRange.addEventListener("input", () => {
+      updatePriceDisplay();
+      filterHotels();
+    });
+
+    searchInput.addEventListener("input", () => {
+      clearTimeout(searchInput.timer);
+      searchInput.timer = setTimeout(filterHotels, 300);
+    });
+
+    document.querySelectorAll(".rating, .type, .amenity").forEach(input => {
+      input.addEventListener("change", filterHotels);
+    });
+
+    currencyToggle.addEventListener("change", () => {
+      currentCurrency = currencyToggle.value;
+      updatePriceDisplay();
+      filterHotels();
+    });
+
+    clearFilters.addEventListener("click", clearAllFilters);
+
+    prevPage.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderHotels();
+      }
+    });
+
+    nextPage.addEventListener("click", () => {
+      const totalPages = Math.ceil(filteredHotels.length / hotelsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderHotels();
+      }
+    });
+
+    // Expose function to global scope for HTML onclick
+    window.toggleFavorite = toggleFavorite;
+
+    // Initialize price display
+    updatePriceDisplay();
+  </script>
+</body>
+</html>

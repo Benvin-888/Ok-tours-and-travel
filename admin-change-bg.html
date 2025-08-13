@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Change Background & Logo - Admin - OK Tours and Travel</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #eef2f7;
+    margin: 0; padding: 0;
+    color: #333;
+  }
+  header {
+    background-color: #3498db;
+    padding: 15px 25px;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+  }
+  nav {
+    background: #fff;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+  }
+  nav a {
+    color: #3498db;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 7px 15px;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+  nav a:hover {
+    background-color: #3498db;
+    color: white;
+    border-color: white;
+  }
+  main {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 25px 35px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  label {
+    font-weight: 600;
+  }
+  input[type="file"] {
+    padding: 8px;
+  }
+  button {
+    padding: 14px;
+    background-color: #3498db;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #1d6fa5;
+  }
+  .info {
+    font-size: 14px;
+    color: #555;
+    margin-top: -15px;
+  }
+</style>
+</head>
+<body>
+
+<header>Change Background / Logo</header>
+
+<nav>
+  <a href="admin-home.html">Home</a>
+  <a href="admin-dashboard.php">Dashboard</a>
+  <a href="admin-background.php" class="active">Change Background</a>
+  <a href="admin-manage-admins.html">Manage Admins</a>
+  <a href="admin-bookings.html">View Bookings</a>
+  <a href="admin-enquiries.html">View Enquiries</a>
+  <a href="admin-comments.html">Manage Comments</a>
+</nav>
+
+<main>
+  <h1>Update Website Background and Logo</h1>
+  <form id="bgLogoForm">
+    <div>
+      <label for="backgroundUpload">Upload Background Image:</label><br />
+      <input type="file" id="backgroundUpload" accept="image/*" />
+      <p class="info">Recommended size: 1920x1080px</p>
+    </div>
+
+    <div>
+      <label for="logoUpload">Upload Logo Image:</label><br />
+      <input type="file" id="logoUpload" accept="image/*" />
+      <p class="info">Recommended size: 200x100px</p>
+    </div>
+
+    <button type="submit">Upload</button>
+  </form>
+</main>
+
+<script>
+  document.getElementById('bgLogoForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Upload submitted (demo). Implement backend logic to save files.');
+  });
+</script>
+
+</body>
+</html>

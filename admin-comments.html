@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin Comments - OK Tours and Travel</title>
+<style>
+  /* Reset */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* Body & Background */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 0;
+    min-height: 100vh;
+    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    color: #e0e6ed;
+    line-height: 1.5;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 23, 42, 0.75);
+    z-index: -1;
+  }
+
+  /* Header */
+  header {
+    background-color: #1e293bcc; /* navy-ish translucent */
+    padding: 18px 30px;
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    color: #a5b4fc;
+    text-shadow: 0 0 10px #4f46e5;
+    user-select: none;
+    margin-bottom: 30px;
+  }
+
+  /* Navigation */
+  nav {
+    background-color: #f3f4f6;
+    padding: 12px 25px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    box-shadow: 0 3px 7px rgba(0,0,0,0.15);
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    border-radius: 10px;
+  }
+  nav a {
+    color: #4f46e5;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    font-size: 1.05rem;
+  }
+  nav a:hover,
+  nav a:focus {
+    background-color: #4f46e5;
+    color: #f3f4f6;
+    border-color: #f3f4f6;
+    outline: none;
+  }
+  nav a[aria-current="page"] {
+    background-color: #4f46e5;
+    color: white;
+    border-color: white;
+    pointer-events: none;
+  }
+
+  /* Main container */
+  main {
+    max-width: 900px;
+    margin: 0 auto 50px auto;
+    background: rgba(30, 41, 59, 0.95);
+    border-radius: 15px;
+    padding: 30px 40px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+  }
+
+  h1 {
+    color: #c7d2fe;
+    font-size: 2.4rem;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 700;
+    text-shadow: 0 0 10px #6366f1;
+  }
+
+  /* Comments list */
+  ul#commentsList {
+    list-style: none;
+    padding: 0;
+    max-height: 350px;
+    overflow-y: auto;
+    margin-bottom: 40px;
+    border: 1px solid #4c51bf;
+    border-radius: 12px;
+    background-color: #1e293b;
+  }
+  ul#commentsList li {
+    padding: 18px 20px;
+    border-bottom: 1px solid #374151;
+    position: relative;
+    font-size: 1.1rem;
+    color: #d1d5db;
+  }
+  ul#commentsList li:last-child {
+    border-bottom: none;
+  }
+  ul#commentsList li .comment-date {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-top: 6px;
+  }
+
+  /* Delete button for comment */
+  .btn-delete-comment {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    background-color: #ef4444;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+  }
+  .btn-delete-comment:hover,
+  .btn-delete-comment:focus {
+    background-color: #b91c1c;
+    outline: none;
+  }
+
+  /* Add comment form */
+  form#addCommentForm {
+    background-color: #374151;
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+  }
+  form#addCommentForm h2 {
+    color: #818cf8;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 1.8rem;
+    text-shadow: 0 0 6px #6366f1;
+  }
+  form#addCommentForm textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    border-radius: 12px;
+    border: none;
+    padding: 15px 18px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  form#addCommentForm textarea:focus {
+    outline: 2px solid #6366f1;
+  }
+  form#addCommentForm button {
+    margin-top: 18px;
+    width: 100%;
+    padding: 14px 0;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    border: none;
+    background-color: #6366f1;
+    color: #f3f4f6;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  form#addCommentForm button:hover,
+  form#addCommentForm button:focus {
+    background-color: #4f46e5;
+    outline: none;
+  }
+
+  /* Scrollbar styling for comments list */
+  ul#commentsList::-webkit-scrollbar {
+    width: 9px;
+  }
+  ul#commentsList::-webkit-scrollbar-track {
+    background: #1e293b;
+    border-radius: 12px;
+  }
+  ul#commentsList::-webkit-scrollbar-thumb {
+    background: #6366f1;
+    border-radius: 12px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    main {
+      padding: 20px 25px;
+      margin-bottom: 30px;
+    }
+    nav {
+      gap: 10px;
+      padding: 10px 15px;
+    }
+    nav a {
+      font-size: 0.9rem;
+      padding: 7px 12px;
+    }
+    form#addCommentForm h2 {
+      font-size: 1.5rem;
+    }
+    form#addCommentForm textarea {
+      font-size: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>Admin Comments & Updates</header>
+
+<nav>
+  <a href="admin-dashboard.php">Home</a>
+  <a href="admin-dashboard.php">Dashboard</a>
+  <a href="admin-background.php" class="active">Change Background</a>
+  <a href="admin-manage-admins.php">Manage Admins</a>
+  <a href="admin-bookings.php">View Bookings</a>
+  <a href="admin-enquiries.html">View Enquiries</a>
+  <a href="admin-comments.html" aria-current="page">Manage Comments</a>
+</nav>
+
+<main>
+  <h1>Admin Comments</h1>
+
+  <ul id="commentsList" aria-live="polite" aria-relevant="additions removals">
+    <!-- Existing comments will appear here -->
+  </ul>
+
+  <form id="addCommentForm" aria-label="Add a new comment">
+    <h2>Add New Comment</h2>
+    <textarea id="commentText" name="commentText" placeholder="Write your update or comment here..." required></textarea>
+    <button type="submit">Post Comment</button>
+  </form>
+</main>
+
+<script>
+  const commentsList = document.getElementById('commentsList');
+  const addCommentForm = document.getElementById('addCommentForm');
+
+  // Helper function to create a comment list item
+  function createCommentItem(text, date) {
+    const li = document.createElement('li');
+
+    li.textContent = text;
+
+    const dateEl = document.createElement('div');
+    dateEl.className = 'comment-date';
+    dateEl.textContent = new Date(date).toLocaleString();
+    li.appendChild(dateEl);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn-delete-comment';
+    deleteBtn.setAttribute('aria-label', 'Delete comment');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to delete this comment?')) {
+        li.remove();
+      }
+    });
+
+    li.appendChild(deleteBtn);
+
+    return li;
+  }
+
+  // Sample initial comments
+  const initialComments = [
+    { text: 'Updated booking system with new validation.', date: '2025-05-20T10:30:00' },
+    { text: 'Background images refreshed with new mountain theme.', date: '2025-05-21T15:45:00' }
+  ];
+
+  // Load initial comments
+  initialComments.forEach(c => {
+    commentsList.appendChild(createCommentItem(c.text, c.date));
+  });
+
+  // Handle new comment submission
+  addCommentForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const text = addCommentForm.commentText.value.trim();
+    if (!text) return alert('Please enter a comment.');
+
+    const now = new Date().toISOString();
+    const commentItem = createCommentItem(text, now);
+    commentsList.prepend(commentItem);
+
+    addCommentForm.reset();
+  });
+</script>
+
+</body>
+</html>

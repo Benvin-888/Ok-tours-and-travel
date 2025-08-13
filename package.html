@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Destinations | Travel Explorer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            /* Stunning gradient background from uigradients.com */
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-attachment: fixed;
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* BACKGROUND ANIMATION */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Header Styles */
+        header {
+            background: rgba(10, 15, 40, 0.9);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffc107, #ff9800);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .logo i {
+            font-size: 2.2rem;
+            color: #ffc107;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        nav a:hover, nav a.active {
+            color: #ffc107;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #ffc107;
+            transition: width 0.3s;
+            border-radius: 2px;
+        }
+        
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 70%, rgba(0, 0, 0, 0.8));
+            z-index: 1;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+        
+        .hero h2 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1.2s ease;
+        }
+        
+        .cta-button {
+            background: linear-gradient(to right, #ffc107, #ff9800);
+            color: #1a2a6c;
+            padding: 18px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.4);
+            animation: fadeInUp 1.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.6);
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Explore More Holidays Section */
+        .explore-section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title h2 {
+            font-size: 3rem;
+            display: inline-block;
+            padding-bottom: 15px;
+            position: relative;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #ffc107);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(to right, #b21f1f, #ffc107);
+            border-radius: 2px;
+        }
+        
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+        }
+        
+        .destination-card {
+            position: relative;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+        
+        .destination-card:hover .card-image {
+            transform: scale(1.15);
+        }
+        
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 25px;
+            color: white;
+        }
+        
+        .destination-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
+            transition: all 0.3s ease;
+        }
+        
+        .destination-card:hover .destination-name {
+            transform: translateY(-10px);
+        }
+        
+        .destination-name-back {
+            position: absolute;
+            font-size: 4rem;
+            font-weight: 900;
+            opacity: 0.15;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            z-index: 1;
+            white-space: nowrap;
+        }
+        
+        .holiday-count {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #b21f1f, #ff9800);
+            padding: 10px 30px;
+            border-radius: 30px;
+            margin-top: 20px;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .destination-card:hover .holiday-count {
+            transform: translateY(10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Why Choose Us Section */
+        .why-choose {
+            background: rgba(10, 15, 40, 0.8);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .why-choose::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/black-paper.png');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-15px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+        
+        .benefit-card i {
+            font-size: 3.5rem;
+            color: #ffc107;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-card:hover i {
+            transform: scale(1.2);
+            color: #ff9800;
+        }
+        
+        .benefit-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .benefit-card p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            background: rgba(10, 15, 40, 0.7);
+            overflow: hidden;
+        }
+        
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
+            opacity: 0.1;
+        }
+        
+        .newsletter-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 18px 25px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: #ffc107;
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 193, 7, 0.3);
+        }
+        
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .newsletter-btn {
+            background: linear-gradient(to right, #b21f1f, #ff9800);
+            color: white;
+            border: none;
+            padding: 0 40px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(178, 31, 31, 0.4);
+        }
+        
+        .newsletter-btn:hover {
+            background: linear-gradient(to right, #8a1919, #e68a00);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(178, 31, 31, 0.6);
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(5, 10, 30, 0.95);
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #b21f1f, #ffc107);
+            border-radius: 2px;
+        }
+        
+        .footer-column p, .footer-column a {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 12px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: #ffc107;
+            transform: translateX(5px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 18px;
+            margin-top: 25px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+            
+            .destination-name {
+                font-size: 2rem;
+            }
+            
+            .destination-name-back {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hero {
+                height: 80vh;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .destination-name {
+                font-size: 1.8rem;
+            }
+            
+            .destination-name-back {
+                font-size: 2.5rem;
+            }
+            
+            .footer-content {
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .destination-card {
+                height: 300px;
+            }
+        }
+        
+        /* Floating animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Particles background effect */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: floatParticle linear infinite;
+        }
+        
+        @keyframes floatParticle {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Particles background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-globe-americas floating"></i>
+                    <h1>Ok Tour and Travel</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="home-screen.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="gallery.php" class="active"><i class="fas fa-suitcase"></i> Destinations</a></li>
+                        <li><a href="user-comments.html"><i class="fas fa-percent"></i> Testimonials</a></li>
+                        <li><a href="enquiry.php"><i class="fas fa-comments"></i> Enquiry</a></li>
+                        <li><a href="Aboutus.html"><i class="fas fa-phone-alt"></i> Contact</a></li>
+                        <li><a href="user-cart.html"><i class="fas fa-shopping-basket"></i>Cart</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Discover Your Dream Destinations</h2>
+                <p>Explore our wildlife destinations and book a stay in our destination points with Ok Africa Tours and Travel</p>
+               <button class="cta-button" onclick="window.location.href='explore.html'">Explore our Wildlife and exciting Tour Destinations</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Explore More Holidays Section -->
+    <section class="explore-section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Book a stay with Ok Africa Tours and Travel</h2>
+            </div>
+            
+            <div class="explore-grid">
+                <!-- Kenya Card -->
+                <a href="kenya.html" class="destination-card fade-in delay-1">
+                    <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kenya Safari" class="card-image">
+                    <div class="card-overlay">
+                        <div class="destination-name-back">MAGICAL KENYA</div>
+                        <div class="destination-name">MAGICAL KENYA</div>
+                        <div class="holiday-count">52 Holidays</div>
+                    </div>
+                </a>
+                
+                <!-- Middle East Card -->
+                <a href="middle-east.html" class="destination-card fade-in delay-2">
+                    <img src="https://images.unsplash.com/photo-1580502304784-8985b7eb7260?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Middle East" class="card-image">
+                    <div class="card-overlay">
+                        <div class="destination-name-back">MIDDLE EAST</div>
+                        <div class="destination-name">MIDDLE EAST</div>
+                        <div class="holiday-count">13 Holidays</div>
+                    </div>
+                </a>
+                
+                <!-- Southern Africa Card -->
+                <a href="southern-africa.html" class="destination-card fade-in delay-3">
+                    <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Southern Africa" class="card-image">
+                    <div class="card-overlay">
+                        <div class="destination-name-back">SOUTHERN AFRICA</div>
+                        <div class="destination-name">SOUTHERN AFRICA</div>
+                        <div class="holiday-count">6 Holidays</div>
+                    </div>
+                </a>
+                
+                <!-- South East Asia Card -->
+                <a href="south-east-asia.html" class="destination-card fade-in delay-4">
+                    <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="South East Asia" class="card-image">
+                    <div class="card-overlay">
+                        <div class="destination-name-back">SOUTH EAST ASIA</div>
+                        <div class="destination-name">SOUTH EAST ASIA</div>
+                        <div class="holiday-count">24 Holidays</div>
+                    </div>
+                </a>
+                
+                <!-- Europe Card -->
+                <a href="europe.html" class="destination-card fade-in delay-5">
+                    <img src="https://images.unsplash.com/photo-1507699622108-4be3abd695ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Europe" class="card-image">
+                    <div class="card-overlay">
+                        <div class="destination-name-back">EUROPEAN ESCAPES</div>
+                        <div class="destination-name">EUROPEAN ESCAPES</div>
+                        <div class="holiday-count">38 Holidays</div>
+                    </div>
+                </a>
+                
+                <!-- Tropical Islands Card -->
+                <a href="tropical-islands.html" class="destination-card fade-in delay-6">
+                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tropical Islands" class="card-image">
+                    <div class="card-overlay">
+                        <div class="destination-name-back">TROPICAL ISLANDS</div>
+                        <div class="destination-name">TROPICAL ISLANDS</div>
+                        <div class="holiday-count">19 Holidays</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Travel Explorer</h2>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in">
+                    <i class="fas fa-globe-americas"></i>
+                    <h3>Global Destinations</h3>
+                    <p>Access to over 200 destinations worldwide with carefully curated experiences</p>
+                </div>
+                
+                <div class="benefit-card fade-in delay-1">
+                    <i class="fas fa-tag"></i>
+                    <h3>Best Price Guarantee</h3>
+                    <p>We offer the best prices with no hidden fees and price match guarantee</p>
+                </div>
+                
+                <div class="benefit-card fade-in delay-2">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Travel Protection</h3>
+                    <p>24/7 support and comprehensive travel insurance options for your peace of mind</p>
+                </div>
+                
+                <div class="benefit-card fade-in delay-3">
+                    <i class="fas fa-user-friends"></i>
+                    <h3>Expert Guides</h3>
+                    <p>Local experts who provide authentic experiences and insider knowledge</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="section-title fade-in">
+                    <h2>Get Travel Inspiration</h2>
+                    <p>Subscribe to our newsletter for exclusive deals and travel tips</p>
+                </div>
+                
+                <div class="newsletter-form fade-in delay-1">
+                    <input type="email" placeholder="Enter your email address">
+                    <button class="newsletter-btn">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About Travel Explorer</h3>
+                    <p>Creating unforgettable travel experiences since 2010. We specialize in curated tours that connect travelers with authentic local experiences.</p>
+                    <div class="social-links">
+                    <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/okafrica.travel"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@okafrica.travel"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="home-screen.html">Home</a>
+                    <a href="package.html">Tour Packages</a>
+                    <a href="package.html">Special Offers</a>
+                    <a href="Aboutus.html">Destination Guide</a>
+                    <a href="blogs.html">Travel Blog</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i>Globe Trotters 789 Lisbon Avenue, Johannesburg 1724</p>
+                    <p><i class="fas fa-phone-alt"></i> +27 81 088 8805</p>
+                    <p><i class="fas fa-phone-alt"></i> +254 706 467999</p>
+                    <p><i class="fas fa-envelope"></i>stan.chokoe@outlook.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9am-6pm</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Popular Destinations</h3>
+                    <a href="kenya.html">Magical Kenya</a>
+                    <a href="middle-east.html">Middle East</a>
+                    <a href="southern-africa.html">Southern Africa</a>
+                    <a href="south-east-asia.html">South East Asia</a>
+                    <a href="europe.html">European Escapes</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Travel Explorer. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #b21f1f;"></i> for travelers</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add pointer cursor to destination cards
+        document.querySelectorAll('.destination-card').forEach(card => {
+            card.style.cursor = 'pointer';
+        });
+        
+        // Create floating particles effect
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 2px and 8px
+                const size = Math.random() * 6 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation duration between 10s and 20s
+                const duration = Math.random() * 10 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize animations and effects
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            // Add scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.fade-in').forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>ssss

@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuxStay | Southern Africa Premium Hotels</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --primary: #e25822;    /* African sunset orange */
+      --secondary: #1e6b52;  /* Safari green */
+      --dark: #0f172a;
+      --darker: #0a1120;
+      --light: #e2e8f0;
+      --accent: #f5a623;     /* Gold accent */
+      --safari-sunset: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--safari-sunset);
+      color: var(--light);
+      min-height: 100vh;
+      background-attachment: fixed;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 10% 20%, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
+      z-index: -1;
+    }
+    
+    /* Safari animal pattern overlay */
+    body::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.1;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    /* Navigation Styles - UPDATED */
+    nav {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(100, 116, 139, 0.3);
+      border-radius: 0 0 12px 12px;
+      padding: 1rem 2rem;
+      margin: -1.5rem -1.5rem 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .logo i {
+      font-size: 1.5rem;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 1.5rem;
+    }
+    
+    nav li a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    nav li a:hover {
+      color: #f8b195;
+      transform: translateY(-2px);
+    }
+    
+    nav li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.3s ease;
+      border-radius: 1px;
+    }
+    
+    nav li a:hover::after {
+      width: 100%;
+    }
+    
+    nav li a i {
+      width: 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    nav li a:hover i {
+      transform: scale(1.2);
+    }
+
+    .header-gradient {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(226, 88, 34, 0.3);
+    }
+    
+    .filter-section {
+      background: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(100, 116, 139, 0.3);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease;
+    }
+    
+    .filter-section:hover {
+      box-shadow: 0 15px 40px rgba(226, 88, 34, 0.25);
+    }
+    
+    .hotel-card {
+      background: linear-gradient(to bottom right, #1e293b, #0f172a);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(100, 116, 139, 0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+    
+    .hotel-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(226, 88, 34, 0.3);
+      border-color: rgba(226, 88, 34, 0.5);
+    }
+    
+    .hotel-card::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary));
+      z-index: -1;
+      filter: blur(20px);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      border-radius: 20px;
+    }
+    
+    .hotel-card:hover::before {
+      opacity: 0.5;
+    }
+    
+    .price-tag {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(226, 88, 34, 0.4);
+    }
+    
+    .amenity-badge {
+      background: rgba(226, 88, 34, 0.15);
+      color: #f8b195;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    
+    .amenity-badge:hover {
+      transform: translateY(-2px);
+      background: rgba(226, 88, 34, 0.3);
+    }
+    
+    input[type="range"] {
+      height: 8px;
+      appearance: none;
+      -webkit-appearance: none;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border-radius: 10px;
+      outline: none;
+      box-shadow: 0 0 10px rgba(226, 88, 34, 0.3);
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      background: #f8fafc;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(226, 88, 34, 0.8);
+      transition: all 0.2s ease;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    
+    .type-badge {
+      background: rgba(30, 107, 82, 0.15);
+      color: #88d8b0;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    
+    .type-badge:hover {
+      transform: translateY(-2px);
+      background: rgba(30, 107, 82, 0.3);
+    }
+    
+    .meal-badge {
+      background: rgba(245, 166, 35, 0.15);
+      color: #f8e71c;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    
+    .meal-badge:hover {
+      transform: translateY(-2px);
+      background: rgba(245, 166, 35, 0.3);
+    }
+    
+    .pagination-btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(100, 116, 139, 0.3);
+      transition: all 0.3s ease;
+      border-radius: 10px;
+    }
+    
+    .pagination-btn:hover:not(:disabled) {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(226, 88, 34, 0.4);
+    }
+    
+    .clear-btn {
+      background: linear-gradient(90deg, #ef4444, #f97316);
+      color: white;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+    }
+    
+    .clear-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 15px rgba(239, 68, 68, 0.4);
+    }
+    
+    .loading-spinner {
+      border-top-color: var(--primary);
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .location-badge {
+      background: rgba(245, 166, 35, 0.15);
+      color: #f8e71c;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+    }
+    
+    .card-gradient {
+      background: linear-gradient(45deg, #0f172a, #1e293b);
+    }
+    
+    .hero-section {
+      background-image: linear-gradient(rgba(10, 17, 32, 0.85), rgba(10, 17, 32, 0.85)), url('https://images.unsplash.com/photo-1591085686350-798c0f9faa7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80');
+      background-size: cover;
+      background-position: center;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      background-attachment: fixed; /* Parallax effect */
+    }
+    
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(226, 88, 34, 0.1), rgba(30, 107, 82, 0.1), rgba(245, 166, 35, 0.1));
+      z-index: 0;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .feature-card {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(226, 88, 34, 0.25);
+      border-color: rgba(226, 88, 34, 0.4);
+    }
+    
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .favorite-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .favorite-btn:hover {
+      background: rgba(239, 68, 68, 0.7);
+      transform: scale(1.1);
+    }
+    
+    .favorite-btn.active {
+      background: rgba(239, 68, 68, 0.9);
+      color: white;
+      animation: pulse 0.8s ease;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    .section-title {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba(226, 88, 34, 0.4);
+    }
+    
+    .map-badge {
+      background: rgba(30, 107, 82, 0.3);
+      border: 1px solid rgba(30, 107, 82, 0.5);
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+    }
+    
+    .map-badge:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(30, 107, 82, 0.3);
+    }
+    
+    .country-highlight {
+      background: rgba(245, 166, 35, 0.2);
+      color: #f8e71c;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      transition: all 0.2s ease;
+    }
+    
+    .country-highlight:hover {
+      transform: translateY(-2px);
+      background: rgba(245, 166, 35, 0.3);
+    }
+    
+    .safari-theme {
+      background: var(--safari-sunset);
+      background-size: 200% 200%;
+      animation: gradientShift 10s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .country-card {
+      transition: all 0.4s ease;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      height: 180px;
+    }
+    
+    .country-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+    
+    .country-card:hover .country-card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .country-card-front, .country-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      background: rgba(30, 41, 59, 0.8);
+      border-radius: 12px;
+      border: 1px solid rgba(100, 116, 139, 0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .country-card-back {
+      transform: rotateY(180deg);
+      background: rgba(15, 23, 42, 0.9);
+      justify-content: space-around;
+    }
+    
+    .country-card-back h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .country-card-back p {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+    }
+    
+    .country-card-back .btn {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    
+    .country-card-back .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(226, 88, 34, 0.4);
+    }
+    
+    .hotel-image {
+      transition: transform 0.5s ease;
+    }
+    
+    .hotel-card:hover .hotel-image {
+      transform: scale(1.05);
+    }
+    
+    .book-btn {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .book-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+    
+    .book-btn:hover::after {
+      left: 100%;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .slide-in {
+      animation: slideIn 0.6s ease-out forwards;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(-30px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .delayed {
+      animation-delay: 0.2s;
+    }
+    
+    .feature-icon {
+      transition: transform 0.5s ease, background 0.3s ease;
+    }
+    
+    .feature-card:hover .feature-icon {
+      transform: rotateY(180deg);
+      background: rgba(245, 166, 35, 0.3);
+    }
+    
+    /* Floating Action Button */
+    .fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      z-index: 99;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .fab.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .fab:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    /* Footer Styles - UPDATED */
+    footer {
+      background: linear-gradient(to right, var(--dark), var(--darker));
+      color: var(--light);
+      padding: 3rem 1rem;
+      border-top: 1px solid rgba(226, 88, 34, 0.3);
+      position: relative;
+      overflow: hidden;
+      margin-top: 4rem;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23e25822' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.15;
+      z-index: 0;
+    }
+    
+    .footer-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .footer-section {
+      padding: 1rem;
+    }
+    
+    .footer-section h3 {
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: var(--light);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+      transform: translateX(5px);
+    }
+    
+    .footer-links a i {
+      width: 20px;
+      text-align: center;
+      color: var(--primary);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(226, 88, 34, 0.2);
+      border-radius: 50%;
+      color: var(--light);
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(226, 88, 34, 0.4);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 1;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .footer-bottom a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-bottom a:hover {
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero-section {
+        padding: 3rem 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .country-card {
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+<body class="p-6 safari-theme">
+  <!-- Floating Action Button -->
+  <div class="fab" id="fab">
+    <i class="fas fa-chevron-up"></i>
+  </div>
+  
+  <div class="max-w-7xl mx-auto">
+    <!-- Navigation Bar - UPDATED -->
+    <nav>
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-campground	"></i>
+          Ok Africa Tours and Travel
+        </div>
+        <ul>
+          <li><a href="package.html"><i class="fas fa-home"></i> Packages</a></li>
+          <li><a href="booking.php"><i class="fas fa-percent"></i> Special Offers</a></li>
+          <li><a href="user-comments.html"><i class="fas fa-comments"></i> Testimonials</a></li>
+          <li><a href="Aboutus.html"><i class="fas fa-user"></i>Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <div class="hero-section mb-10 overflow-hidden py-16 px-6 md:px-12 text-center hero-content">
+      <div class="map-badge mb-6 fade-in">
+        <i class="fas fa-map-marked-alt"></i>
+        <span>SOUTHERN AFRICA TRAVEL GUIDE</span>
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold mb-6 header-gradient fade-in">Discover Southern Africa's Luxury</h1>
+      <p class="text-slate-300 text-xl max-w-3xl mx-auto mb-8 fade-in">Experience world-class hospitality at the finest safari lodges, beach resorts, and city hotels across the region</p>
+      <div class="flex justify-center fade-in">
+        <button class="bg-gradient-to-r from-[#e25822] to-[#f5a623] hover:from-[#d14d1d] hover:to-[#e5971f] text-white font-semibold py-3 px-8 rounded-full text-lg transition-all transform hover:scale-105 shadow-lg">
+          Explore Destinations
+        </button>
+      </div>
+    </div>
+    
+    <!-- Country Highlights - UPDATED with flip cards -->
+    <div class="mb-12">
+      <h2 class="text-3xl font-bold mb-8 section-title fade-in">Featured Countries</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="country-card slide-in">
+          <div class="country-card-inner">
+            <div class="country-card-front">
+              <div class="w-16 h-16 rounded-full bg-cover mb-3" style="background-image: url('https://flagcdn.com/w320/za.png')"></div>
+              <h3 class="font-bold">South Africa</h3>
+              <div class="flex flex-wrap gap-1 mt-2 justify-center">
+                <span class="country-highlight">Safari</span>
+                <span class="country-highlight">Wine</span>
+                <span class="country-highlight">Beaches</span>
+              </div>
+            </div>
+            <div class="country-card-back">
+              <h3>South Africa</h3>
+              <p>Diverse landscapes, wildlife safaris, and world-class vineyards</p>
+              <button class="btn">Explore Lodges</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="country-card slide-in delayed">
+          <div class="country-card-inner">
+            <div class="country-card-front">
+              <div class="w-16 h-16 rounded-full bg-cover mb-3" style="background-image: url('https://flagcdn.com/w320/bw.png')"></div>
+              <h3 class="font-bold">Botswana</h3>
+              <div class="flex flex-wrap gap-1 mt-2 justify-center">
+                <span class="country-highlight">Okavango</span>
+                <span class="country-highlight">Wildlife</span>
+                <span class="country-highlight">Desert</span>
+              </div>
+            </div>
+            <div class="country-card-back">
+              <h3>Botswana</h3>
+              <p>Pristine wilderness, Okavango Delta, and luxury safari camps</p>
+              <button class="btn">Explore Lodges</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="country-card slide-in delayed" style="animation-delay: 0.4s">
+          <div class="country-card-inner">
+            <div class="country-card-front">
+              <div class="w-16 h-16 rounded-full bg-cover mb-3" style="background-image: url('https://flagcdn.com/w320/na.png')"></div>
+              <h3 class="font-bold">Namibia</h3>
+              <div class="flex flex-wrap gap-1 mt-2 justify-center">
+                <span class="country-highlight">Dunes</span>
+                <span class="country-highlight">Coast</span>
+                <span class="country-highlight">Wilderness</span>
+              </div>
+            </div>
+            <div class="country-card-back">
+              <h3>Namibia</h3>
+              <p>Epic sand dunes, dramatic coastlines, and unique wildlife</p>
+              <button class="btn">Explore Lodges</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="country-card slide-in delayed" style="animation-delay: 0.6s">
+          <div class="country-card-inner">
+            <div class="country-card-front">
+              <div class="w-16 h-16 rounded-full bg-cover mb-3" style="background-image: url('https://flagcdn.com/w320/mz.png')"></div>
+              <h3 class="font-bold">Mozambique</h3>
+              <div class="flex flex-wrap gap-1 mt-2 justify-center">
+                <span class="country-highlight">Islands</span>
+                <span class="country-highlight">Diving</span>
+                <span class="country-highlight">Culture</span>
+              </div>
+            </div>
+            <div class="country-card-back">
+              <h3>Mozambique</h3>
+              <p>Pristine beaches, turquoise waters, and vibrant culture</p>
+              <button class="btn">Explore Resorts</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Hotels -->
+    <div class="mb-16">
+      <h2 class="text-3xl font-bold mb-12 text-center section-title fade-in">Signature Safari Lodges</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="feature-card p-6 fade-in">
+          <div class="flex items-start mb-4">
+            <div class="bg-amber-500/20 p-3 rounded-lg mr-4 feature-icon">
+              <i class="fas fa-crown text-amber-400 text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-1">Wildlife Experiences</h3>
+              <p class="text-slate-400">Lodges with exceptional game viewing opportunities</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="feature-card p-6 fade-in delayed">
+          <div class="flex items-start mb-4">
+            <div class="bg-emerald-500/20 p-3 rounded-lg mr-4 feature-icon">
+              <i class="fas fa-leaf text-emerald-400 text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-1">Eco-Friendly</h3>
+              <p class="text-slate-400">Sustainable properties with minimal environmental impact</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="feature-card p-6 fade-in delayed" style="animation-delay: 0.4s">
+          <div class="flex items-start mb-4">
+            <div class="bg-rose-500/20 p-3 rounded-lg mr-4 feature-icon">
+              <i class="fas fa-heart text-rose-400 text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-1">Romantic Getaways</h3>
+              <p class="text-slate-400">Perfect properties for honeymoons and special occasions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="mb-12">
+      <h2 class="text-3xl font-bold mb-8 section-title fade-in">Find Your Perfect Stay</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 filter-section p-6 fade-in">
+        <!-- Search -->
+        <div class="md:col-span-2">
+          <label for="searchInput" class="block text-sm font-semibold mb-1 text-slate-300">Search</label>
+          <div class="relative">
+            <i class="fas fa-search absolute left-3 top-3 text-slate-400"></i>
+            <input id="searchInput" type="text" placeholder="Lodge name or location"
+                   class="w-full pl-10 pr-3 py-2.5 bg-slate-800 border border-slate-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                   aria-label="Search hotels by name or location" />
+          </div>
+        </div>
+
+        <!-- Price Range -->
+        <div class="md:col-span-2">
+          <label for="priceRange" class="block text-sm font-semibold mb-1 text-slate-300">
+            Max Price: <span id="priceValue" aria-live="polite" class="text-amber-400">ZAR 15,000</span>
+          </label>
+          <input id="priceRange" type="range" min="1000" max="45000" value="15000"
+                 class="w-full" aria-label="Price range slider" />
+          <div class="flex justify-between text-xs text-slate-400 mt-1">
+            <span>ZAR 1,000</span>
+            <span>ZAR 45,000</span>
+          </div>
+        </div>
+
+        <!-- Ratings -->
+        <div>
+          <fieldset>
+            <legend class="block text-sm font-semibold mb-1 text-slate-300">Rating</legend>
+            <div class="flex flex-wrap gap-3">
+              <label class="flex items-center"><input type="checkbox" class="rating mr-2" value="5" aria-label="5 star rating" checked /> <span class="text-amber-400">★★★★★</span></label>
+              <label class="flex items-center"><input type="checkbox" class="rating mr-2" value="4" aria-label="4 star rating" /> <span class="text-amber-400">★★★★</span></label>
+              <label class="flex items-center"><input type="checkbox" class="rating mr-2" value="3" aria-label="3 star rating" /> <span class="text-amber-400">★★★</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Type -->
+        <div>
+          <fieldset>
+            <legend class="block text-sm font-semibold mb-1 text-slate-300">Type</legend>
+            <div class="flex flex-col gap-2">
+              <label class="flex items-center"><input type="checkbox" class="type mr-2" value="Lodge" checked aria-label="Lodge type" /> <span>Safari Lodge</span></label>
+              <label class="flex items-center"><input type="checkbox" class="type mr-2" value="Resort" aria-label="Resort type" /> <span>Beach Resort</span></label>
+              <label class="flex items-center"><input type="checkbox" class="type mr-2" value="Hotel" aria-label="Hotel type" /> <span>City Hotel</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Amenities -->
+        <div class="md:col-span-4">
+          <fieldset>
+            <legend class="block text-sm font-semibold mb-1 text-slate-300">Amenities</legend>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+              <label class="flex items-center"><input type="checkbox" class="amenity mr-2" value="Pool" aria-label="Pool amenity" checked /> <span>Swimming Pool</span></label>
+              <label class="flex items-center"><input type="checkbox" class="amenity mr-2" value="Spa" aria-label="Spa amenity" /> <span>Spa</span></label>
+              <label class="flex items-center"><input type="checkbox" class="amenity mr-2" value="Safari" checked aria-label="Safari amenity" /> <span>Safari Drives</span></label>
+              <label class="flex items-center"><input type="checkbox" class="amenity mr-2" value="Beach" aria-label="Beach amenity" /> <span>Beach Access</span></label>
+              <label class="flex items-center"><input type="checkbox" class="amenity mr-2" value="Family" aria-label="Family amenity" /> <span>Family Friendly</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Currency Toggle -->
+        <div class="md:col-span-2">
+          <label for="currencyToggle" class="block text-sm font-semibold mb-1 text-slate-300">Currency</label>
+          <div class="relative">
+            <i class="fas fa-money-bill-wave absolute left-3 top-3 text-slate-400"></i>
+            <select id="currencyToggle" class="pl-10 pr-3 py-2.5 bg-slate-800 border border-slate-700 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent" aria-label="Select currency">
+              <option value="ZAR">ZAR - South African Rand</option>
+              <option value="USD">USD - US Dollar</option>
+              <option value="EUR">EUR - Euro</option>
+              <option value="GBP">GBP - British Pound</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Clear Filters Button -->
+        <div class="md:col-span-2 flex items-end">
+          <button id="clearFilters" class="clear-btn w-full px-4 py-2.5 rounded-lg font-semibold flex items-center justify-center gap-2" aria-label="Clear all filters">
+            <i class="fas fa-times"></i> Clear All Filters
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="hidden text-center my-12">
+      <div class="inline-block loading-spinner rounded-full h-12 w-12 border-t-2 border-b-2"></div>
+      <p class="mt-4 text-slate-400">Finding the perfect stays for you...</p>
+    </div>
+
+    <!-- Results Counter -->
+    <div id="resultsCounter" class="mb-4 text-slate-400 text-lg font-medium fade-in">Showing 9 luxury accommodations</div>
+
+    <!-- Hotel Results -->
+    <div id="results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Hotel cards will be dynamically inserted here -->
+    </div>
+
+    <!-- Pagination -->
+    <div id="pagination" class="flex justify-center mt-12 mb-6 gap-2 fade-in">
+      <button id="prevPage" class="pagination-btn px-6 py-3 rounded-lg font-medium flex items-center gap-2 disabled:opacity-40" aria-label="Previous page">
+        <i class="fas fa-chevron-left"></i> Previous
+      </button>
+      <span id="pageInfo" class="px-6 py-3 font-medium">Page 1 of 2</span>
+      <button id="nextPage" class="pagination-btn px-6 py-3 rounded-lg font-medium flex items-center gap-2" aria-label="Next page">
+        Next <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    
+    <!-- Footer - UPDATED -->
+    <footer class="mt-16 pt-8 pb-12 border-t border-slate-700/50">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3 class="logo text-xl mb-4">
+            <i class="fas fa-campground	"></i>
+            Ok Africa Tours and Travel
+          </h3>
+          <p class="text-slate-400 mb-4">Discover the finest luxury accommodations across Southern Africa's most spectacular destinations.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Destinations</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-map-marker-alt"></i> South Africa</a></li>
+            <li><a href="#"><i class="fas fa-map-marker-alt"></i> Botswana</a></li>
+            <li><a href="#"><i class="fas fa-map-marker-alt"></i> Namibia</a></li>
+            <li><a href="#"><i class="fas fa-map-marker-alt"></i> Zimbabwe</a></li>
+            <li><a href="#"><i class="fas fa-map-marker-alt"></i> Mozambique</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Experiences</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-paw"></i> Safari Lodges</a></li>
+            <li><a href="#"><i class="fas fa-umbrella-beach"></i> Beach Resorts</a></li>
+            <li><a href="#"><i class="fas fa-wine-glass-alt"></i> Wine Estates</a></li>
+            <li><a href="#"><i class="fas fa-train"></i> Luxury Trains</a></li>
+            <li><a href="#"><i class="fas fa-hiking"></i> Adventure</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-map-marker-alt"></i> Cape Town, South Africa</a></li>
+            <li><a href="tel:+27 81 088 8805"><i class="fas fa-phone"></i> +27 81 088 8805</a></li>
+            <li><a href="tel:+254 706 467999"><i class="fas fa-phone"></i> +254 706 467999</a></li>
+            <li><a href="mailto:stan.chokoe@outlook.com"><i class="fas fa-envelope"></i> stan.chokoe@outlook.com</a></li>
+            <li><a href="#"><i class="fas fa-headset"></i> 24/7 Support</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 LuxStay Southern Africa. All rights reserved.</p>
+        <p>Designed with <i class="fas fa-heart text-rose-400"></i> for unforgettable African experiences</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const hotels = [
+      {
+        name: "Singita Lebombo Lodge",
+        location: "Kruger National Park, South Africa",
+        price: 32000,
+        rating: 5,
+        type: "Lodge",
+        mealPlan: "All Inclusive",
+        amenities: ["Game Drives", "Infinity Pool", "Spa", "Wine Cellar"],
+        image: "https://images.unsplash.com/photo-1615572359974-ee6e9a33b0a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Royal Malewane",
+        location: "Thornybush Reserve, South Africa",
+        price: 45000,
+        rating: 5,
+        type: "Lodge",
+        mealPlan: "Full Board",
+        amenities: ["Luxury Suites", "Spa", "Private Pool", "Game Drives"],
+        image: "https://images.unsplash.com/photo-1615571022219-eb45cf7faa9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "&Beyond Ngala Safari Lodge",
+        location: "Kruger National Park, South Africa",
+        price: 28500,
+        rating: 5,
+        type: "Lodge",
+        mealPlan: "All Inclusive",
+        amenities: ["Game Drives", "Bush Walks", "Swimming Pool", "Spa"],
+        image: "https://images.unsplash.com/photo-1566911783363-4b3a1e0b1ab8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Mombo Camp",
+        location: "Okavango Delta, Botswana",
+        price: 38000,
+        rating: 5,
+        type: "Camp",
+        mealPlan: "Full Board",
+        amenities: ["Wildlife Viewing", "Luxury Tents", "Game Drives", "Mokoro Excursions"],
+        image: "https://images.unsplash.com/photo-1566911783363-4b3a1e0b1ab8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Sossusvlei Desert Lodge",
+        location: "Namib Desert, Namibia",
+        price: 29500,
+        rating: 5,
+        type: "Lodge",
+        mealPlan: "All Inclusive",
+        amenities: ["Desert Views", "Stargazing", "Guided Walks", "Swimming Pool"],
+        image: "https://images.unsplash.com/photo-1586374579355-bfcae1d502f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Azura Benguerra",
+        location: "Benguerra Island, Mozambique",
+        price: 24500,
+        rating: 5,
+        type: "Resort",
+        mealPlan: "All Inclusive",
+        amenities: ["Private Beach", "Diving", "Spa", "Water Sports"],
+        image: "https://images.unsplash.com/photo-1593111774240-d529f12f4b84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "The Silo Hotel",
+        location: "Cape Town, South Africa",
+        price: 19500,
+        rating: 5,
+        type: "Hotel",
+        mealPlan: "Bed & Breakfast",
+        amenities: ["Rooftop Pool", "Art Gallery", "Spa", "City Views"],
+        image: "https://images.unsplash.com/photo-1591085686350-798c0f9faa7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Victoria Falls River Lodge",
+        location: "Zambezi National Park, Zimbabwe",
+        price: 21500,
+        rating: 5,
+        type: "Lodge",
+        mealPlan: "Full Board",
+        amenities: ["River Views", "Game Drives", "Spa", "Victoria Falls Access"],
+        image: "https://images.unsplash.com/photo-1586375300773-8384e3e4916f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Matetsi Victoria Falls",
+        location: "Zambezi River, Zimbabwe",
+        price: 27500,
+        rating: 5,
+        type: "Lodge",
+        mealPlan: "All Inclusive",
+        amenities: ["River Cruises", "Game Drives", "Spa", "Private Pools"],
+        image: "https://images.unsplash.com/photo-1586375300773-8384e3e4916f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Ellerman House",
+        location: "Cape Town, South Africa",
+        price: 22500,
+        rating: 5,
+        type: "Hotel",
+        mealPlan: "Bed & Breakfast",
+        amenities: ["Ocean Views", "Art Collection", "Wine Gallery", "Spa"],
+        image: "https://images.unsplash.com/photo-1591085686350-798c0f9faa7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Jack's Camp",
+        location: "Makgadikgadi Pans, Botswana",
+        price: 31500,
+        rating: 5,
+        type: "Camp",
+        mealPlan: "Full Board",
+        amenities: ["Desert Safari", "Meerkats", "Cultural Visits", "Pool"],
+        image: "https://images.unsplash.com/photo-1615572359974-ee6e9a33b0a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "The Oyster Box",
+        location: "Umhlanga, South Africa",
+        price: 12500,
+        rating: 5,
+        type: "Hotel",
+        mealPlan: "Bed & Breakfast",
+        amenities: ["Ocean Views", "Spa", "Beach Access", "Historic"],
+        image: "https://images.unsplash.com/photo-1593111774240-d529f12f4b84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Sabi Sabi Earth Lodge",
+        location: "Sabi Sand Reserve, South Africa",
+        price: 34500,
+        rating: 5,
+        type: "Lodge",
+        mealPlan: "All Inclusive",
+        amenities: ["Underground Wine Cellar", "Spa", "Game Drives", "Art"],
+        image: "https://images.unsplash.com/photo-1615571022219-eb45cf7faa9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "Sandibe Okavango",
+        location: "Okavango Delta, Botswana",
+        price: 39500,
+        rating: 5,
+        type: "Lodge",
+        mealPlan: "All Inclusive",
+        amenities: ["Mokoro Excursions", "Game Drives", "Spa", "Wildlife"],
+        image: "https://images.unsplash.com/photo-1566911783363-4b3a1e0b1ab8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      },
+      {
+        name: "The Twelve Apostles",
+        location: "Cape Town, South Africa",
+        price: 9500,
+        rating: 5,
+        type: "Hotel",
+        mealPlan: "Bed & Breakfast",
+        amenities: ["Mountain Views", "Spa", "Helipad", "Cinema"],
+        image: "https://images.unsplash.com/photo-1591085686350-798c0f9faa7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600&q=80"
+      }
+    ];
+
+    const exchangeRates = {
+      ZAR: 1,
+      USD: 0.054,
+      EUR: 0.050,
+      GBP: 0.044
+    };
+
+    const currencySymbols = {
+      ZAR: "ZAR",
+      USD: "$",
+      EUR: "€",
+      GBP: "£"
+    };
+
+    // DOM Elements
+    const priceRange = document.getElementById("priceRange");
+    const priceValue = document.getElementById("priceValue");
+    const resultsContainer = document.getElementById("results");
+    const searchInput = document.getElementById("searchInput");
+    const currencyToggle = document.getElementById("currencyToggle");
+    const clearFilters = document.getElementById("clearFilters");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+    const pagination = document.getElementById("pagination");
+    const prevPage = document.getElementById("prevPage");
+    const nextPage = document.getElementById("nextPage");
+    const pageInfo = document.getElementById("pageInfo");
+    const resultsCounter = document.getElementById("resultsCounter");
+    const fab = document.getElementById("fab");
+
+    // State variables
+    let currentCurrency = "ZAR";
+    let currentPage = 1;
+    const hotelsPerPage = 9;
+    let filteredHotels = [];
+    let favorites = new Set();
+
+    // Initialize
+    document.addEventListener("DOMContentLoaded", () => {
+      filteredHotels = [...hotels];
+      renderHotels();
+      // Add animation classes to elements
+      document.querySelectorAll('.fade-in, .slide-in').forEach(el => {
+        el.style.opacity = "0";
+      });
+      
+      setTimeout(() => {
+        document.querySelectorAll('.fade-in, .slide-in').forEach(el => {
+          el.style.opacity = "1";
+        });
+      }, 100);
+      
+      // Scroll event for FAB
+      window.addEventListener('scroll', toggleFabVisibility);
+    });
+
+    function toggleFabVisibility() {
+      if (window.scrollY > 300) {
+        fab.classList.add('visible');
+      } else {
+        fab.classList.remove('visible');
+      }
+    }
+    
+    fab.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    function renderStars(rating) {
+      return `<span class="text-amber-400" aria-label="${rating} out of 5 stars">${"★".repeat(rating)}${"☆".repeat(5 - rating)}</span>`;
+    }
+
+    function convertPrice(price) {
+      const rate = exchangeRates[currentCurrency];
+      return Math.round(price * rate);
+    }
+
+    function formatPrice(price) {
+      return price.toLocaleString();
+    }
+
+    function updatePriceDisplay() {
+      const selectedPrice = parseInt(priceRange.value);
+      const convertedPrice = convertPrice(selectedPrice);
+      priceValue.textContent = `${currencySymbols[currentCurrency]} ${formatPrice(convertedPrice)}`;
+    }
+
+    function toggleFavorite(hotelName) {
+      if (favorites.has(hotelName)) {
+        favorites.delete(hotelName);
+      } else {
+        favorites.add(hotelName);
+      }
+      renderHotels();
+    }
+
+    function renderHotels() {
+      loadingSpinner.classList.remove("hidden");
+      resultsContainer.innerHTML = "";
+      
+      setTimeout(() => {
+        if (filteredHotels.length === 0) {
+          resultsContainer.innerHTML = `
+            <div class="col-span-full text-center py-12">
+              <div class="inline-block bg-slate-800 p-6 rounded-full mb-4">
+                <i class="fas fa-hotel text-4xl text-amber-500"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">No matching accommodations found</h3>
+              <p class="text-slate-400 max-w-md mx-auto">Try adjusting your filters to find more options. Clear some filters or try a different search term.</p>
+            </div>
+          `;
+          pagination.classList.add("hidden");
+          resultsCounter.innerHTML = "0 accommodations found";
+          loadingSpinner.classList.add("hidden");
+          return;
+        }
+
+        // Update results counter
+        resultsCounter.innerHTML = `Showing ${Math.min(filteredHotels.length, hotelsPerPage)} of ${filteredHotels.length} luxury accommodations`;
+
+        // Pagination logic
+        const totalPages = Math.ceil(filteredHotels.length / hotelsPerPage);
+        const startIndex = (currentPage - 1) * hotelsPerPage;
+        const paginatedHotels = filteredHotels.slice(startIndex, startIndex + hotelsPerPage);
+
+        paginatedHotels.forEach(hotel => {
+          const isFavorite = favorites.has(hotel.name);
+          const card = document.createElement("div");
+          card.className = "hotel-card";
+          card.innerHTML = `
+            <div class="relative overflow-hidden">
+              <img src="${hotel.image}" alt="${hotel.name}" class="w-full h-60 object-cover hotel-image" onerror="this.src='https://images.unsplash.com/photo-1566911783363-4b3a1e0b1ab8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80'"/>
+              <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite('${hotel.name}')">
+                <i class="fas fa-heart"></i>
+              </button>
+              <div class="absolute top-4 right-4 price-tag">
+                ${currencySymbols[currentCurrency]} ${formatPrice(convertPrice(hotel.price))}
+              </div>
+            </div>
+            <div class="p-5 card-gradient">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="text-xl font-bold text-slate-100">${hotel.name}</h3>
+                <div class="meal-badge">${hotel.mealPlan}</div>
+              </div>
+              
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fas fa-map-marker-alt text-amber-400"></i>
+                <span class="text-slate-300 text-sm">${hotel.location}</span>
+              </div>
+              
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-lg">
+                  ${renderStars(hotel.rating)}
+                </div>
+                <div class="type-badge">${hotel.type}</div>
+              </div>
+              
+              <div class="flex flex-wrap gap-2 mb-4">
+                ${hotel.amenities.map(a => `<span class="amenity-badge">${a}</span>`).join("")}
+              </div>
+              
+              <button class="w-full py-3 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 text-white rounded-lg font-medium transition-all book-btn">
+                Book Now
+              </button>
+            </div>
+          `;
+          resultsContainer.appendChild(card);
+        });
+
+        // Update pagination controls
+        updatePaginationControls(filteredHotels.length);
+        loadingSpinner.classList.add("hidden");
+      }, 500);
+    }
+
+    function updatePaginationControls(totalHotels) {
+      const totalPages = Math.ceil(totalHotels / hotelsPerPage);
+      
+      if (totalPages <= 1) {
+        pagination.classList.add("hidden");
+        return;
+      }
+      
+      pagination.classList.remove("hidden");
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+      prevPage.disabled = currentPage === 1;
+      nextPage.disabled = currentPage === totalPages;
+    }
+
+    function filterHotels() {
+      const selectedPrice = parseInt(priceRange.value);
+      const keyword = searchInput.value.toLowerCase();
+      const selectedRatings = Array.from(document.querySelectorAll(".rating:checked")).map(cb => parseInt(cb.value));
+      const selectedTypes = Array.from(document.querySelectorAll(".type:checked")).map(cb => cb.value);
+      const selectedAmenities = Array.from(document.querySelectorAll(".amenity:checked")).map(cb => cb.value);
+
+      filteredHotels = hotels.filter(hotel => {
+        return convertPrice(hotel.price) <= convertPrice(selectedPrice) &&
+          (selectedRatings.length === 0 || selectedRatings.includes(hotel.rating)) &&
+          (selectedTypes.length === 0 || selectedTypes.includes(hotel.type)) &&
+          selectedAmenities.every(am => hotel.amenities.includes(am)) &&
+          (hotel.name.toLowerCase().includes(keyword) || hotel.location.toLowerCase().includes(keyword));
+      });
+
+      currentPage = 1;
+      renderHotels();
+    }
+
+    function clearAllFilters() {
+      searchInput.value = "";
+      priceRange.value = 15000;
+      document.querySelectorAll(".rating, .type, .amenity").forEach(checkbox => {
+        checkbox.checked = false;
+      });
+      document.querySelector(".rating[value='5']").checked = true;
+      document.querySelector(".type[value='Lodge']").checked = true;
+      document.querySelector(".amenity[value='Pool']").checked = true;
+      document.querySelector(".amenity[value='Safari']").checked = true;
+      currencyToggle.value = "ZAR";
+      currentCurrency = "ZAR";
+      updatePriceDisplay();
+      filterHotels();
+    }
+
+    // Event Listeners
+    priceRange.addEventListener("input", () => {
+      updatePriceDisplay();
+      filterHotels();
+    });
+
+    searchInput.addEventListener("input", () => {
+      clearTimeout(searchInput.timer);
+      searchInput.timer = setTimeout(filterHotels, 300);
+    });
+
+    document.querySelectorAll(".rating, .type, .amenity").forEach(input => {
+      input.addEventListener("change", filterHotels);
+    });
+
+    currencyToggle.addEventListener("change", () => {
+      currentCurrency = currencyToggle.value;
+      updatePriceDisplay();
+      filterHotels();
+    });
+
+    clearFilters.addEventListener("click", clearAllFilters);
+
+    prevPage.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderHotels();
+      }
+    });
+
+    nextPage.addEventListener("click", () => {
+      const totalPages = Math.ceil(filteredHotels.length / hotelsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderHotels();
+      }
+    });
+
+    // Expose function to global scope for HTML onclick
+    window.toggleFavorite = toggleFavorite;
+
+    // Initialize price display
+    updatePriceDisplay();
+    
+    // Render initial hotels
+    renderHotels();
+  </script>
+</body>
+</html>
