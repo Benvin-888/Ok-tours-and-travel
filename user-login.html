@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up / Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
     <style>
         /* Custom styles for Inter font */
         body {
@@ -135,6 +137,7 @@
             </div>
             <button type="button" id="signup-google-button" class="w-full bg-white border border-gray-300 text-gray-800 font-bold py-3 px-4 rounded-lg flex items-center justify-center focus:outline-none focus:shadow-outline transition duration-200 ease-in-out transform hover:scale-105">
                 <img src="https://www.google.com/favicon.ico" alt="Google icon" class="w-5 h-5 mr-2">
+                
                 Sign up with Google
             </button>
         </form>
@@ -240,9 +243,6 @@
         const profileSetupModal = document.getElementById('profile-setup-modal');
         const modalSignInButton = document.getElementById('modal-sign-in-button');
         const modalContinueButton = document.getElementById('modal-continue-button');
-        const signupGoogleButton = document.getElementById('signup-google-button');
-        const loginGoogleButton = document.getElementById('login-google-button');
-
         // Elements for user profile modal
         const userProfileModal = document.getElementById('user-profile-modal');
         const profileImageContainer = document.getElementById('profile-image-container');
@@ -320,7 +320,8 @@
             hideProfileSetupModal();
             showUserProfileModal('simulated_user@gmail.com', 'Simulated User'); // Show user profile after setup
         });
-
+        ;
+ 
         modalContinueButton.addEventListener('click', function() {
             showMessage('Simulating "Continue without an account". Showing user profile...', 'success');
             hideProfileSetupModal();
@@ -386,13 +387,52 @@
                 showUserProfileModal('google_user@gmail.com', 'Google User'); // Show user profile after Google login
             }, 2000);
         }
-
-        // Event listener for Sign up with Google button
+        // Real Google Sign-In Integration
+        window.onload = function () {
+        google.accounts.id.initialize({
+            client_id: '233039971302-2jl3cimu8nkugilsq736kq1dd0up7as3.apps.googleusercontent.com',
+            callback: handleCredentialResponse
+        });
+        
+        google.accounts.id.disableAutoSelect();
+       
+        const signupGoogleButton = document.getElementById('signup-google-button');
+        const loginGoogleButton = document.getElementById('login-google-button');
+         if (signupGoogleButton) {
         signupGoogleButton.addEventListener('click', handleGoogleSignIn);
-
-        // Event listener for Login with Google button
+            }
+            if (loginGoogleButton) {
         loginGoogleButton.addEventListener('click', handleGoogleSignIn);
+            }
+        };
 
+        function handleGoogleSignIn() {
+            google.accounts.id.prompt(); // Display the One Tap prompt
+        }
+
+        function handleCredentialResponse(response) {
+        const token = response.credential;
+            fetch('google-login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ token })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showMessage('Google sign-in verified! Showing user profile...', 'success');
+                    showUserProfileModal(data.user.email, data.user.name);
+                } else {
+                    showMessage(data.message || 'Google sign-in failed.', 'error');
+                }
+            })
+            .catch(() => {
+                showMessage('An error occurred during Google sign-in.', 'error');
+            });
+        }
+    
         // Function to switch between forms
         function toggleForms() {
             if (signupForm.classList.contains('form-hidden')) {

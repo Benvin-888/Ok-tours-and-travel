@@ -3,90 +3,386 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OK Tours and Travel - Home</title>
+  <title>OK Tours and Travel - Discover Your Next Adventure</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                  url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                  url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiu4arqgPwIwAFayqszKq6KXjlCUkbTPyyyM3LtawS3bdBJVZF7dqO627X3jlPXxD0R1bWxBmhRvCoRnGo3Qct90qtvSKJTnRM4hCcQxMRpR91J0ndAWPZeQ79OeRKF50AbVG3wf-Mdm7o/s1600/wild-life-photography-8.jpg') no-repeat center center/cover;
+      min-height: 100vh;
       color: white;
-      text-align: center;
+      overflow-x: hidden;
     }
-
-    h1 {
-      font-size: 3em;
-      font-weight: 700;
-      margin-bottom: 40px;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-      animation: fadeInDown 1s ease-out;
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
     }
-
-    .login-options {
+    
+    /* Header styling - UPDATED */
+    header {
       display: flex;
-      gap: 30px;
-      animation: fadeInUp 1.5s ease-out;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      animation: fadeInDown 1s ease-out;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 15px;
+      margin-bottom: 20px;
+      padding: 15px 25px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-
-    a.btn {
-      padding: 16px 32px;
-      background: #f39c12;
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .logo img {
+      height: 50px;
+      width: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+    
+    .logo img:hover {
+      transform: scale(1.05);
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #4ecdc4, #007bff, #ff6b6b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Navigation styling - ADDED */
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+    
+    nav a {
       color: white;
       text-decoration: none;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: background 0.3s, transform 0.3s;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 8px 15px;
+      border-radius: 8px;
     }
-
-    a.btn:hover {
-      background: #e67e22;
+    
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.1);
       transform: translateY(-2px);
     }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    
+    /* Hero section */
+    .hero {
+      text-align: center;
+      padding: 80px 0;
+      max-width: 800px;
+      margin: 0 auto;
     }
-
+    
+    .hero h2 {
+      font-size: 4.0rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      animation: fadeInUp 1s ease-out;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      opacity: 0.9;
+      animation: fadeInUp 1.2s ease-out;
+    }
+    
+    /* Login options */
+    .login-options {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 50px;
+      flex-wrap: wrap;
+      animation: fadeInUp 1.5s ease-out;
+    }
+    
+    .login-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      padding: 25px 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+      width: 180px;
+      text-align: center;
+    }
+    
+    .login-btn i {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+    
+    .login-btn span {
+      font-weight: 500;
+      font-size: 1.1rem;
+    }
+    
+    .login-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .login-btn:hover i {
+      transform: scale(1.1);
+    }
+    
+    .admin-btn {
+      background: linear-gradient(45deg, #4ecdc4, #007bff);
+    }
+    
+    .user-btn {
+      background: linear-gradient(45deg, #ff6b6b, #ff9e7d);
+    }
+    
+    .guest-btn {
+      background: linear-gradient(45deg, #7964e6, #a88beb);
+    }
+    
+    /* Features section */
+    .features {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 80px;
+      flex-wrap: wrap;
+      gap: 20px;
+      animation: fadeInUp 1.8s ease-out;
+    }
+    
+    .feature {
+      text-align: center;
+      max-width: 250px;
+      padding: 20px;
+    }
+    
+    .feature i {
+      font-size: 2.5rem;
+      color: #4ecdc4;
+      margin-bottom: 15px;
+    }
+    
+    .feature h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    
+    .feature p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 100px;
+      padding: 20px 0;
+      opacity: 0.7;
+      font-size: 0.9rem;
+      font-weight: 6.0rem;
+    }
+    
+    /* Animations */
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2em;
-        padding: 0 20px;
+      from {
+        opacity: 0;
+        transform: translateY(20px);
       }
-
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+      
+      nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .hero h2 {
+        font-size: 2.5rem;
+      }
+      
       .login-options {
         flex-direction: column;
-        gap: 20px;
+        align-items: center;
       }
-
-      a.btn {
-        width: 200px;
+      
+      .login-btn {
+        width: 100%;
+        max-width: 300px;
       }
+      
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    
+    /* Particles background effect */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      opacity: 0.3;
     }
   </style>
 </head>
 <body>
-
-  <h1>Welcome to OK Tours and Travel</h1>
-
-  <div class="login-options">
-    <a href="admin-login.html" class="btn">Admin Login</a>
-    <a href="user-login.html" class="btn">User Login</a>
-    <a href="home-screen.html" class="btn">Enter as a guest </a>
+  <div class="particles" id="particles"></div>
+  
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="Logo.jpg" alt="OK Tours & Travel Logo">
+        <h1>OK Africa Tours & Travel</h1>
+      </div>
+      
+    </header>
+    
+    <section class="hero">
+      <h2>Ok Africa Tours and Travel</h2>
+      <p>Explore breathtaking destinations with our expertly crafted tours and travel experiences. Your journey of a lifetime starts here.</p>
+      
+      <div class="login-options">
+        <a href="admin-login.html" class="login-btn admin-btn">
+          <i class="fas fa-lock"></i>
+          <span>Admin Login</span>
+        </a>
+        <a href="user-login.html" class="login-btn user-btn">
+          <i class="fas fa-user"></i>
+          <span>User Login</span>
+        </a>
+        <a href="home-screen.html" class="login-btn guest-btn">
+          <i class="fas fa-eye"></i>
+          <span>Enter as Guest</span>
+        </a>
+      </div>
+    </section>
+    
+    <div class="features">
+      <div class="feature">
+        <i class="fas fa-route"></i>
+        <h3>Curated Experiences</h3>
+        <p>Handpicked destinations and activities for unforgettable memories</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Safe Travel</h3>
+        <p>Your safety is our priority with 24/7 support</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-tag"></i>
+        <h3>Best Value</h3>
+        <p>Premium experiences at competitive prices</p>
+      </div>
+    </div>
+    
+    <footer>
+      <p>&copy; 2023 OK Tours and Travel. All rights reserved.</p>
+    </footer>
   </div>
 
+  <script>
+    // Create particle background effect
+    document.addEventListener('DOMContentLoaded', function() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random properties for each particle
+        const size = Math.random() * 5 + 2;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const delay = Math.random() * 5;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animation = `float ${Math.random() * 10 + 5}s ease-in-out ${delay}s infinite`;
+        
+        particlesContainer.appendChild(particle);
+      }
+      
+      // Add floating animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes float {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          25% { transform: translateY(-20px) translateX(10px); }
+          50% { transform: translateY(-10px) translateX(20px); }
+          75% { transform: translateY(0px) translateX(10px); }
+        }
+      `;
+      document.head.appendChild(style);
+    });
+  </script>
 </body>
 </html>

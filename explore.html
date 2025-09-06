@@ -156,7 +156,7 @@
             background: 
                 linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                 url("background.jpg") no-repeat center center/cover;
-            background-attachment: fixed;
+            background-attachment: center;
         }
 
         /* Hero Content */
@@ -423,10 +423,12 @@
             transition: var(--transition);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
-            height: 450px;
+            height: 500px; /* Increased height to accommodate new button */
             animation: fadeInUp 0.6s ease forwards;
             opacity: 0;
             transform: translateY(30px);
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
@@ -468,6 +470,7 @@
 
         .card-content {
             padding: 25px;
+            flex-grow: 1;
         }
 
         .card-content h3 {
@@ -517,6 +520,7 @@
             align-items: center;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 20px;
+            margin-top: auto;
         }
 
         .price {
@@ -556,6 +560,87 @@
 
         .book-btn:hover::after {
             left: 100%;
+        }
+
+        /* NEW: Enhanced Book Now Button Below Card */
+        .book-now-container {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .book-now-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .book-now-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .book-now-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-now-btn:hover::before {
+            opacity: 1;
+        }
+
+        .book-now-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .book-now-btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            20% {
+                transform: scale(30, 30);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(50, 50);
+                opacity: 0;
+            }
         }
 
         /* Pagination */
@@ -709,6 +794,7 @@
             display: flex;
             gap: 15px;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
 
         .social-icons a {
@@ -770,6 +856,12 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+        }
+
         @media (max-width: 992px) {
             .hero h1 {
                 font-size: 3.5rem;
@@ -779,7 +871,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 868px) {
             .nav-links {
                 position: fixed;
                 top: 0;
@@ -816,16 +908,88 @@
             }
             
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: 3rem;
             }
             .hero p {
                 font-size: 1.2rem;
             }
             .section-title h2 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             .contact-container {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+                margin: 30px auto;
+            }
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            .cards-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 30px;
+            }
+            .card {
+                height: auto;
+                min-height: 500px;
+            }
+            .card-content p {
+                height: auto;
+                min-height: 80px;
+            }
+            .filters {
+                gap: 10px;
+            }
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 0 5%;
+                height: 90vh;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .hero p::before, 
+            .hero p::after {
+                display: none;
+            }
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            .section-title p {
+                font-size: 1rem;
+            }
+            .contact-form {
+                padding: 25px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .logo-text {
+                font-size: 1.5rem;
             }
         }
 
@@ -833,21 +997,44 @@
             .hero h1 {
                 font-size: 2.2rem;
             }
-            .cards-container {
-                grid-template-columns: 1fr;
-            }
-            .filters {
-                gap: 10px;
-            }
             .filter-btn {
                 padding: 8px 15px;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
-            .logo-text {
+            .card-content h3 {
                 font-size: 1.5rem;
             }
-            .hero p::before, .hero p::after {
-                width: 20px;
+            .card-content {
+                padding: 20px;
+            }
+            .book-now-btn {
+                padding: 12px;
+                font-size: 1rem;
+            }
+            .footer-column h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .filters {
+                gap: 8px;
+            }
+            .filter-btn {
+                padding: 7px 12px;
+                font-size: 0.8rem;
+            }
+            .card-content h3 {
+                font-size: 1.4rem;
+            }
+            .price {
+                font-size: 1.3rem;
+            }
+            .book-btn {
+                padding: 7px 15px;
             }
         }
     </style>
@@ -913,6 +1100,7 @@
             <button class="page-btn active">1</button>
             <button class="page-btn">2</button>
             <button class="page-btn">3</button>
+            <button class="page-btn">4</button>
             <button class="page-btn next-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </section>
@@ -989,7 +1177,7 @@
         <div class="footer-content">
             <div class="footer-column">
                 <div class="logo-container">
-                    <img src="Logo.jpg" alt="Ok Africa Tours Logo" class="logo-img">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Ok Africa Tours Logo" class="logo-img">
                     <div class="logo-text">Ok Africa Tours</div>
                 </div>
                 <p>Creating unforgettable travel experiences across Africa and beyond. We specialize in wildlife safaris, adventure tours, and cultural experiences.</p>
@@ -1036,7 +1224,7 @@
     </footer>
 
     <script>
-        // Destination data
+        // Destination data - 24 destinations
         const destinations = [
             {
                 name: "Maasai Mara National Reserve",
@@ -1111,6 +1299,222 @@
                     "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                     "https://images.unsplash.com/photo-1593692909680-1f9b8b2f0d5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                 ]
+            },
+            {
+                name: "Vasco da Gama Pillar",
+                country: "Kenya",
+                flag: "https://flagcdn.com/w80/ke.png",
+                price: "$75",
+                description: "Visit this historic landmark in Malindi, erected by the Portuguese explorer Vasco da Gama in 1498. A significant piece of maritime history.",
+                activities: ["Historical Tour", "Photography", "Cultural Experience"],
+                images: [
+                    "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1592409065737-a253f2c16c43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Fort Jesus",
+                country: "Kenya",
+                flag: "https://flagcdn.com/w80/ke.png",
+                price: "$90",
+                description: "Explore this 16th-century Portuguese fort in Mombasa, a UNESCO World Heritage Site with rich history and stunning ocean views.",
+                activities: ["Historical Tour", "Museum Visit", "Photography"],
+                images: [
+                    "https://images.unsplash.com/photo-1592409065737-a253f2c16c43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Amboseli National Park",
+                country: "Kenya",
+                flag: "https://flagcdn.com/w80/ke.png",
+                price: "$950",
+                description: "Famous for its large elephant herds and views of Mount Kilimanjaro across the border in Tanzania. A photographer's paradise.",
+                activities: ["Wildlife Safari", "Photography", "Bird Watching"],
+                images: [
+                    "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Diani Beach",
+                country: "Kenya",
+                flag: "https://flagcdn.com/w80/ke.png",
+                price: "$780",
+                description: "Relax on this pristine white sand beach with crystal clear waters. Perfect for swimming, sunbathing, and water sports.",
+                activities: ["Beach Relaxation", "Snorkeling", "Water Sports"],
+                images: [
+                    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Lake Nakuru National Park",
+                country: "Kenya",
+                flag: "https://flagcdn.com/w80/ke.png",
+                price: "$820",
+                description: "Famous for its flamingos and rhino sanctuary. A birdwatcher's paradise with over 400 species of birds.",
+                activities: ["Bird Watching", "Game Drives", "Photography"],
+                images: [
+                    "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1504871247426-ea36cd059b5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Samburu National Reserve",
+                country: "Kenya",
+                flag: "https://flagcdn.com/w80/ke.png",
+                price: "$890",
+                description: "Home to unique wildlife species like the Grevy's zebra, Somali ostrich, and gerenuk. A rugged and beautiful landscape.",
+                activities: ["Wildlife Safari", "Cultural Visits", "Photography"],
+                images: [
+                    "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Table Mountain",
+                country: "South Africa",
+                flag: "https://flagcdn.com/w80/za.png",
+                price: "$150",
+                description: "Iconic flat-topped mountain overlooking Cape Town. Take a cable car or hike to the top for breathtaking views.",
+                activities: ["Hiking", "Cable Car Ride", "Photography"],
+                images: [
+                    "https://images.unsplash.com/photo-1523843268913-27a444aa67c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1592409065737-a253f2c16c43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Bwindi Impenetrable Forest",
+                country: "Uganda",
+                flag: "https://flagcdn.com/w80/ug.png",
+                price: "$1,350",
+                description: "Home to nearly half of the world's mountain gorillas. An unforgettable trekking experience in dense rainforest.",
+                activities: ["Gorilla Trekking", "Bird Watching", "Nature Walks"],
+                images: [
+                    "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1505576391880-b3f9d713dc4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Pyramids of Giza",
+                country: "Egypt",
+                flag: "https://flagcdn.com/w80/eg.png",
+                price: "$650",
+                description: "The last remaining wonder of the ancient world. Marvel at these incredible architectural feats dating back over 4,500 years.",
+                activities: ["Historical Tour", "Camel Riding", "Photography"],
+                images: [
+                    "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Zanzibar Beaches",
+                country: "Tanzania",
+                flag: "https://flagcdn.com/w80/tz.png",
+                price: "$1,100",
+                description: "Pristine white sand beaches with turquoise waters. Perfect for relaxation, spice tours, and exploring Stone Town.",
+                activities: ["Beach Relaxation", "Snorkeling", "Cultural Tours"],
+                images: [
+                    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Okavango Delta",
+                country: "Botswana",
+                flag: "https://flagcdn.com/w80/bw.png",
+                price: "$1,650",
+                description: "Unique inland delta with incredible wildlife. Explore by traditional mokoro canoe for an authentic safari experience.",
+                activities: ["Mokoro Safari", "Wildlife Viewing", "Bird Watching"],
+                images: [
+                    "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1504871247426-ea36cd059b5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Sossusvlei Dunes",
+                country: "Namibia",
+                flag: "https://flagcdn.com/w80/na.png",
+                price: "$1,200",
+                description: "Some of the highest sand dunes in the world. A spectacular landscape for photography and adventure.",
+                activities: ["Dune Climbing", "Photography", "Hot Air Balloon"],
+                images: [
+                    "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Ngorongoro Crater",
+                country: "Tanzania",
+                flag: "https://flagcdn.com/w80/tz.png",
+                price: "$1,450",
+                description: "The world's largest inactive volcanic caldera with incredibly dense wildlife populations. Often called 'Africa's Garden of Eden'.",
+                activities: ["Game Drives", "Photography", "Cultural Visits"],
+                images: [
+                    "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1505576391880-b3f9d713dc4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Serengeti National Park",
+                country: "Tanzania",
+                flag: "https://flagcdn.com/w80/tz.png",
+                price: "$1,550",
+                description: "Famous for the annual migration of over 1.5 million wildebeest and 250,000 zebras. Endless plains teeming with wildlife.",
+                activities: ["Wildlife Safari", "Hot Air Balloon", "Photography"],
+                images: [
+                    "https://images.unsplash.com/photo-1598880791214-4fea4a0f9053?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Mount Kenya",
+                country: "Kenya",
+                flag: "https://flagcdn.com/w80/ke.png",
+                price: "$1,350",
+                description: "Africa's second highest mountain with diverse vegetation zones. A challenging but rewarding climb with spectacular views.",
+                activities: ["Mountain Climbing", "Trekking", "Wildlife Spotting"],
+                images: [
+                    "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1589556183236-1a9a5aefbd4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Lake Victoria",
+                country: "Kenya/Uganda/Tanzania",
+                flag: "https://flagcdn.com/w80/ke.png",
+                price: "$680",
+                description: "Africa's largest lake and the world's second largest freshwater lake. Rich in biodiversity and cultural significance.",
+                activities: ["Fishing", "Boat Rides", "Bird Watching"],
+                images: [
+                    "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1504871247426-ea36cd059b5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Cape of Good Hope",
+                country: "South Africa",
+                flag: "https://flagcdn.com/w80/za.png",
+                price: "$220",
+                description: "A spectacular headland with dramatic cliffs and ocean views. Where the Atlantic and Indian Oceans meet.",
+                activities: ["Sightseeing", "Hiking", "Photography"],
+                images: [
+                    "https://images.unsplash.com/photo-1523843268913-27a444aa67c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1592409065737-a253f2c16c43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                name: "Fish River Canyon",
+                country: "Namibia",
+                flag: "https://flagcdn.com/w80/na.png",
+                price: "$950",
+                description: "The second largest canyon in the world offering breathtaking views and challenging hiking trails through dramatic landscapes.",
+                activities: ["Hiking", "Photography", "Nature Walks"],
+                images: [
+                    "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
             }
         ];
 
@@ -1158,11 +1562,24 @@
                     </div>
                     <div class="card-footer">
                         <div class="price">${destination.price}</div>
-                        <button class="book-btn">Book Now</button>
+                        <button class="book-btn">View Details</button>
                     </div>
+                </div>
+                <div class="book-now-container">
+                    <button class="book-now-btn" data-destination="${destination.name}">
+                        <i class="fas fa-calendar-check"></i> Book Now
+                    </button>
                 </div>
             </div>
             `;
+        }
+
+        // Function to book a destination
+        function bookDestination(destinationName) {
+            // Encode the destination name for URL
+            const encodedName = encodeURIComponent(destinationName);
+            // Redirect to booking.php with destination parameter
+            window.location.href = `booking.php?destination=${encodedName}`;
         }
 
         // Function to render cards for current page
@@ -1180,12 +1597,11 @@
             // Update pagination UI
             updatePagination();
             
-            // Add event listeners to new cards
-            document.querySelectorAll('.book-btn').forEach(btn => {
+            // Add event listeners to new book now buttons
+            document.querySelectorAll('.book-now-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const card = btn.closest('.card');
-                    const destination = card.querySelector('h3').textContent;
-                    alert(`Booking request for: ${destination}`);
+                    const destination = btn.getAttribute('data-destination');
+                    bookDestination(destination);
                 });
             });
         }

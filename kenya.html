@@ -254,6 +254,17 @@
       background: linear-gradient(90deg, var(--primary), var(--secondary));
       border-radius: 2px;
     }
+
+    .book-now-btn {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .book-now-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
+    }
   </style>
 </head>
 <body class="p-6">
@@ -718,6 +729,14 @@
       renderHotels();
     }
 
+    // Function to handle booking
+    function bookNow(hotelName) {
+      // Encode the hotel name for URL
+      const encodedHotelName = encodeURIComponent(hotelName);
+      // Redirect to booking.php with hotel name as parameter
+      window.location.href = `booking.php?hotel=${encodedHotelName}`;
+    }
+
     function renderHotels() {
       loadingSpinner.classList.remove("hidden");
       resultsContainer.innerHTML = "";
@@ -784,7 +803,7 @@
                 ${hotel.amenities.map(a => `<span class="amenity-badge">${a}</span>`).join("")}
               </div>
               
-              <button class="w-full py-3 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 text-white rounded-lg font-medium transition-all">
+              <button class="book-now-btn w-full py-3 rounded-lg font-medium transition-all" onclick="bookNow('${hotel.name}')">
                 Book Now
               </button>
             </div>
@@ -881,8 +900,9 @@
       }
     });
 
-    // Expose function to global scope for HTML onclick
+    // Expose functions to global scope for HTML onclick
     window.toggleFavorite = toggleFavorite;
+    window.bookNow = bookNow;
 
     // Initialize price display
     updatePriceDisplay();

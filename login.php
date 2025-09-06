@@ -33,7 +33,6 @@ if ($isAdminLogin) {
     $result = $stmt->get_result();
 
     if ($admin = $result->fetch_assoc()) {
-        // Note: You should hash admin passwords too!
         if ($password === $admin['password']) {
             $_SESSION['admin_logged_in'] = true;
             $_SESSION['admin_username'] = $admin['username'];

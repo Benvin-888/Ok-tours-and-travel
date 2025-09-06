@@ -1,0 +1,4 @@
+.oktours.sql
+# Ignore the Oktours SQL database file
+*.log
+

@@ -7,16 +7,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* CSS Variables for consistent theming */
     :root {
       --gradient-start: #833ab4;
       --gradient-middle: #fd1d1d;
       --gradient-end: #fcb045;
+      --primary-accent: #fcb045;
+      --card-bg: rgba(255, 255, 255, 0.12);
+      --text-light: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.8);
+      --animation-timing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
@@ -25,7 +32,7 @@
       background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
-      color: #fff;
+      color: var(--text-light);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -75,13 +82,13 @@
     .logo {
       font-size: 28px;
       font-weight: 700;
-      color: white;
+      color: var(--text-light);
       display: flex;
       align-items: center;
     }
 
     .logo i {
-      color: #fcb045;
+      color: var(--primary-accent);
       margin-right: 10px;
       font-size: 32px;
     }
@@ -92,7 +99,7 @@
     }
 
     .nav-links a {
-      color: #fff;
+      color: var(--text-light);
       text-decoration: none;
       font-size: 18px;
       font-weight: 500;
@@ -102,7 +109,7 @@
     }
 
     .nav-links a:hover {
-      color: #fcb045;
+      color: var(--primary-accent);
     }
 
     .nav-links a::after {
@@ -112,7 +119,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: #fcb045;
+      background: var(--primary-accent);
       transition: width 0.3s ease;
     }
 
@@ -120,9 +127,115 @@
       width: 100%;
     }
 
+    /* Confetti container */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 3s ease-in-out;
+    }
+
+    /* Countdown timer */
+    .countdown {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: var(--text-light);
+      padding: 10px 15px;
+      border-radius: 50px;
+      font-size: 16px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .countdown i {
+      color: var(--primary-accent);
+    }
+
+    /* Progress tracker */
+    .progress-tracker {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto 40px;
+      position: relative;
+    }
+
+    .progress-step {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .progress-step.active {
+      background: var(--primary-accent);
+      box-shadow: 0 0 15px var(--primary-accent);
+    }
+
+    .progress-step i {
+      font-size: 14px;
+    }
+
+    .progress-tracker::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      z-index: 1;
+    }
+
+    .progress-tracker::after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary-accent);
+      z-index: 1;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1.5s ease;
+      animation: fillProgress 1.5s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    @keyframes fillProgress {
+      to { transform: scaleX(1); }
+    }
+
+    .step-label {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0.8;
+    }
+
     /* Main content */
     .thankyou-container {
-      max-width: 800px;
+      max-width: 900px;
       width: 90%;
       margin: 40px auto;
       background: rgba(255, 255, 255, 0.12);
@@ -157,6 +270,13 @@
       background: linear-gradient(90deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
     }
 
+    .success-animation {
+      position: relative;
+      margin: 0 auto 30px;
+      width: 120px;
+      height: 120px;
+    }
+
     .success-icon {
       width: 120px;
       height: 120px;
@@ -165,9 +285,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 30px;
       position: relative;
       animation: pulse 2s infinite;
+      z-index: 2;
     }
 
     @keyframes pulse {
@@ -178,7 +298,7 @@
 
     .success-icon i {
       font-size: 60px;
-      color: #fff;
+      color: var(--text-light);
       animation: scale 0.5s ease;
     }
 
@@ -186,6 +306,30 @@
       0% { transform: scale(0); }
       70% { transform: scale(1.2); }
       100% { transform: scale(1); }
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      animation: expand 1.5s ease-out infinite;
+    }
+
+    @keyframes expand {
+      0% {
+        width: 120px;
+        height: 120px;
+        top: 0;
+        left: 0;
+        opacity: 0.7;
+      }
+      100% {
+        width: 180px;
+        height: 180px;
+        top: -30px;
+        left: -30px;
+        opacity: 0;
+      }
     }
 
     h1 {
@@ -209,7 +353,45 @@
       background: rgba(255, 255, 255, 0.1);
       padding: 25px;
       border-radius: 15px;
-      border-left: 4px solid #fcb045;
+      border-left: 4px solid var(--primary-accent);
+    }
+
+    /* Next steps styling */
+    .next-steps {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 15px;
+      margin: 30px 0;
+      text-align: left;
+    }
+
+    .next-steps h3 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--primary-accent);
+    }
+
+    .steps-list {
+      list-style-type: none;
+    }
+
+    .steps-list li {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .steps-list li:before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--primary-accent);
+      font-weight: bold;
+      font-size: 18px;
     }
 
     .contact-info {
@@ -225,7 +407,9 @@
       padding: 20px;
       border-radius: 15px;
       min-width: 200px;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
     .contact-card:hover {
@@ -233,9 +417,26 @@
       background: rgba(255, 255, 255, 0.2);
     }
 
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-card:hover::before {
+      transform: scaleX(1);
+    }
+
     .contact-card i {
       font-size: 32px;
-      color: #fcb045;
+      color: var(--primary-accent);
       margin-bottom: 15px;
     }
 
@@ -249,14 +450,21 @@
       font-weight: 500;
     }
 
+    .action-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-top: 30px;
-      padding: 18px 45px;
+      padding: 18px 35px;
       background: rgba(255, 255, 255, 0.15);
-      color: white;
+      color: var(--text-light);
       font-weight: 600;
       border-radius: 50px;
       text-decoration: none;
@@ -266,6 +474,7 @@
       position: relative;
       overflow: hidden;
       z-index: 1;
+      min-width: 200px;
     }
 
     .btn::before {
@@ -300,7 +509,7 @@
       text-align: center;
       padding: 30px 5%;
       background: rgba(0, 0, 0, 0.2);
-      color: white;
+      color: var(--text-light);
       font-size: 16px;
       position: relative;
       z-index: 10;
@@ -323,7 +532,7 @@
       height: 50px;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
-      color: white;
+      color: var(--text-light);
       font-size: 20px;
       transition: all 0.3s ease;
     }
@@ -342,13 +551,29 @@
     }
 
     .footer-links a {
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--text-muted);
       text-decoration: none;
       transition: color 0.3s;
     }
 
     .footer-links a:hover {
-      color: #fcb045;
+      color: var(--primary-accent);
+    }
+
+    /* Booking reference section */
+    .booking-reference {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px 25px;
+      border-radius: 10px;
+      margin: 20px 0;
+      display: inline-block;
+    }
+
+    .reference-number {
+      font-weight: 700;
+      color: var(--primary-accent);
+      font-size: 22px;
+      letter-spacing: 1px;
     }
 
     /* Responsive design */
@@ -388,6 +613,22 @@
         width: 100%;
         max-width: 300px;
       }
+      
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+      
+      .countdown {
+        bottom: 10px;
+        right: 10px;
+        font-size: 14px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -418,10 +659,40 @@
         padding: 15px 30px;
         font-size: 16px;
       }
+      
+      .progress-tracker {
+        transform: scale(0.8);
+        width: 90%;
+      }
+      
+      .countdown {
+        bottom: 5px;
+        right: 5px;
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+      
+      .next-steps h3 {
+        font-size: 18px;
+      }
+      
+      .steps-list li {
+        padding-left: 25px;
+        font-size: 15px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Confetti canvas -->
+  <canvas id="confetti-canvas"></canvas>
+  
+  <!-- Countdown timer -->
+  <div class="countdown">
+    <i class="fas fa-clock"></i>
+    <span>Redirecting in <span id="countdown-timer">10</span> seconds</span>
+  </div>
+
   <!-- Decorative bubbles -->
   <div class="bubble" style="width: 120px; height: 120px; top: 10%; left: 5%; animation-delay: 0s;"></div>
   <div class="bubble" style="width: 80px; height: 80px; top: 70%; left: 80%; animation-delay: -2s;"></div>
@@ -432,7 +703,7 @@
   <nav>
     <div class="logo">
       <i class="fas fa-plane-departure"></i>
-      <span>OK Tours & Travel</span>
+      <span>OK Africa Tours & Travel</span>
     </div>
     <div class="nav-links">
       <a href="home-screen.html">Home</a>
@@ -443,23 +714,65 @@
   </nav>
 
   <div class="thankyou-container">
-    <div class="success-icon">
-      <i class="fas fa-check"></i>
+    <!-- Progress tracker -->
+    <div class="progress-tracker">
+      <div class="progress-step active">
+        <i class="fas fa-clipboard-check"></i>
+        <span class="step-label">Submitted</span>
+      </div>
+      <div class="progress-step active">
+        <i class="fas fa-check"></i>
+        <span class="step-label">Confirmed</span>
+      </div>
+      <div class="progress-step">
+        <i class="fas fa-envelope"></i>
+        <span class="step-label">Email Sent</span>
+      </div>
+      <div class="progress-step">
+        <i class="fas fa-user-check"></i>
+        <span class="step-label">Contacted</span>
+      </div>
     </div>
+    
+    <!-- Success animation -->
+    <div class="success-animation">
+      <div class="success-icon">
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="circle" style="animation-delay: 0s"></div>
+      <div class="circle" style="animation-delay: 0.5s"></div>
+    </div>
+    
     <h1>Thank You!</h1>
     <p class="subtitle">Your booking has been submitted successfully</p>
+    
+    <!-- Booking reference -->
+    <div class="booking-reference">
+      <p>Your booking reference: <span class="reference-number" id="booking-ref">OKTT-<span id="ref-number">0000</span></span></p>
+    </div>
     
     <div class="message">
       <p>We've received your booking details and one of our travel specialists will contact you within 24 hours to confirm your reservation and assist with any additional arrangements.</p>
       <p>You'll receive a confirmation email with all the details shortly.</p>
+    </div>
+
+    <!-- Next steps -->
+    <div class="next-steps">
+      <h3><i class="fas fa-list-check"></i> What Happens Next?</h3>
+      <ul class="steps-list">
+        <li>You'll receive a confirmation email within 15 minutes</li>
+        <li>Our travel expert will contact you within 24 hours</li>
+        <li>We'll customize your itinerary based on your preferences</li>
+        <li>Final confirmation and payment processing</li>
+      </ul>
     </div>
     
     <div class="contact-info">
       <div class="contact-card">
         <i class="fas fa-phone-alt"></i>
         <h3>Call Us</h3>
-         <p><i class="fas fa-phone-alt"></i> +27 81 088 8805</p>
-         <p><i class="fas fa-phone-alt"></i> +254 706 467999</p>
+        <p>+27 81 088 8805</p>
+        <p>+254 706 467999</p>
       </div>
       <div class="contact-card">
         <i class="fas fa-envelope"></i>
@@ -470,13 +783,24 @@
         <i class="fas fa-clock"></i>
         <h3>Office Hours</h3>
         <p>Mon-Sat: 8AM - 8PM</p>
+        <p>Sun: 10AM - 4PM</p>
       </div>
     </div>
     
-    <a href="index.html" class="btn">
-      <i class="fas fa-home"></i>
-      Log out
-    </a>
+    <div class="action-buttons">
+      <a href="home-screen.html" class="btn btn-primary">
+        <i class="fas fa-home"></i>
+        Back to Home
+      </a>
+      <a href="booking.php" class="btn">
+        <i class="fas fa-plus"></i>
+        New Booking
+      </a>
+      <a href="#" class="btn">
+        <i class="fas fa-download"></i>
+        Download PDF
+      </a>
+    </div>
   </div>
 
   <footer>
@@ -490,26 +814,168 @@
     <p>© 2025 OK Tours and Travel. All rights reserved.</p>
     
     <div class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Contact Us</a>
-      <a href="#">Careers</a>
-      <a href="#">About Us</a>
+      <a href="Aboutus.html">Contact Us</a>
+      <a href="Aboutus.html">About Us</a>
     </div>
   </footer>
 
   <script>
-    // Simple animation for the success icon
+    // Enhanced confetti animation with better performance
     document.addEventListener('DOMContentLoaded', function() {
-      const icon = document.querySelector('.success-icon i');
+      // Generate a random booking reference number
+      const refNumber = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('ref-number').textContent = refNumber;
+      
+      // Confetti animation
+      const confettiCanvas = document.getElementById('confetti-canvas');
+      const ctx = confettiCanvas.getContext('2d');
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+      
+      const confettiParticles = [];
+      const colors = ['#833ab4', '#fd1d1d', '#fcb045', '#ffffff', '#38b6ff'];
+      const particleCount = 150; // Reduced for better performance
+      
+      // Create confetti particles
+      for (let i = 0; i < particleCount; i++) {
+        confettiParticles.push({
+          x: Math.random() * confettiCanvas.width,
+          y: -Math.random() * confettiCanvas.height,
+          size: Math.random() * 8 + 4, // Slightly smaller for better appearance
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: Math.random() * 3 + 2,
+          angle: Math.random() * 360,
+          rotation: Math.random() * 360,
+          rotationSpeed: Math.random() * 5 + 2,
+          shape: Math.random() > 0.5 ? 'circle' : 'rect' // Different shapes
+        });
+      }
+      
+      let animationId;
+      let activeParticles = particleCount;
+      
+      // Draw confetti
+      function drawConfetti() {
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        
+        for (let i = 0; i < activeParticles; i++) {
+          const p = confettiParticles[i];
+          
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation * Math.PI / 180);
+          
+          ctx.fillStyle = p.color;
+          
+          if (p.shape === 'circle') {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          }
+          
+          ctx.restore();
+          
+          p.y += p.speed;
+          p.rotation += p.rotationSpeed;
+          
+          // Add slight horizontal movement for more natural effect
+          p.x += Math.sin(p.angle * Math.PI / 180) * 0.5;
+          p.angle += 2;
+          
+          // Reset particles that fall off screen
+          if (p.y > confettiCanvas.height) {
+            p.y = -10;
+            p.x = Math.random() * confettiCanvas.width;
+          }
+        }
+        
+        if (activeParticles > 0) {
+          animationId = requestAnimationFrame(drawConfetti);
+        }
+      }
+      
+      drawConfetti();
+      
+      // Gradually reduce confetti over time for a smooth stop
+      const reduceConfetti = setInterval(() => {
+        if (activeParticles > 0) {
+          activeParticles -= 1;
+        } else {
+          clearInterval(reduceConfetti);
+          cancelAnimationFrame(animationId);
+          // Fade out the confetti canvas
+          confettiCanvas.style.opacity = '0';
+        }
+      }, 100);
+      
+      // Redirect to home page after 10 seconds
+      let countdown = 20;
+      const countdownElement = document.getElementById('countdown-timer');
+      countdownElement.textContent = countdown;
+      
+      const countdownInterval = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+        
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          window.location.href = 'home-screen.html';
+        }
+      }, 2000);
+      
+      // Allow user to cancel redirect
+      countdownElement.addEventListener('click', function(e) {
+        e.stopPropagation();
+        clearInterval(countdownInterval);
+        countdownElement.textContent = ' cancelled';
+        this.style.color = '#fcb045';
+        this.parentElement.style.cursor = 'default';
+      });
+      
+      // Animate progress steps
+      const steps = document.querySelectorAll('.progress-step');
+      let currentStep = 0;
+      
+      function animateProgress() {
+        if (currentStep < steps.length) {
+          setTimeout(() => {
+            steps[currentStep].classList.add('active');
+            currentStep++;
+            animateProgress();
+          }, 800);
+        }
+      }
+      
+      // Start with first two steps already active
       setTimeout(() => {
-        icon.style.animation = 'scale 0.5s ease';
-      }, 300);
+        // Start from step 2 (index 1 is already active)
+        currentStep = 2;
+        animateProgress();
+      }, 1000);
       
       // Animate bubbles on load
       const bubbles = document.querySelectorAll('.bubble');
       bubbles.forEach((bubble, index) => {
         bubble.style.animationDelay = `${index * 0.5}s`;
+      });
+      
+      // Handle window resize
+      function handleResize() {
+        confettiCanvas.width = window.innerWidth;
+        confettiCanvas.height = window.innerHeight;
+      }
+      
+      let resizeTimeout;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(handleResize, 250);
+      });
+      
+      // Add event listener to prevent redirect if interacting with page
+      document.addEventListener('mousemove', function() {
+        if (countdown > 3) countdown = 10; // Reset timer on interaction
       });
     });
   </script>

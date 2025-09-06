@@ -19,7 +19,7 @@
             --box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
             --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             --gradient: linear-gradient(135deg, #1a365d 0%, #4CA1AF 100%);
-            --gradient-bg: linear-gradient(135deg, #0f1b31 0%, #1d3a5f 50%, #2c5d8a 100%);
+            --gradient-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
             --section-spacing: 100px;
         }
 
@@ -78,21 +78,23 @@
             transition: var(--transition);
         }
 
-        .logo-icon {
+        .logo-img {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             animation: pulse 2s infinite;
+            overflow: hidden;
+            border: 2px solid var(--secondary);
         }
 
-        .logo-icon i {
-            font-size: 1.8rem;
-            color: white;
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .logo h1 {
@@ -185,8 +187,9 @@
             transform: translateY(0);
         }
 
-        /* Hero section with animated particles */
+        /* Enhanced hero section with animated background */
         .hero {
+            background: url('https://tse3.mm.bing.net/th/id/OIP.BazNpEw_ejKeDeIbNvGOjgHaHa?w=200&h=200&c=7&p=0') no-repeat center center/cover;
             position: relative;
             height: 80vh;
             min-height: 600px;
@@ -588,8 +591,8 @@
             transition: var(--transition);
             position: relative;
             border: 1px solid rgba(76, 161, 175, 0.15);
-            animation: fadeIn 0.8s ease;
             backdrop-filter: blur(5px);
+            animation: fadeIn 0.8s ease;
             transform: perspective(1000px) rotateY(0) translateZ(0);
             transform-style: preserve-3d;
         }
@@ -845,6 +848,9 @@
             font-style: italic;
             font-size: 1.1rem;
             line-height: 1.7;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
         }
 
         .testimonial-author {
@@ -936,6 +942,7 @@
             display: flex;
             gap: 15px;
             margin-top: 25px;
+            flex-wrap: wrap;
         }
 
         .social-links a {
@@ -1024,6 +1031,17 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
         }
 
         /* Responsive Design */
@@ -1205,16 +1223,108 @@
             outline: none;
             border-color: var(--secondary);
         }
+
+        /* New background animation elements */
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 20s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+            animation-duration: 18s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+            animation-duration: 22s;
+        }
+
+        .shape:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 40%;
+            left: 40%;
+            animation-delay: 6s;
+            animation-duration: 16s;
+        }
+
+        .shape:nth-child(5) {
+            width: 70px;
+            height: 70px;
+            top: 30%;
+            left: 70%;
+            animation-delay: 8s;
+            animation-duration: 19s;
+        }
+
+        /* Enhanced background gradient animation */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     </style>
 </head>
 <body>
+    <!-- Enhanced background animation -->
+    <div class="animated-bg"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
     <header id="mainHeader">
         <div class="container header-content">
             <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-plane"></i>
+                <div class="logo-img">
+                    <img src="Logo.jpg" alt="OK Africa and Travel Logo">
                 </div>
-                <h1>OK Tours and Travel</h1>
+                <h1>OK Africa Tours and Travel</h1>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
@@ -1285,7 +1395,7 @@
                         </div>
                         <div class="price" data-base-price="85000">KES 85,000 <span>avg. per night</span></div>
                         <div class="card-footer">
-                            <a href="#" class="btn-card">Explore</a>
+                            <a href="#hotels" class="btn-card explore-btn">Explore</a>
                             <div class="wishlist">
                                 <i class="far fa-heart"></i>
                             </div>
@@ -1306,7 +1416,7 @@
                         </div>
                         <div class="price" data-base-price="62000">KES 62,000 <span>avg. per night</span></div>
                         <div class="card-footer">
-                            <a href="#" class="btn-card">Explore</a>
+                            <a href="#hotels" class="btn-card explore-btn">Explore</a>
                             <div class="wishlist">
                                 <i class="far fa-heart"></i>
                             </div>
@@ -1327,7 +1437,7 @@
                         </div>
                         <div class="price" data-base-price="78000">KES 78,000 <span>avg. per night</span></div>
                         <div class="card-footer">
-                            <a href="#" class="btn-card">Explore</a>
+                            <a href="#hotels" class="btn-card explore-btn">Explore</a>
                             <div class="wishlist">
                                 <i class="far fa-heart"></i>
                             </div>
@@ -1512,7 +1622,7 @@
                         <div class="price" data-base-price="80000">KES 80,000 <span>per night</span></div>
                         
                         <div class="card-footer">
-                            <a href="#" class="btn-card">Book Now</a>
+                            <a href="booking.php" class="btn-card book-now-btn">Book Now</a>
                             <div class="wishlist">
                                 <i class="far fa-heart"></i>
                             </div>
@@ -1543,7 +1653,7 @@
                         <div class="price" data-base-price="65000">KES 65,000 <span>per night</span></div>
                         
                         <div class="card-footer">
-                            <a href="#" class="btn-card">Book Now</a>
+                            <a href="booking.php" class="btn-card book-now-btn">Book Now</a>
                             <div class="wishlist">
                                 <i class="far fa-heart"></i>
                             </div>
@@ -1574,7 +1684,7 @@
                         <div class="price" data-base-price="120000">KES 120,000 <span>per night</span></div>
                         
                         <div class="card-footer">
-                            <a href="#" class="btn-card">Book Now</a>
+                            <a href="booking.php" class="btn-card book-now-btn">Book Now</a>
                             <div class="wishlist">
                                 <i class="far fa-heart"></i>
                             </div>
@@ -1605,7 +1715,7 @@
                         <div class="price" data-base-price="75000">KES 75,000 <span>per night</span></div>
                         
                         <div class="card-footer">
-                            <a href="#" class="btn-card">Book Now</a>
+                            <a href="booking.php" class="btn-card book-now-btn">Book Now</a>
                             <div class="wishlist">
                                 <i class="far fa-heart"></i>
                             </div>
@@ -1769,6 +1879,8 @@
         const mainHeader = document.getElementById('mainHeader');
         const wishlistIcons = document.querySelectorAll('.wishlist');
         const particleCanvas = document.getElementById('particle-canvas');
+        const bookNowButtons = document.querySelectorAll('.book-now-btn');
+        const exploreButtons = document.querySelectorAll('.explore-btn');
 
         // Exchange rates relative to KES (Kenyan Shilling)
         const EXCHANGE_RATES = {
@@ -1794,6 +1906,9 @@
             
             // Initialize particle animation
             initParticleAnimation();
+            
+            // Setup navigation buttons
+            setupNavigationButtons();
         });
 
         function setupEventListeners() {
@@ -1828,6 +1943,26 @@
             // Wishlist functionality
             wishlistIcons.forEach(icon => {
                 icon.addEventListener('click', toggleWishlist);
+            });
+        }
+        
+        function setupNavigationButtons() {
+            // Book Now buttons - navigate to booking.php
+            bookNowButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = 'booking.php';
+                });
+            });
+            
+            // Explore buttons - scroll to hotels section
+            exploreButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('hotels').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                });
             });
         }
 
@@ -1946,7 +2081,7 @@
             }
         }
         
-        // Particle animation for hero background
+        // Enhanced particle animation for hero background
         function initParticleAnimation() {
             const canvas = particleCanvas;
             const ctx = canvas.getContext('2d');
@@ -1960,18 +2095,28 @@
                 constructor() {
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 3 + 1;
-                    this.speedX = Math.random() * 1 - 0.5;
-                    this.speedY = Math.random() * 1 - 0.5;
-                    this.color = `rgba(255, 255, 255, ${Math.random() * 0.2 + 0.1})`;
+                    this.size = Math.random() * 4 + 1;
+                    this.speedX = Math.random() * 1.5 - 0.75;
+                    this.speedY = Math.random() * 1.5 - 0.75;
+                    this.color = `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.1})`;
+                    this.oscillation = Math.random() * Math.PI * 2;
+                    this.oscillationSpeed = Math.random() * 0.05 + 0.01;
                 }
                 
                 update() {
                     this.x += this.speedX;
                     this.y += this.speedY;
                     
-                    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+                    // Add some oscillation for more dynamic movement
+                    this.x += Math.sin(this.oscillation) * 0.5;
+                    this.y += Math.cos(this.oscillation) * 0.5;
+                    this.oscillation += this.oscillationSpeed;
+                    
+                    // Wrap around edges
+                    if (this.x > canvas.width + 10) this.x = -10;
+                    if (this.x < -10) this.x = canvas.width + 10;
+                    if (this.y > canvas.height + 10) this.y = -10;
+                    if (this.y < -10) this.y = canvas.height + 10;
                 }
                 
                 draw() {
@@ -1979,12 +2124,16 @@
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                     ctx.fill();
+                    
+                    // Add a glow effect
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = this.color;
                 }
             }
             
             // Create particles
             const particles = [];
-            const particleCount = Math.min(100, Math.floor(canvas.width * canvas.height / 10000));
+            const particleCount = Math.min(200, Math.floor(canvas.width * canvas.height / 5000));
             
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
@@ -2004,13 +2153,14 @@
                         const dy = particles[i].y - particles[j].y;
                         const distance = Math.sqrt(dx * dx + dy * dy);
                         
-                        if (distance < 100) {
+                        if (distance < 120) {
                             ctx.beginPath();
-                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance/100)})`;
-                            ctx.lineWidth = 0.5;
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 * (1 - distance/120)})`;
+                            ctx.lineWidth = 0.7;
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
                             ctx.stroke();
+                            ctx.shadowBlur = 0;
                         }
                     }
                 }

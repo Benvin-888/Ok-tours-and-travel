@@ -1,38 +1,78 @@
 <?php
+// update-gallery.php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $conn = new mysqli("localhost", "root", "", "oktours");
-
-$ids = $_POST['ids'];
-$titles = $_POST['titles'];
-
-foreach ($ids as $i => $id) {
-    $title = $titles[$i];
-    $imagePath = null;
-    $videoPath = null;
-
-    // Upload new image if provided
-    if ($_FILES['images']['name'][$i]) {
-        $imageName = basename($_FILES['images']['name'][$i]);
-        $imagePath = "images/" . $imageName;
-        move_uploaded_file($_FILES['images']['tmp_name'][$i], $imagePath);
-    }
-
-    // Upload new video if provided
-    if ($_FILES['videos']['name'][$i]) {
-        $videoName = basename($_FILES['videos']['name'][$i]);
-        $videoPath = "images/videos/" . $videoName;
-        move_uploaded_file($_FILES['videos']['tmp_name'][$i], $videoPath);
-    }
-
-    // Build update SQL
-    $sql = "UPDATE gallery_items SET title=?, ";
-    if ($imagePath) $sql .= "image_path='$imagePath', ";
-    if ($videoPath) $sql .= "video_path='$videoPath', ";
-    $sql = rtrim($sql, ', ') . " WHERE id=?";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("si", $title, $id);
-    $stmt->execute();
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);
 }
 
-header("Location: manage_gallery.php");
+// Loop through all items
+$ids = $_POST['ids'] ?? [];
+$titles = $_POST['titles'] ?? [];
+$images = $_FILES['images'] ?? null;
+$videos = $_FILES['videos'] ?? null;
+
+for ($i = 0; $i < count($ids); $i++) {
+    $id = intval($ids[$i]);
+    $title = $titles[$i];
+
+    // Get current DB values
+    $res = $conn->query("SELECT image_path, video_path FROM gallery_items WHERE id=$id");
+    $row = $res->fetch_assoc();
+    $imagePath = $row['image_path'];
+    $videoPath = $row['video_path'];
+
+    // Handle new image
+    if (!empty($images['name'][$i])) {
+        $newImage = handleUpload([
+            'name' => $images['name'][$i],
+            'tmp_name' => $images['tmp_name'][$i],
+            'type' => $images['type'][$i],
+        ], 'images', ['image/jpeg','image/png','image/gif'], 'img_');
+        if ($newImage) $imagePath = $newImage;
+    }
+
+    // Handle new video
+    if (!empty($videos['name'][$i])) {
+        $newVideo = handleUpload([
+            'name' => $videos['name'][$i],
+            'tmp_name' => $videos['tmp_name'][$i],
+            'type' => $videos['type'][$i],
+        ], 'images/videos', ['video/mp4','video/webm','video/ogg'], 'vid_');
+        if ($newVideo) $videoPath = $newVideo;
+    }
+
+    // Update DB
+    $stmt = $conn->prepare("UPDATE gallery_items SET title=?, image_path=?, video_path=? WHERE id=?");
+    $stmt->bind_param("sssi", $title, $imagePath, $videoPath, $id);
+    $stmt->execute();
+    $stmt->close();
+}
+
+$conn->close();
+
+// Redirect back to manage page
+header("Location: manage-gallery.php?success=1");
 exit;
+
+// =================== File Upload Function ===================
+function handleUpload($file, $dir, $allowedTypes, $prefix) {
+    $tmp = $file['tmp_name'];
+    $name = uniqid($prefix) . "_" . basename($file['name']);
+    $targetDir = __DIR__ . "/$dir/";
+    if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
+    $targetPath = $targetDir . $name;
+
+    $mimeType = mime_content_type($tmp);
+    if (!in_array($mimeType, $allowedTypes)) return null;
+
+    if (move_uploaded_file($tmp, $targetPath)) {
+        return "$dir/$name";
+    }
+    return null;
+}
+?>

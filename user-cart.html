@@ -29,22 +29,45 @@
             --desert-sand: #E8D5B5;
             --sunset-red: #E15554;
             --savanna-blue: #0D5C63;
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #495057;
+            --card-bg: #ffffff;
+            --filter-bg: rgba(255, 255, 255, 0.08);
+            --content-bg: rgba(255, 255, 255, 0.08);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --text-primary: #f8f9fa;
+            --text-secondary: #adb5bd;
+            --card-bg: #1e1e1e;
+            --filter-bg: rgba(30, 30, 30, 0.8);
+            --content-bg: rgba(30, 30, 30, 0.8);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.3);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
         
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            color: var(--light);
+            color: var(--text-primary);
             min-height: 100vh;
             padding-top: var(--nav-height);
             overflow-x: hidden;
             position: relative;
+            background-color: var(--bg-primary);
         }
         
         /* Navigation Bar */
@@ -73,8 +96,10 @@
         
         .logo-image {
             height: 45px;
+            width: auto;
             border-radius: 8px;
             animation: pulse 2s infinite;
+            object-fit: contain;
         }
         
         .logo-text {
@@ -133,6 +158,22 @@
             display: flex;
             align-items: center;
             gap: 15px;
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
         }
         
         .notification-badge {
@@ -215,7 +256,7 @@
             display: inline-block;
             left: 50%;
             transform: translateX(-50%);
-            color: white;
+            color: var(--text-primary);
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
@@ -238,12 +279,12 @@
         }
         
         .filters-section {
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--filter-bg);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px var(--shadow-color);
+            border: 1px solid var(--border-color);
             height: fit-content;
             transition: all 0.4s ease;
         }
@@ -270,7 +311,7 @@
             display: block;
             margin-bottom: 10px;
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-secondary);
         }
         
         .filter-options {
@@ -314,7 +355,7 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 10px;
             border-radius: 10px;
-            color: white;
+            color: var(--text-primary);
             font-family: 'Poppins', sans-serif;
         }
         
@@ -330,7 +371,7 @@
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 50px;
-            color: white;
+            color: var(--text-primary);
             font-size: 1rem;
             margin-bottom: 20px;
             transition: all 0.3s ease;
@@ -343,12 +384,12 @@
         }
         
         .content-section {
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--content-bg);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px var(--shadow-color);
+            border: 1px solid var(--border-color);
         }
         
         .controls-row {
@@ -368,7 +409,7 @@
         
         .sort-label {
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-secondary);
         }
         
         .sort-select {
@@ -376,7 +417,7 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 10px 20px;
             border-radius: 50px;
-            color: white;
+            color: var(--text-primary);
             font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -469,7 +510,7 @@
         
         .stat-label {
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-secondary);
         }
         
         .bookings-container {
@@ -552,7 +593,7 @@
         
         .date-range {
             font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -602,7 +643,7 @@
         }
         
         .detail-label {
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--text-secondary);
         }
         
         .detail-value {
@@ -1105,7 +1146,7 @@
             text-align: center;
             padding: 40px;
             font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-secondary);
         }
         
         .no-bookings i {
@@ -1135,6 +1176,662 @@
             70% { box-shadow: 0 0 0 15px rgba(255, 127, 17, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 127, 17, 0); }
         }
+
+        /* Calendar View */
+        .calendar-view {
+            display: none;
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .calendar-nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav-btn:hover {
+            background: var(--safari-orange);
+            color: white;
+        }
+
+        .calendar-month {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            padding: 10px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .calendar-day {
+            height: 80px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 5px;
+            overflow-y: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        .calendar-day.empty {
+            background: transparent;
+            cursor: default;
+        }
+
+        .day-number {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .calendar-event {
+            font-size: 0.7rem;
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .event-pending {
+            background: rgba(255, 158, 0, 0.2);
+            border-left: 2px solid var(--pending);
+        }
+
+        .event-confirmed {
+            background: rgba(6, 214, 160, 0.2);
+            border-left: 2px solid var(--confirmed);
+        }
+
+        .event-cancelled {
+            background: rgba(239, 71, 111, 0.2);
+            border-left: 2px solid var(--cancelled);
+        }
+
+        /* Notification dropdown */
+        .notification-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 100px;
+            width: 350px;
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            opacity: 0;
+            transform: translateY(-10px);
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .notification-dropdown.active {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+
+        .notification-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .mark-all-read {
+            background: none;
+            border: none;
+            color: var(--safari-orange);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .notification-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .notification-item.unread {
+            background: rgba(255, 127, 17, 0.1);
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--savanna-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-message {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .notification-time {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Booking Modal */
+        .booking-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .booking-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .booking-modal-content {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .booking-modal-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .booking-modal-title {
+            font-size: 1.8rem;
+            color: var(--safari-orange);
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--safari-orange);
+            box-shadow: 0 0 0 3px rgba(255, 127, 17, 0.3);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* List view */
+        .bookings-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        .booking-card.list-view {
+            display: flex;
+            height: auto;
+        }
+
+        .booking-card.list-view .card-header {
+            width: 30%;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .booking-card.list-view .card-body {
+            width: 40%;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .booking-card.list-view .card-footer {
+            width: 30%;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Cart Summary */
+        .cart-summary {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cart-summary-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--safari-orange);
+        }
+
+        .cart-summary-title i {
+            font-size: 1.2rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .summary-label {
+            color: var(--text-secondary);
+        }
+
+        .summary-value {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .cart-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 15px;
+        }
+
+        .cart-btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .checkout-btn {
+            background: var(--safari-orange);
+            color: white;
+        }
+
+        .checkout-btn:hover {
+            background: #e06c00;
+        }
+
+        .save-later-btn {
+            background: transparent;
+            border: 1px solid var(--safari-orange);
+            color: var(--safari-orange);
+        }
+
+        .save-later-btn:hover {
+            background: rgba(255, 127, 17, 0.1);
+        }
+
+        /* Payment Modal */
+        .payment-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .payment-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .payment-modal-content {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-modal-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .payment-modal-title {
+            font-size: 1.8rem;
+            color: var(--safari-orange);
+            margin-bottom: 10px;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .payment-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--safari-orange);
+        }
+
+        .payment-option.selected {
+            background: rgba(255, 127, 17, 0.1);
+            border-color: var(--safari-orange);
+        }
+
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--savanna-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .payment-info {
+            flex: 1;
+        }
+
+        .payment-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .payment-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .payment-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* Processing overlay */
+        .processing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .processing-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .processing-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .processing-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top: 5px solid var(--safari-orange);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .processing-text {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Ripple effect for buttons */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
+        }
+
+        .ripple:active:after {
+            transform: scale(0, 0);
+            opacity: .3;
+            transition: 0s;
+        }
+
+        /* Navigation enhancements */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 10px 0;
+            min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            opacity: 0;
+            transform: translateY(-10px);
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 10px 20px;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 127, 17, 0.1);
+            color: var(--safari-orange);
+        }
     </style>
 </head>
 <body>
@@ -1160,10 +1857,167 @@
         </div>
     </div>
     
+    <!-- Booking Modal -->
+    <div class="booking-modal" id="bookingModal">
+        <div class="booking-modal-content">
+            <div class="booking-modal-header">
+                <h3 class="booking-modal-title">Modify Booking</h3>
+                <p>Update your booking details</p>
+            </div>
+            <form id="bookingForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Destination</label>
+                        <select class="form-control" required>
+                            <option value="">Select Destination</option>
+                            <option value="safari" selected>Masai Mara Safari</option>
+                            <option value="beach">Zanzibar Beach Retreat</option>
+                            <option value="mountain">Mount Kilimanjaro Trek</option>
+                            <option value="cultural">Egypt Cultural Tour</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Travelers</label>
+                        <input type="number" class="form-control" min="1" max="20" value="4" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Start Date</label>
+                        <input type="date" class="form-control" value="2023-07-15" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">End Date</label>
+                        <input type="date" class="form-control" value="2023-07-25" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Extras</label>
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" checked> Airport Pickup ($50)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" checked> Meals Package ($150)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox"> Private Guide ($300)
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="action-btn btn-danger" id="deleteBookingBtn">Delete Booking</button>
+                    <button type="button" class="action-btn btn-outline" id="closeBookingModal">Cancel</button>
+                    <button type="submit" class="action-btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Payment Modal -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-modal-content">
+            <div class="payment-modal-header">
+                <h3 class="payment-modal-title">Complete Payment</h3>
+                <p>Select your preferred payment method</p>
+            </div>
+            <div class="payment-options">
+                <div class="payment-option selected" data-method="mpesa">
+                    <div class="payment-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-name">Mpesa</div>
+                        <div class="payment-description">Pay via Mpesa mobile money</div>
+                    </div>
+                </div>
+                <div class="payment-option" data-method="paypal">
+                    <div class="payment-icon">
+                        <i class="fab fa-paypal"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-name">PayPal</div>
+                        <div class="payment-description">Pay with your PayPal account</div>
+                    </div>
+                </div>
+                <div class="payment-option" data-method="card">
+                    <div class="payment-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-name">Credit/Debit Card</div>
+                        <div class="payment-description">Pay with Visa or Mastercard</div>
+                    </div>
+                </div>
+            </div>
+            <div class="payment-actions">
+                <button class="action-btn btn-outline" id="closePaymentModal">Cancel</button>
+                <button class="action-btn btn-primary" id="processPaymentBtn">Pay Now</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Processing Overlay -->
+    <div class="processing-overlay" id="processingOverlay">
+        <div class="processing-content">
+            <div class="processing-spinner"></div>
+            <div class="processing-text">Processing your request...</div>
+        </div>
+    </div>
+    
+    <!-- Notification Dropdown -->
+    <div class="notification-dropdown" id="notificationDropdown">
+        <div class="notification-header">
+            <div class="notification-title">Notifications</div>
+            <button class="mark-all-read">Mark all as read</button>
+        </div>
+        <div class="notification-list">
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-message">Your Masai Mara Safari booking has been confirmed</div>
+                    <div class="notification-time">2 minutes ago</div>
+                </div>
+            </div>
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-message">Your payment for Zanzibar Beach Retreat is pending</div>
+                    <div class="notification-time">1 hour ago</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-message">Rate your recent Serengeti Safari experience</div>
+                    <div class="notification-time">2 days ago</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-message">New destinations available for booking</div>
+                    <div class="notification-time">3 days ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="logo">
-            <img src="Logo.jpg" alt="OK Africa Tours Logo" class="logo-image">
+            <a href="#"><img src="Logo.jpg" alt="OK Africa Tours Logo" class="logo-image"></a>
             <div class="logo-text">OK Africa Tours & Travel</div>
         </div>
         
@@ -1171,23 +2025,26 @@
             <a href="#" class="nav-link active" aria-current="page">
                 <i class="fas fa-shopping-basket"></i> My Basket
             </a>
-            <a href="booking.php" class="nav-link">
-                <i class="fas fa-calendar-alt"></i> Bookings
-            </a>
-            <a href="explore.html" class="nav-link">
-                <i class="fas fa-map-marked-alt"></i> Trips
-            </a>
+            <div class="dropdown">
+                <a href="booking.php" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i> Bookings <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i>
+                </a>
         </div>
-        
         <div class="user-profile">
-            <div class="notification-badge" id="notificationBadge" onclick="window.location.href='user-comments.html'" role="button" aria-label="Notifications (3 new)" tabindex="0">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <div class="notification-badge" id="notificationBadge" role="button" aria-label="Notifications (3 new)" tabindex="0">
                 <i class="fas fa-bell"></i>
                 <span class="badge">3</span>
             </div>
+            
             <div class="avatar" role="button" aria-label="User profile" tabindex="0" id="avatar">
-                <img src="https://ui-avatars.com/api/?name=Traveler&background=FF7F11&color=fff" alt="User Avatar">
+                <img src="https://ui-avatars.com/api/?name=Traveler&background=3A0CA3&color=FFBE0B" alt="User Avatar">
                 <input type="file" id="avatarInput" class="avatar-upload" accept="image/*">
             </div>
+            
             <button class="hamburger" id="hamburgerMenu" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
                 <i class="fas fa-bars"></i>
             </button>
@@ -1200,12 +2057,23 @@
             <a href="#" class="mobile-nav-link active" aria-current="page">
                 <i class="fas fa-shopping-basket"></i> My Basket
             </a>
-            <a href="booking.php" class="mobile-nav-link">
-                <i class="fas fa-calendar-alt"></i> Bookings
-            </a>
-            <a href="explore.html" class="mobile-nav-link">
-                <i class="fas fa-map-marked-alt"></i> Trips
-            </a>
+            <div class="mobile-nav-link" style="cursor: pointer;" id="mobileBookingsToggle">
+                <i class="fas fa-calendar-alt"></i> Bookings <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: auto;"></i>
+            </div>
+            <div class="mobile-dropdown" id="mobileBookingsDropdown" style="display: none;">
+                <a href="#" class="mobile-nav-link" style="padding-left: 40px;">Upcoming Trips</a>
+                <a href="#" class="mobile-nav-link" style="padding-left: 40px;">Past Bookings</a>
+                <a href="#" class="mobile-nav-link" style="padding-left: 40px;">Pending Confirmation</a>
+            </div>
+            <div class="mobile-nav-link" style="cursor: pointer;" id="mobileTripsToggle">
+                <i class="fas fa-map-marked-alt"></i> Trips <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: auto;"></i>
+            </div>
+            <div class="mobile-dropdown" id="mobileTripsDropdown" style="display: none;">
+                <a href="#" class="mobile-nav-link" style="padding-left: 40px;">Safari Adventures</a>
+                <a href="#" class="mobile-nav-link" style="padding-left: 40px;">Beach Getaways</a>
+                <a href="#" class="mobile-nav-link" style="padding-left: 40px;">Mountain Treks</a>
+                <a href="#" class="mobile-nav-link" style="padding-left: 40px;">Cultural Tours</a>
+            </div>
         </div>
     </div>
     
@@ -1223,7 +2091,7 @@
                 <input type="text" class="search-bar" id="searchBar" placeholder="Search destinations, bookings..." aria-label="Search bookings">
                 
                 <div class="filter-group">
-                    <div class="filter-label">Status</div>
+                    <div class="filter-label">Booking Status</div>
                     <div class="filter-options">
                         <div class="filter-option active" data-filter="status" data-value="all" role="button" tabindex="0">All</div>
                         <div class="filter-option" data-filter="status" data-value="pending" role="button" tabindex="0">Pending</div>
@@ -1233,15 +2101,19 @@
                 </div>
                 
                 <div class="filter-group">
-                    <div class="filter-label">Date Range</div>
-                    <div class="filter-options">
-                        <div class="filter-option active" data-filter="date" data-value="upcoming" role="button" tabindex="0">Upcoming</div>
-                        <div class="filter-option" data-filter="date" data-value="past" role="button" tabindex="0">Past</div>
-                        <div class="filter-option" data-filter="date" data-value="last30" role="button" tabindex="0">Last 30 Days</div>
-                    </div>
+                    <div class="filter-label">Travel Date Range</div>
                     <div class="date-range-picker">
                         <input type="date" class="date-input" id="startDate" aria-label="Start date">
                         <input type="date" class="date-input" id="endDate" aria-label="End date">
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-label">Payment Status</div>
+                    <div class="filter-options">
+                        <div class="filter-option active" data-filter="payment" data-value="all" role="button" tabindex="0">All</div>
+                        <div class="filter-option" data-filter="payment" data-value="paid" role="button" tabindex="0">Paid</div>
+                        <div class="filter-option" data-filter="payment" data-value="pending" role="button" tabindex="0">Pending</div>
                     </div>
                 </div>
                 
@@ -1257,28 +2129,20 @@
                 </div>
                 
                 <div class="filter-group">
-                    <div class="filter-label">People Count</div>
-                    <div class="filter-options">
-                        <div class="filter-option" data-filter="people" data-value="solo" role="button" tabindex="0">Solo</div>
-                        <div class="filter-option active" data-filter="people" data-value="family" role="button" tabindex="0">Family</div>
-                        <div class="filter-option" data-filter="people" data-value="group" role="button" tabindex="0">Group</div>
-                    </div>
+                    <div class="filter-label">Sort by</div>
+                    <select class="sort-select" id="sortSelect" aria-label="Sort bookings">
+                        <option value="date-asc">Nearest travel date</option>
+                        <option value="date-desc">Furthest travel date</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="recent">Recently added</option>
+                    </select>
                 </div>
                 
-                <div class="filter-group">
-                    <div class="filter-label">Payment Status</div>
-                    <div class="filter-options">
-                        <div class="filter-option active" data-filter="payment" data-value="all" role="button" tabindex="0">All</div>
-                        <div class="filter-option" data-filter="payment" data-value="paid" role="button" tabindex="0">Paid</div>
-                        <div class="filter-option" data-filter="payment" data-value="unpaid" role="button" tabindex="0">Unpaid</div>
-                        <div class="filter-option" data-filter="payment" data-value="partial" role="button" tabindex="0">Partial</div>
-                    </div>
-                </div>
-                
-                <button class="action-btn btn-primary" id="applyFiltersBtn" style="width: 100%; margin-top: 20px;">
+                <button class="action-btn btn-primary ripple" id="applyFiltersBtn" style="width: 100%; margin-top: 20px;">
                     <i class="fas fa-sync-alt"></i> Apply Filters
                 </button>
-                <button class="action-btn reset-filters" id="resetFiltersBtn" style="width: 100%; margin-top: 10px;">
+                <button class="action-btn reset-filters ripple" id="resetFiltersBtn" style="width: 100%; margin-top: 10px;">
                     <i class="fas fa-times"></i> Reset Filters
                 </button>
             </div>
@@ -1287,27 +2151,20 @@
             <div class="content-section fade-in delay-1">
                 <div class="controls-row">
                     <div class="sort-controls">
-                        <div class="sort-label">Sort by:</div>
-                        <select class="sort-select" id="sortSelect" aria-label="Sort bookings">
-                            <option>Most Recent</option>
-                            <option>Oldest First</option>
-                            <option selected>Trip Date (Soonest)</option>
-                            <option>Price: High to Low</option>
-                            <option>Price: Low to High</option>
-                        </select>
+                        <div class="sort-label">Showing:</div>
+                        <div class="sort-value" id="showingCount">6 bookings</div>
                     </div>
                     
                     <div class="view-toggle">
-                        <button class="view-btn active" aria-label="Grid view"><i class="fas fa-th"></i></button>
-                        <button class="view-btn" aria-label="List view"><i class="fas fa-list"></i></button>
-                        <button class="view-btn" aria-label="Calendar view"><i class="fas fa-calendar"></i></button>
+                        <button class="view-btn active" aria-label="Grid view" data-view="grid"><i class="fas fa-th"></i></button>
+                        <button class="view-btn" aria-label="List view" data-view="list"><i class="fas fa-list"></i></button>
                     </div>
                 </div>
                 
                 <div class="stats-cards">
                     <div class="stat-card pending fade-in delay-2">
                         <div class="stat-label">Pending Bookings</div>
-                        <div class="stat-value">8</div>
+                        <div class="stat-value">2</div>
                         <div class="progress-bar">
                             <div class="progress-fill progress-pending" style="width: 70%"></div>
                         </div>
@@ -1315,36 +2172,37 @@
                     
                     <div class="stat-card confirmed fade-in delay-3">
                         <div class="stat-label">Confirmed</div>
-                        <div class="stat-value">24</div>
+                        <div class="stat-value">2</div>
                     </div>
                     
                     <div class="stat-card cancelled fade-in delay-4">
                         <div class="stat-label">Cancelled</div>
-                        <div class="stat-value">3</div>
+                        <div class="stat-value">0</div>
                     </div>
                     
                     <div class="stat-card paid fade-in delay-5">
-                        <div class="stat-label">Revenue</div>
-                        <div class="stat-value">$18,240</div>
+                        <div class="stat-label">Total Value</div>
+                        <div class="stat-value">$12,850</div>
                     </div>
                 </div>
                 
-                <div class="bookings-container">
+                <!-- Grid/List View -->
+                <div class="bookings-container" id="bookingsContainer">
                     <div class="booking-group">
                         <div class="group-title">
                             <i class="fas fa-clock"></i> Pending Bookings (Require Action)
                         </div>
                         
-                        <div class="bookings-grid">
+                        <div class="bookings-grid" id="bookingsGrid">
                             <!-- Booking Card 1 -->
-                            <div class="booking-card fade-in" data-status="pending" data-destination="safari" data-people="family" data-payment="partial" data-date="2023-07-25">
+                            <div class="booking-card fade-in" data-status="pending" data-destination="safari" data-people="4" data-payment="partial" data-date="2023-07-25" data-price="3200" data-added="2023-06-10">
                                 <div class="card-header">
                                     <div class="card-bg"></div>
                                     <div class="destination">
-                                        <i class="fas fa-paw"></i> Masai Mara Safari
+                                        <i class="fas fa-paw"></i> 3 Days Maasai Mara Safari
                                     </div>
                                     <div class="date-range">
-                                        <i class="far fa-calendar"></i> Jul 15 - Jul 25, 2023
+                                        <i class="far fa-calendar"></i> 15th Jul - 25th Jul, 2023
                                     </div>
                                     <div class="card-status status-pending">
                                         <i class="fas fa-exclamation-circle"></i> Pending
@@ -1355,11 +2213,15 @@
                                     <div class="detail-row">
                                         <div class="detail-label">Travelers</div>
                                         <div class="people-count">
-                                            <i class="fas fa-users"></i> Family (4)
+                                            <i class="fas fa-users"></i> 4 People
                                         </div>
                                     </div>
                                     <div class="detail-row">
-                                        <div class="detail-label">Total Price</div>
+                                        <div class="detail-label">Price per person</div>
+                                        <div class="detail-value">$800</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">Subtotal</div>
                                         <div class="detail-value">$3,200</div>
                                     </div>
                                     <div class="detail-row">
@@ -1368,31 +2230,27 @@
                                             <i class="fas fa-money-check-alt"></i> Partial ($800)
                                         </div>
                                     </div>
-                                    <div class="detail-row">
-                                        <div class="detail-label">Expires in</div>
-                                        <div class="detail-value">12 hours</div>
-                                    </div>
                                 </div>
                                 
                                 <div class="card-footer">
-                                    <button class="action-btn btn-outline modify-btn">
+                                    <button class="action-btn btn-outline modify-btn ripple" data-id="1">
                                         <i class="far fa-edit"></i> Modify
                                     </button>
-                                    <button class="action-btn btn-primary">
+                                    <button class="action-btn btn-primary confirm-btn ripple" data-id="1">
                                         <i class="fas fa-check"></i> Confirm
                                     </button>
                                 </div>
                             </div>
                             
                             <!-- Booking Card 2 -->
-                            <div class="booking-card fade-in delay-1" data-status="pending" data-destination="beach" data-people="group" data-payment="unpaid" data-date="2023-12-20">
+                            <div class="booking-card fade-in delay-1" data-status="pending" data-destination="beach" data-people="8" data-payment="unpaid" data-date="2023-12-20" data-price="7500" data-added="2023-05-15">
                                 <div class="card-header">
                                     <div class="card-bg"></div>
                                     <div class="destination">
                                         <i class="fas fa-umbrella-beach"></i> Zanzibar Beach Retreat
                                     </div>
                                     <div class="date-range">
-                                        <i class="far fa-calendar"></i> Dec 10 - Dec 20, 2023
+                                        <i class="far fa-calendar"></i> 10th Dec - 20th Dec, 2023
                                     </div>
                                     <div class="card-status status-pending">
                                         <i class="fas fa-exclamation-circle"></i> Pending
@@ -1403,11 +2261,15 @@
                                     <div class="detail-row">
                                         <div class="detail-label">Travelers</div>
                                         <div class="people-count">
-                                            <i class="fas fa-user-friends"></i> Group (8)
+                                            <i class="fas fa-user-friends"></i> 8 People
                                         </div>
                                     </div>
                                     <div class="detail-row">
-                                        <div class="detail-label">Total Price</div>
+                                        <div class="detail-label">Price per person</div>
+                                        <div class="detail-value">$937.50</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">Subtotal</div>
                                         <div class="detail-value">$7,500</div>
                                     </div>
                                     <div class="detail-row">
@@ -1416,17 +2278,13 @@
                                             <i class="fas fa-exclamation-triangle"></i> Unpaid
                                         </div>
                                     </div>
-                                    <div class="detail-row">
-                                        <div class="detail-label">Expires in</div>
-                                        <div class="detail-value">2 days</div>
-                                    </div>
                                 </div>
                                 
                                 <div class="card-footer">
-                                    <button class="action-btn btn-danger cancel-btn">
+                                    <button class="action-btn btn-danger cancel-btn ripple" data-id="2">
                                         <i class="fas fa-times"></i> Cancel
                                     </button>
-                                    <button class="action-btn btn-primary paynow-btn">
+                                    <button class="action-btn btn-primary paynow-btn ripple" data-id="2">
                                         <i class="fas fa-credit-card"></i> Pay Now
                                     </button>
                                 </div>
@@ -1441,14 +2299,14 @@
                         
                         <div class="bookings-grid">
                             <!-- Booking Card 3 -->
-                            <div class="booking-card fade-in" data-status="confirmed" data-destination="mountain" data-people="solo" data-payment="paid" data-date="2023-08-12">
+                            <div class="booking-card fade-in" data-status="confirmed" data-destination="mountain" data-people="1" data-payment="paid" data-date="2023-08-12" data-price="1850" data-added="2023-04-22">
                                 <div class="card-header">
                                     <div class="card-bg"></div>
                                     <div class="destination">
                                         <i class="fas fa-mountain"></i> Mount Kilimanjaro Trek
                                     </div>
                                     <div class="date-range">
-                                        <i class="far fa-calendar"></i> Aug 5 - Aug 12, 2023
+                                        <i class="far fa-calendar"></i> 5th Aug - 12th Aug, 2023
                                     </div>
                                     <div class="card-status status-confirmed">
                                         <i class="fas fa-check-circle"></i> Confirmed
@@ -1459,11 +2317,15 @@
                                     <div class="detail-row">
                                         <div class="detail-label">Travelers</div>
                                         <div class="people-count">
-                                            <i class="fas fa-user"></i> Solo
+                                            <i class="fas fa-user"></i> 1 Person
                                         </div>
                                     </div>
                                     <div class="detail-row">
-                                        <div class="detail-label">Total Price</div>
+                                        <div class="detail-label">Price per person</div>
+                                        <div class="detail-value">$1,850</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">Subtotal</div>
                                         <div class="detail-value">$1,850</div>
                                     </div>
                                     <div class="detail-row">
@@ -1472,31 +2334,27 @@
                                             <i class="fas fa-check-circle"></i> Paid
                                         </div>
                                     </div>
-                                    <div class="detail-row">
-                                        <div class="detail-label">Starts in</div>
-                                        <div class="detail-value">15 days</div>
-                                    </div>
                                 </div>
                                 
                                 <div class="card-footer">
-                                    <button class="action-btn btn-outline">
+                                    <button class="action-btn btn-outline ripple">
                                         <i class="fas fa-sync-alt"></i> Reschedule
                                     </button>
-                                    <button class="action-btn btn-primary">
+                                    <button class="action-btn btn-primary ripple">
                                         <i class="fas fa-ticket-alt"></i> View Tickets
                                     </button>
                                 </div>
                             </div>
                             
                             <!-- Booking Card 4 -->
-                            <div class="booking-card fade-in delay-1" data-status="confirmed" data-destination="cultural" data-people="family" data-payment="paid" data-date="2023-09-20">
+                            <div class="booking-card fade-in delay-1" data-status="confirmed" data-destination="cultural" data-people="5" data-payment="paid" data-date="2023-09-20" data-price="4300" data-added="2023-03-18">
                                 <div class="card-header">
                                     <div class="card-bg"></div>
                                     <div class="destination">
                                         <i class="fas fa-landmark"></i> Egypt Cultural Tour
                                     </div>
                                     <div class="date-range">
-                                        <i class="far fa-calendar"></i> Sep 10 - Sep 20, 2023
+                                        <i class="far fa-calendar"></i> 10th Sep - 20th Sep, 2023
                                     </div>
                                     <div class="card-status status-confirmed">
                                         <i class="fas fa-check-circle"></i> Confirmed
@@ -1507,11 +2365,15 @@
                                     <div class="detail-row">
                                         <div class="detail-label">Travelers</div>
                                         <div class="people-count">
-                                            <i class="fas fa-users"></i> Family (5)
+                                            <i class="fas fa-users"></i> 5 People
                                         </div>
                                     </div>
                                     <div class="detail-row">
-                                        <div class="detail-label">Total Price</div>
+                                        <div class="detail-label">Price per person</div>
+                                        <div class="detail-value">$860</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">Subtotal</div>
                                         <div class="detail-value">$4,300</div>
                                     </div>
                                     <div class="detail-row">
@@ -1520,17 +2382,13 @@
                                             <i class="fas fa-check-circle"></i> Paid
                                         </div>
                                     </div>
-                                    <div class="detail-row">
-                                        <div class="detail-label">Starts in</div>
-                                        <div class="detail-value">41 days</div>
-                                    </div>
                                 </div>
                                 
                                 <div class="card-footer">
-                                    <button class="action-btn btn-outline">
+                                    <button class="action-btn btn-outline ripple">
                                         <i class="fas fa-hotel"></i> Accommodation
                                     </button>
-                                    <button class="action-btn btn-primary">
+                                    <button class="action-btn btn-primary ripple">
                                         <i class="fas fa-info-circle"></i> Details
                                     </button>
                                 </div>
@@ -1545,14 +2403,14 @@
                         
                         <div class="bookings-grid">
                             <!-- Booking Card 5 -->
-                            <div class="booking-card fade-in" data-status="completed" data-destination="safari" data-people="solo" data-payment="paid" data-date="2023-03-25">
+                            <div class="booking-card fade-in" data-status="completed" data-destination="safari" data-people="1" data-payment="paid" data-date="2023-03-25" data-price="2100" data-added="2023-01-10">
                                 <div class="card-header">
                                     <div class="card-bg"></div>
                                     <div class="destination">
                                         <i class="fas fa-tree"></i> Serengeti Safari
                                     </div>
                                     <div class="date-range">
-                                        <i class="far fa-calendar"></i> Mar 15 - Mar 25, 2023
+                                        <i class="far fa-calendar"></i> 15th Mar - 25th Mar, 2023
                                     </div>
                                     <div class="card-status status-confirmed">
                                         <i class="fas fa-check-circle"></i> Completed
@@ -1563,11 +2421,15 @@
                                     <div class="detail-row">
                                         <div class="detail-label">Travelers</div>
                                         <div class="people-count">
-                                            <i class="fas fa-user"></i> Solo
+                                            <i class="fas fa-user"></i> 1 Person
                                         </div>
                                     </div>
                                     <div class="detail-row">
-                                        <div class="detail-label">Total Price</div>
+                                        <div class="detail-label">Price per person</div>
+                                        <div class="detail-value">$2,100</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">Subtotal</div>
                                         <div class="detail-value">$2,100</div>
                                     </div>
                                     <div class="detail-row">
@@ -1576,82 +2438,59 @@
                                             <i class="fas fa-check-circle"></i> Paid
                                         </div>
                                     </div>
-                                    <div class="detail-row">
-                                        <div class="detail-label">Rating</div>
-                                        <div class="detail-value">
-                                            <i class="fas fa-star" style="color: gold;"></i>
-                                            <i class="fas fa-star" style="color: gold;"></i>
-                                            <i class="fas fa-star" style="color: gold;"></i>
-                                            <i class="fas fa-star" style="color: gold;"></i>
-                                            <i class="fas fa-star" style="color: gold;"></i>
-                                        </div>
-                                    </div>
                                 </div>
                                 
                                 <div class="card-footer">
-                                    <button class="action-btn btn-outline">
+                                    <button class="action-btn btn-outline ripple">
                                         <i class="fas fa-redo"></i> Rebook
                                     </button>
-                                    <button class="action-btn btn-primary review-btn">
-                                        <i class="fas fa-comment"></i> Review
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <!-- Booking Card 6 -->
-                            <div class="booking-card fade-in delay-1" data-status="completed" data-destination="beach" data-people="family" data-payment="paid" data-date="2023-02-10">
-                                <div class="card-header">
-                                    <div class="card-bg"></div>
-                                    <div class="destination">
-                                        <i class="fas fa-water"></i> Seychelles Luxury Stay
-                                    </div>
-                                    <div class="date-range">
-                                        <i class="far fa-calendar"></i> Feb 1 - Feb 10, 2023
-                                    </div>
-                                    <div class="card-status status-confirmed">
-                                        <i class="fas fa-check-circle"></i> Completed
-                                    </div>
-                                </div>
-                                
-                                <div class="card-body">
-                                    <div class="detail-row">
-                                        <div class="detail-label">Travelers</div>
-                                        <div class="people-count">
-                                            <i class="fas fa-users"></i> Family (3)
-                                        </div>
-                                    </div>
-                                    <div class="detail-row">
-                                        <div class="detail-label">Total Price</div>
-                                        <div class="detail-value">$5,200</div>
-                                    </div>
-                                    <div class="detail-row">
-                                        <div class="detail-label">Payment</div>
-                                        <div class="payment-status payment-paid">
-                                            <i class="fas fa-check-circle"></i> Paid
-                                        </div>
-                                    </div>
-                                    <div class="detail-row">
-                                        <div class="detail-label">Rating</div>
-                                        <div class="detail-value">
-                                            <i class="fas fa-star" style="color: gold;"></i>
-                                            <i class="fas fa-star" style="color: gold;"></i>
-                                            <i class="fas fa-star" style="color: gold;"></i>
-                                            <i class="fas fa-star" style="color: gold;"></i>
-                                            <i class="fas fa-star-half-alt" style="color: gold;"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="card-footer">
-                                    <button class="action-btn btn-outline">
-                                        <i class="fas fa-redo"></i> Rebook
-                                    </button>
-                                    <button class="action-btn btn-primary review-btn">
+                                    <button class="action-btn btn-primary review-btn ripple">
                                         <i class="fas fa-comment"></i> Review
                                     </button>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Summary -->
+                <div class="cart-summary">
+                    <div class="cart-summary-title">
+                        <i class="fas fa-receipt"></i> Booking Summary
+                    </div>
+                    
+                    <div class="summary-row">
+                        <div class="summary-label">Number of Packages:</div>
+                        <div class="summary-value" id="packageCount">4</div>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <div class="summary-label">Subtotal:</div>
+                        <div class="summary-value" id="subtotal">$12,850.00</div>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <div class="summary-label">Taxes & Fees:</div>
+                        <div class="summary-value" id="taxes">$642.50</div>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <div class="summary-label">Discount:</div>
+                        <div class="summary-value" id="discount">-$200.00</div>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <div class="summary-label">Grand Total:</div>
+                        <div class="summary-value" id="grandTotal">$13,292.50</div>
+                    </div>
+                    
+                    <div class="cart-actions">
+                        <button class="cart-btn save-later-btn ripple">
+                            <i class="far fa-bookmark"></i> Save for Later
+                        </button>
+                        <button class="cart-btn checkout-btn ripple">
+                            <i class="fas fa-lock"></i> Checkout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1668,7 +2507,7 @@
                 </p>
                 <div class="social-links">
                     <a href="https://www.facebook.com/" aria-label="Facebook" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.tiktok.com/@okafrica.travel" aria-label="Twitter" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.tiktok.com/@okafrica.travel" aria-label="tiktok" class="social-icon"><i class="fab fa-tiktok"></i></a>
                     <a href="https://www.instagram.com/okafrica.travel" aria-label="Instagram" class="social-icon"><i class="fab fa-instagram"></i></a>
                  </div>
             </div>
@@ -1743,13 +2582,30 @@
                 }
             });
             
+            // Mobile dropdown toggles
+            document.getElementById('mobileBookingsToggle').addEventListener('click', function() {
+                const dropdown = document.getElementById('mobileBookingsDropdown');
+                dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+                this.querySelector('i').classList.toggle('fa-chevron-down');
+                this.querySelector('i').classList.toggle('fa-chevron-up');
+            });
+            
+            document.getElementById('mobileTripsToggle').addEventListener('click', function() {
+                const dropdown = document.getElementById('mobileTripsDropdown');
+                dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+                this.querySelector('i').classList.toggle('fa-chevron-down');
+                this.querySelector('i').classList.toggle('fa-chevron-up');
+            });
+            
             // Close mobile menu when clicking a link
             document.querySelectorAll('.mobile-nav-link').forEach(link => {
                 link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('active');
-                    hamburger.setAttribute('aria-expanded', 'false');
-                    const icon = hamburger.querySelector('i');
-                    icon.classList.replace('fa-times', 'fa-bars');
+                    if (!link.id.includes('Toggle')) {
+                        mobileMenu.classList.remove('active');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                        const icon = hamburger.querySelector('i');
+                        icon.classList.replace('fa-times', 'fa-bars');
+                    }
                 });
             });
             
@@ -1779,21 +2635,40 @@
             const confirmActionBtn = document.getElementById('confirmAction');
             
             let currentActionCard = null;
+            let currentAction = null;
             
             document.querySelectorAll('.cancel-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     currentActionCard = this.closest('.booking-card');
+                    currentAction = 'cancel';
                     document.getElementById('modalMessage').textContent = 'Are you sure you want to cancel this booking?';
                     confirmationModal.classList.add('active');
                 });
             });
             
+            document.querySelectorAll('.confirm-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    currentActionCard = this.closest('.booking-card');
+                    currentAction = 'confirm';
+                    document.getElementById('modalMessage').textContent = 'Are you sure you want to confirm this booking?';
+                    confirmationModal.classList.add('active');
+                });
+            });
+            
+            document.getElementById('deleteBookingBtn').addEventListener('click', function() {
+                currentAction = 'delete';
+                document.getElementById('modalMessage').textContent = 'Are you sure you want to delete this booking? This action cannot be undone.';
+                confirmationModal.classList.add('active');
+            });
+            
             cancelActionBtn.addEventListener('click', function() {
                 confirmationModal.classList.remove('active');
+                currentActionCard = null;
+                currentAction = null;
             });
             
             confirmActionBtn.addEventListener('click', function() {
-                if (currentActionCard) {
+                if (currentActionCard && currentAction === 'cancel') {
                     // Update status to cancelled
                     currentActionCard.dataset.status = 'cancelled';
                     const statusEl = currentActionCard.querySelector('.card-status');
@@ -1818,10 +2693,55 @@
                     }, 1500);
                     
                     showToast('Booking cancelled successfully!', 'warning');
+                    updateCartSummary();
+                } 
+                else if (currentActionCard && currentAction === 'confirm') {
+                    // Show processing overlay
+                    const processingOverlay = document.getElementById('processingOverlay');
+                    processingOverlay.classList.add('active');
+                    
+                    // Simulate processing delay
+                    setTimeout(() => {
+                        processingOverlay.classList.remove('active');
+                        
+                        // Update status to confirmed
+                        currentActionCard.dataset.status = 'confirmed';
+                        const statusEl = currentActionCard.querySelector('.card-status');
+                        statusEl.className = 'card-status status-confirmed';
+                        statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Confirmed';
+                        
+                        // Highlight the updated card
+                        currentActionCard.classList.add('highlight');
+                        setTimeout(() => {
+                            currentActionCard.classList.remove('highlight');
+                        }, 1500);
+                        
+                        showToast('Booking confirmed successfully! ✅', 'success');
+                        updateCartSummary();
+                    }, 2000);
+                }
+                else if (currentAction === 'delete') {
+                    // Close booking modal
+                    document.getElementById('bookingModal').classList.remove('active');
+                    
+                    // Show processing overlay
+                    const processingOverlay = document.getElementById('processingOverlay');
+                    processingOverlay.classList.add('active');
+                    
+                    // Simulate processing delay
+                    setTimeout(() => {
+                        processingOverlay.classList.remove('active');
+                        
+                        // In a real application, this would remove the booking from the database
+                        // For this demo, we'll just show a success message
+                        showToast('Booking deleted successfully!', 'success');
+                        updateCartSummary();
+                    }, 1500);
                 }
                 
                 confirmationModal.classList.remove('active');
                 currentActionCard = null;
+                currentAction = null;
             });
             
             // Three.js 3D Background
@@ -1835,22 +2755,22 @@
             
             renderer.setSize(window.innerWidth, window.innerHeight);
             
-            // Create particles for background - reduced count for performance
+            // Create particles for background
             const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 800; // Reduced from original
+            const particlesCount = 1500;
             const posArray = new Float32Array(particlesCount * 3);
             
             for(let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 20;
+                posArray[i] = (Math.random() - 0.5) * 10;
             }
             
             particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
             
             const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.06, // Slightly larger to compensate for fewer particles
-                color: new THREE.Color(0x4cc9f0),
+                size: 0.05,
+                color: 0x4cc9f0,
                 transparent: true,
-                opacity: 0.6
+                opacity: 0.8
             });
             
             const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
@@ -1863,7 +2783,7 @@
                 requestAnimationFrame(animate);
                 
                 particlesMesh.rotation.x += 0.0005;
-                particlesMesh.rotation.y += 0.0005;
+                particlesMesh.rotation.y += 0.001;
                 
                 renderer.render(scene, camera);
             }
@@ -1932,16 +2852,24 @@
             // View toggle buttons
             document.querySelectorAll('.view-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
+                    const viewType = btn.dataset.view;
                     const parent = btn.parentElement;
                     parent.querySelectorAll('.view-btn').forEach(b => {
                         b.classList.remove('active');
                     });
                     btn.classList.add('active');
                     
-                    if (btn.querySelector('i').classList.contains('fa-list')) {
-                        document.querySelector('.bookings-grid').classList.add('list-view');
+                    // Show/hide appropriate views
+                    if (viewType === 'list') {
+                        document.getElementById('bookingsGrid').classList.add('list-view');
+                        document.querySelectorAll('.booking-card').forEach(card => {
+                            card.classList.add('list-view');
+                        });
                     } else {
-                        document.querySelector('.bookings-grid').classList.remove('list-view');
+                        document.getElementById('bookingsGrid').classList.remove('list-view');
+                        document.querySelectorAll('.booking-card').forEach(card => {
+                            card.classList.remove('list-view');
+                        });
                     }
                 });
             });
@@ -1966,15 +2894,13 @@
                 }, 3000);
             }
             
-            // Apply filters function with date range
+            // Apply filters function
             function applyFilters() {
                 // Get active filter values
                 const activeFilters = {
                     status: document.querySelector('.filter-options [data-filter="status"].active')?.dataset.value || 'all',
-                    date: document.querySelector('.filter-options [data-filter="date"].active')?.dataset.value || 'upcoming',
-                    destination: document.querySelector('.filter-options [data-filter="destination"].active')?.dataset.value || 'all',
-                    people: document.querySelector('.filter-options [data-filter="people"].active')?.dataset.value || 'family',
                     payment: document.querySelector('.filter-options [data-filter="payment"].active')?.dataset.value || 'all',
+                    destination: document.querySelector('.filter-options [data-filter="destination"].active')?.dataset.value || 'all',
                     search: document.getElementById('searchBar').value.toLowerCase()
                 };
                 
@@ -1982,22 +2908,21 @@
                 const startDate = document.getElementById('startDate').value;
                 const endDate = document.getElementById('endDate').value;
                 
-                // Validate date range if both are set
-                if (startDate && endDate && startDate > endDate) {
-                    showToast('End date must be after start date', 'error');
-                    return;
-                }
+                // Get sort option
+                const sortOption = document.getElementById('sortSelect').value;
                 
                 let visibleCount = 0;
+                const bookingCards = Array.from(document.querySelectorAll('.booking-card'));
                 
                 // Filter cards
-                document.querySelectorAll('.booking-card').forEach(card => {
+                bookingCards.forEach(card => {
                     const cardData = {
                         status: card.dataset.status,
                         destination: card.dataset.destination,
-                        people: card.dataset.people,
                         payment: card.dataset.payment,
-                        date: card.dataset.date
+                        date: card.dataset.date,
+                        price: parseFloat(card.dataset.price),
+                        added: card.dataset.added
                     };
                     
                     const cardText = card.textContent.toLowerCase();
@@ -2014,14 +2939,14 @@
                         matches = false;
                     }
                     
-                    // Check people count
-                    if (activeFilters.people !== cardData.people) {
-                        matches = false;
-                    }
-                    
                     // Check payment status
-                    if (activeFilters.payment !== 'all' && activeFilters.payment !== cardData.payment) {
-                        matches = false;
+                    if (activeFilters.payment !== 'all') {
+                        if (activeFilters.payment === 'paid' && cardData.payment !== 'paid') {
+                            matches = false;
+                        }
+                        if (activeFilters.payment === 'pending' && (cardData.payment === 'paid' || cardData.payment === 'completed')) {
+                            matches = false;
+                        }
                     }
                     
                     // Check search
@@ -2032,27 +2957,6 @@
                     // Check date range if both dates are provided
                     if (startDate && endDate) {
                         if (cardData.date < startDate || cardData.date > endDate) {
-                            matches = false;
-                        }
-                    } else if (activeFilters.date === 'upcoming') {
-                        // Show only future trips
-                        const today = new Date().toISOString().split('T')[0];
-                        if (cardData.date < today) {
-                            matches = false;
-                        }
-                    } else if (activeFilters.date === 'past') {
-                        // Show only past trips
-                        const today = new Date().toISOString().split('T')[0];
-                        if (cardData.date >= today) {
-                            matches = false;
-                        }
-                    } else if (activeFilters.date === 'last30') {
-                        // Show trips from the last 30 days
-                        const today = new Date();
-                        const last30 = new Date(today);
-                        last30.setDate(last30.getDate() - 30);
-                        const last30Str = last30.toISOString().split('T')[0];
-                        if (cardData.date < last30Str || cardData.date > today.toISOString().split('T')[0]) {
                             matches = false;
                         }
                     }
@@ -2066,27 +2970,27 @@
                     }
                 });
                 
-                // Show message if no bookings match
-                document.querySelectorAll('.booking-group').forEach(group => {
-                    const groupCards = group.querySelectorAll('.booking-card');
-                    let hasVisible = false;
-                    
-                    groupCards.forEach(card => {
-                        if (card.style.display !== 'none') {
-                            hasVisible = true;
-                        }
-                    });
-                    
-                    if (!hasVisible) {
-                        const noBookings = document.createElement('div');
-                        noBookings.className = 'no-bookings';
-                        noBookings.innerHTML = '<i class="fas fa-binoculars"></i>No bookings match your filters';
-                        group.appendChild(noBookings);
-                    } else {
-                        const existingMessage = group.querySelector('.no-bookings');
-                        if (existingMessage) existingMessage.remove();
-                    }
+                // Sort cards based on selected option
+                if (sortOption === 'date-asc') {
+                    bookingCards.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
+                } else if (sortOption === 'date-desc') {
+                    bookingCards.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
+                } else if (sortOption === 'price-asc') {
+                    bookingCards.sort((a, b) => parseFloat(a.dataset.price) - parseFloat(b.dataset.price));
+                } else if (sortOption === 'price-desc') {
+                    bookingCards.sort((a, b) => parseFloat(b.dataset.price) - parseFloat(a.dataset.price));
+                } else if (sortOption === 'recent') {
+                    bookingCards.sort((a, b) => new Date(b.dataset.added) - new Date(a.dataset.added));
+                }
+                
+                // Reorder cards in DOM
+                const bookingsGrid = document.getElementById('bookingsGrid');
+                bookingCards.forEach(card => {
+                    bookingsGrid.appendChild(card);
                 });
+                
+                // Update showing count
+                document.getElementById('showingCount').textContent = `${visibleCount} bookings`;
                 
                 showToast(`Found ${visibleCount} bookings matching your filters`);
             }
@@ -2106,21 +3010,46 @@
                 document.getElementById('searchBar').value = '';
                 
                 // Reset date inputs
-                const today = new Date();
-                const nextMonth = new Date();
-                nextMonth.setMonth(nextMonth.getMonth() + 1);
-                document.getElementById('startDate').value = today.toISOString().split('T')[0];
-                document.getElementById('endDate').value = nextMonth.toISOString().split('T')[0];
+                document.getElementById('startDate').value = '';
+                document.getElementById('endDate').value = '';
                 
-                // Remove no bookings messages
-                document.querySelectorAll('.no-bookings').forEach(el => el.remove());
+                // Reset sort option
+                document.getElementById('sortSelect').value = 'date-asc';
                 
                 // Show all cards
                 document.querySelectorAll('.booking-card').forEach(card => {
                     card.style.display = 'block';
                 });
                 
+                // Update showing count
+                document.getElementById('showingCount').textContent = '6 bookings';
+                
                 showToast('Filters reset successfully!');
+            }
+            
+            // Update cart summary function
+            function updateCartSummary() {
+                // Calculate totals based on visible bookings
+                let packageCount = 0;
+                let subtotal = 0;
+                
+                document.querySelectorAll('.booking-card:not([style*="display: none"])').forEach(card => {
+                    if (card.dataset.status !== 'cancelled') {
+                        packageCount++;
+                        subtotal += parseFloat(card.dataset.price);
+                    }
+                });
+                
+                const taxes = subtotal * 0.05;
+                const discount = packageCount >= 3 ? 200 : 0;
+                const grandTotal = subtotal + taxes - discount;
+                
+                // Update summary values
+                document.getElementById('packageCount').textContent = packageCount;
+                document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+                document.getElementById('taxes').textContent = `$${taxes.toFixed(2)}`;
+                document.getElementById('discount').textContent = `-$${discount.toFixed(2)}`;
+                document.getElementById('grandTotal').textContent = `$${grandTotal.toFixed(2)}`;
             }
             
             // Event listeners
@@ -2134,26 +3063,167 @@
                 }
             });
             
-            // Button functionality: navigate to booking.php
-            document.querySelectorAll('.modify-btn, .paynow-btn, .review-btn').forEach(button => {
+            // Modify booking functionality
+            document.querySelectorAll('.modify-btn').forEach(button => {
                 button.addEventListener('click', function() {
-                    const action = this.classList.contains('modify-btn') ? 'modify' : 
-                                this.classList.contains('paynow-btn') ? 'pay' : 'review';
+                    const bookingModal = document.getElementById('bookingModal');
+                    bookingModal.classList.add('active');
+                });
+            });
+            
+            // Payment functionality
+            document.querySelectorAll('.paynow-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const paymentModal = document.getElementById('paymentModal');
+                    paymentModal.classList.add('active');
+                });
+            });
+            
+            // Payment option selection
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Process payment
+            document.getElementById('processPaymentBtn').addEventListener('click', function() {
+                const paymentModal = document.getElementById('paymentModal');
+                paymentModal.classList.remove('active');
+                
+                // Show processing overlay
+                const processingOverlay = document.getElementById('processingOverlay');
+                processingOverlay.classList.add('active');
+                
+                // Simulate payment processing
+                setTimeout(() => {
+                    processingOverlay.classList.remove('active');
+                    showToast('Payment processed successfully!', 'success');
                     
-                    showToast(`${action.charAt(0).toUpperCase() + action.slice(1)} action initiated!`);
+                    // Update payment status
+                    const unpaidCard = document.querySelector('[data-payment="unpaid"]');
+                    if (unpaidCard) {
+                        unpaidCard.dataset.payment = 'paid';
+                        const paymentStatus = unpaidCard.querySelector('.payment-status');
+                        paymentStatus.className = 'payment-status payment-paid';
+                        paymentStatus.innerHTML = '<i class="fas fa-check-circle"></i> Paid';
+                        
+                        // Update status to confirmed if it was pending
+                        if (unpaidCard.dataset.status === 'pending') {
+                            unpaidCard.dataset.status = 'confirmed';
+                            const statusEl = unpaidCard.querySelector('.card-status');
+                            statusEl.className = 'card-status status-confirmed';
+                            statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Confirmed';
+                        }
+                        
+                        updateCartSummary();
+                    }
+                }, 2000);
+            });
+            
+            // Close modals
+            document.getElementById('closeBookingModal').addEventListener('click', function() {
+                document.getElementById('bookingModal').classList.remove('active');
+            });
+            
+            document.getElementById('closePaymentModal').addEventListener('click', function() {
+                document.getElementById('paymentModal').classList.remove('active');
+            });
+            
+            // Close modals when clicking outside
+            document.querySelectorAll('.booking-modal, .payment-modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
                 });
             });
             
             // Initialize with filters applied
             applyFilters();
+            updateCartSummary();
             
-            // Set default dates for date pickers
-            const today = new Date();
-            const nextMonth = new Date();
-            nextMonth.setMonth(nextMonth.getMonth() + 1);
+            // Dark/Light mode toggle
+            const themeToggle = document.getElementById('themeToggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
             
-            document.getElementById('startDate').value = today.toISOString().split('T')[0];
-            document.getElementById('endDate').value = nextMonth.toISOString().split('T')[0];
+            if (currentTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                let theme;
+                if (document.body.getAttribute('data-theme') === 'dark') {
+                    document.body.removeAttribute('data-theme');
+                    theme = 'light';
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                } else {
+                    document.body.setAttribute('data-theme', 'dark');
+                    theme = 'dark';
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                }
+                localStorage.setItem('theme', theme);
+            });
+            
+            // Notification dropdown
+            const notificationBadge = document.getElementById('notificationBadge');
+            const notificationDropdown = document.getElementById('notificationDropdown');
+            
+            notificationBadge.addEventListener('click', function(e) {
+                e.stopPropagation();
+                notificationDropdown.classList.toggle('active');
+                
+                // Mark notifications as read when dropdown is opened
+                if (notificationDropdown.classList.contains('active')) {
+                    document.querySelectorAll('.notification-item.unread').forEach(item => {
+                        item.classList.remove('unread');
+                    });
+                    document.querySelector('.badge').style.display = 'none';
+                }
+            });
+            
+            // Close notification dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!notificationBadge.contains(e.target) && !notificationDropdown.contains(e.target)) {
+                    notificationDropdown.classList.remove('active');
+                }
+            });
+            
+            // Ripple effect for buttons
+            document.querySelectorAll('.action-btn, .filter-option, .view-btn, .cart-btn').forEach(button => {
+                button.addEventListener('mousedown', function(e) {
+                    // Create ripple element
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    
+                    // Add ripple to button
+                    this.appendChild(ripple);
+                    
+                    // Get position of click
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    // Set ripple position and size
+                    ripple.style.width = ripple.style.height = `${size}px`;
+                    ripple.style.left = `${x}px`;
+                    ripple.style.top = `${y}px`;
+                    
+                    // Remove ripple after animation
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
         });
     </script>
 </body>

@@ -456,11 +456,12 @@
 <body>
   <nav>
     <a href="admin-dashboard.php">Home</a>
-    <a href="admin-background.php">Change Logo/Background</a>
+    <a href="admin-background.php">Background</a>
     <a href="admin-add-admin.php">Add Admin</a>
     <a href="admin-bookings.php">Bookings</a>
     <a href="admin-enquiries.html">Enquiries</a>
     <a href="admin-comments.html">Comments</a>
+    <a href="admin-manage-gallery.php">gallery</a>
     <button class="logout-btn" onclick="logout()">Logout</button>
   </nav>
 
@@ -471,7 +472,7 @@
     <div class="dashboard-buttons">
       <a href="admin-background.php" class="dashboard-btn">
         <span class="icon icon-logo"></span>
-        Change Logo/Background
+        Change Background
       </a>
       <a href="admin-add-admin.php" class="dashboard-btn">
         <span class="icon icon-admin"></span>
